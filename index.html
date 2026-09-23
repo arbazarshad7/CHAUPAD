@@ -121,19 +121,42 @@ body {
 #shell { position: relative; z-index: 2; height: 100%; display: grid; grid-template-rows: 58px minmax(0, 1fr); }
 #topbar {
   display: flex; align-items: center; gap: 14px;
-  padding: 0 clamp(12px, 3vw, 28px);
+  padding: 0 clamp(12px, 3vw, 24px);
+  height: 58px;
+  min-height: 58px;
   border-bottom: var(--gold-line);
-  background: linear-gradient(180deg, rgba(26, 4, 6, 0.92), rgba(20, 3, 10, 0.78));
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  background: linear-gradient(180deg, rgba(26, 4, 6, 0.95), rgba(20, 3, 10, 0.88));
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-sizing: border-box;
 }
-.brand { display: flex; align-items: center; gap: 12px; }
+.brand { display: flex; align-items: center; gap: 12px; flex: none; }
 .brand .crest { width: 34px; height: 34px; }
-.brand .t { font-family: var(--serif); font-weight: 700; font-size: 19px; letter-spacing: 0.06em; color: var(--ink); }
+.brand .t { font-family: var(--serif); font-weight: 700; font-size: 19px; letter-spacing: 0.06em; color: var(--ink); white-space: nowrap; }
 .brand .t em { color: var(--zariH); font-style: normal; text-shadow: 0 0 14px rgba(255, 215, 0, 0.45); }
-.brand .st { font-size: 12px; letter-spacing: 0.34em; text-transform: uppercase; color: var(--inkD); margin-top: 2px; }
-.topbar .spacer { flex: 1 1 auto; }
-.topbar .actions { display: flex; gap: 10px; align-items: center; }
+.brand .st { font-size: 11px; letter-spacing: 0.28em; text-transform: uppercase; color: var(--inkD); margin-top: 2px; white-space: nowrap; }
+#topbar .spacer { flex: 1 1 auto; }
+#topbar .top-actions,
+#topbar #top-actions,
+#top-actions {
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
+  align-items: center !important;
+  gap: 8px !important;
+  margin: 0 !important;
+  margin-left: auto !important;
+}
+#top-actions .btn {
+  margin: 0 !important;
+  white-space: nowrap !important;
+  min-height: 34px !important;
+  height: 34px !important;
+  padding: 0 14px !important;
+  font-size: 13px !important;
+  line-height: 32px !important;
+  border-radius: 9px !important;
+}
 
 /* ============ buttons ============ */
 .btn {
@@ -751,9 +774,9 @@ body {
 .diceresult .sum { font-family: var(--serif); font-weight: 800; font-size: 34px; line-height: 1; color: var(--zariH); text-shadow: 0 0 16px rgba(255, 215, 0, 0.4); }
 .diceresult .cap { font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--inkD); }
 .diceresult .cap.grace { color: var(--zariH); font-weight: 700; }
-.actions { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 16px; }
-.actions .btn { width: 100%; }
-.actions .wide { grid-column: 1 / -1; }
+.hud.turn .actions, .modal .actions { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 16px; }
+.hud.turn .actions .btn, .modal .actions .btn { width: 100%; }
+.hud.turn .actions .wide, .modal .actions .wide { grid-column: 1 / -1; }
 .smallrow { display: flex; gap: 8px; margin-top: 10px; }
 .smallrow .btn { flex: 1 1 0; }
 
@@ -836,6 +859,11 @@ body {
   .mode-grid { grid-template-columns: 1fr 1fr; }
 }
 @media (max-width: 560px) {
+  #topbar { padding: 0 10px; gap: 8px; }
+  .brand .st { display: none; }
+  .brand .t { font-size: 16px; }
+  #top-actions { gap: 4px !important; }
+  #top-actions .btn { padding: 0 8px !important; font-size: 11.5px !important; }
   .mode-grid { grid-template-columns: 1fr; }
   .opts { grid-template-columns: 1fr; }
   .hud.turn { display: block; }
@@ -870,7 +898,7 @@ body {
       </div>
     </div>
     <div class="spacer"></div>
-    <div class="actions" id="top-actions">
+    <div class="top-actions" id="top-actions">
       <button class="btn ghost sm" id="btn-rules-top" type="button">Rules</button>
       <button class="btn ghost sm" id="btn-sound-top" type="button" aria-pressed="true">Sound: On</button>
       <button class="btn ghost sm" id="btn-pause-top" type="button" hidden>Pause</button>
