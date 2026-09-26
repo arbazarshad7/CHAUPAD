@@ -67,7 +67,7 @@
   --gold-line: 1px solid rgba(212, 175, 55, 0.65);
   --cell: 34px;
   --ts: calc(var(--cell) * 0.56);
-  --pad: calc(var(--cell) * 1.9);
+  --pad: calc(var(--cell) * 2.2);
   --serif: 'Cinzel', Georgia, 'Times New Roman', serif;
   --sans: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
 }
@@ -88,34 +88,111 @@ body {
 
 /* ============ ambient stage ============ */
 #stage { position: fixed; inset: 0; overflow: hidden; pointer-events: none; z-index: 0; }
+#stage::before {
+  content: "";
+  position: absolute;
+  inset: -25%;
+  background:
+    radial-gradient(ellipse 65% 55% at 15% 25%, rgba(200, 64, 47, 0.2) 0%, transparent 68%),
+    radial-gradient(ellipse 60% 50% at 85% 20%, rgba(16, 114, 127, 0.18) 0%, transparent 68%),
+    radial-gradient(ellipse 70% 60% at 50% 90%, rgba(232, 163, 23, 0.16) 0%, transparent 68%),
+    radial-gradient(ellipse 55% 55% at 50% 45%, rgba(47, 75, 124, 0.16) 0%, transparent 65%);
+  filter: blur(48px);
+  animation: velvetAurora 24s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+@keyframes velvetAurora {
+  0% { transform: scale(1) rotate(0deg); opacity: 0.72; }
+  35% { transform: scale(1.08) rotate(3deg) translate(2%, -1.5%); opacity: 0.95; }
+  70% { transform: scale(0.95) rotate(-2.5deg) translate(-2%, 2%); opacity: 0.8; }
+  100% { transform: scale(1.04) rotate(1.5deg) translate(1%, 1%); opacity: 0.98; }
+}
 #dust { position: fixed; inset: 0; z-index: 1; pointer-events: none; }
 .diya {
   position: absolute;
-  width: 220px; height: 220px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(255, 190, 90, 0.5) 0%, rgba(255, 140, 40, 0.16) 42%, transparent 68%);
   mix-blend-mode: screen;
-  animation: flicker 3.6s ease-in-out infinite;
+  pointer-events: none;
 }
-.diya.d1 { left: 6%; top: 16%; animation-delay: 0s; }
-.diya.d2 { right: 5%; top: 12%; animation-delay: 1.4s; }
-.diya.d3 { left: 46%; bottom: 2%; width: 300px; height: 300px; animation-delay: 0.7s; }
-@keyframes flicker {
-  0%, 100% { opacity: 0.85; transform: scale(1); }
-  22% { opacity: 0.6; transform: scale(0.98) translateY(2px); }
-  38% { opacity: 0.95; transform: scale(1.02); }
-  56% { opacity: 0.7; transform: scale(0.99); }
-  74% { opacity: 0.92; transform: scale(1.01); }
+.diya::after {
+  content: "";
+  position: absolute;
+  inset: 38%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 245, 215, 0.95) 0%, rgba(255, 205, 90, 0.5) 45%, transparent 72%);
+  filter: blur(5px);
+  animation: diyaCore 2s ease-in-out infinite alternate;
+}
+@keyframes diyaCore {
+  0% { transform: scale(0.9) translate(-1px, 1px); opacity: 0.8; }
+  100% { transform: scale(1.12) translate(1px, -1px); opacity: 1; filter: blur(4px); }
+}
+.diya.d1 {
+  left: 3%; top: 12%; width: 260px; height: 260px;
+  background: radial-gradient(circle, rgba(255, 190, 85, 0.46) 0%, rgba(255, 130, 30, 0.15) 45%, transparent 70%);
+  animation: flicker1 3.5s ease-in-out infinite;
+}
+.diya.d2 {
+  right: 3%; top: 10%; width: 280px; height: 280px;
+  background: radial-gradient(circle, rgba(255, 195, 95, 0.48) 0%, rgba(255, 140, 35, 0.16) 45%, transparent 70%);
+  animation: flicker2 4.2s ease-in-out infinite 0.8s;
+}
+.diya.d3 {
+  left: 6%; bottom: 4%; width: 260px; height: 260px;
+  background: radial-gradient(circle, rgba(255, 185, 80, 0.44) 0%, rgba(255, 125, 25, 0.14) 45%, transparent 70%);
+  animation: flicker1 3.8s ease-in-out infinite 1.5s;
+}
+.diya.d4 {
+  right: 6%; bottom: 4%; width: 270px; height: 270px;
+  background: radial-gradient(circle, rgba(255, 190, 90, 0.45) 0%, rgba(255, 135, 30, 0.15) 45%, transparent 70%);
+  animation: flicker2 4.0s ease-in-out infinite 2.2s;
+}
+@keyframes flicker1 {
+  0%, 100% { opacity: 0.88; transform: scale(1); }
+  24% { opacity: 0.62; transform: scale(0.97) translateY(2px); }
+  42% { opacity: 0.98; transform: scale(1.03) translateY(-1px); }
+  60% { opacity: 0.72; transform: scale(0.98); }
+  78% { opacity: 0.94; transform: scale(1.01); }
+}
+@keyframes flicker2 {
+  0%, 100% { opacity: 0.9; transform: scale(1); }
+  18% { opacity: 0.68; transform: scale(0.96) translateX(-2px); }
+  36% { opacity: 1; transform: scale(1.04) translateY(-2px); }
+  54% { opacity: 0.75; transform: scale(0.99); }
+  82% { opacity: 0.92; transform: scale(1.02) translateX(1px); }
 }
 .filigree {
   position: absolute;
-  width: 190px; height: 190px;
-  color: rgba(212, 175, 55, 0.34);
-  opacity: 0.55;
+  width: 200px; height: 200px;
+  color: rgba(212, 175, 55, 0.32);
+  pointer-events: none;
+  animation: filigreeBreathe 18s ease-in-out infinite alternate;
 }
 .filigree svg { width: 100%; height: 100%; }
-.fs { left: 12px; top: 74px; }
-.fe { right: 12px; top: 74px; transform: scaleX(-1); }
+.fs { left: 14px; top: 72px; }
+.fe { right: 14px; top: 72px; animation-name: filigreeBreatheFe; }
+.fs-b { left: 14px; bottom: 14px; animation-name: filigreeBreatheFsB; }
+.fe-b { right: 14px; bottom: 14px; animation-name: filigreeBreatheFeB; }
+@keyframes filigreeBreathe {
+  0% { opacity: 0.32; transform: scale(1); }
+  50% { opacity: 0.58; transform: scale(1.03); filter: drop-shadow(0 0 12px rgba(255, 215, 0, 0.28)); }
+  100% { opacity: 0.36; transform: scale(1); }
+}
+@keyframes filigreeBreatheFe {
+  0% { opacity: 0.32; transform: scaleX(-1) scale(1); }
+  50% { opacity: 0.58; transform: scaleX(-1) scale(1.03); filter: drop-shadow(0 0 12px rgba(255, 215, 0, 0.28)); }
+  100% { opacity: 0.36; transform: scaleX(-1) scale(1); }
+}
+@keyframes filigreeBreatheFsB {
+  0% { opacity: 0.32; transform: scaleY(-1) scale(1); }
+  50% { opacity: 0.58; transform: scaleY(-1) scale(1.03); filter: drop-shadow(0 0 12px rgba(255, 215, 0, 0.28)); }
+  100% { opacity: 0.36; transform: scaleY(-1) scale(1); }
+}
+@keyframes filigreeBreatheFeB {
+  0% { opacity: 0.32; transform: scale(-1, -1) scale(1); }
+  50% { opacity: 0.58; transform: scale(-1, -1) scale(1.03); filter: drop-shadow(0 0 12px rgba(255, 215, 0, 0.28)); }
+  100% { opacity: 0.36; transform: scale(-1, -1) scale(1); }
+}
 
 /* ============ shell ============ */
 #shell { position: relative; z-index: 2; height: 100%; display: grid; grid-template-rows: 58px minmax(0, 1fr); }
@@ -326,22 +403,33 @@ body {
   padding: var(--pad);
   border-radius: 26px;
   background:
-    radial-gradient(140% 120% at 50% 0%, rgba(255, 222, 150, 0.1), transparent 55%),
+    radial-gradient(140% 120% at 50% 0%, rgba(255, 222, 150, 0.12), transparent 55%),
     linear-gradient(160deg, #3d2212 0%, #271108 48%, #170a05 100%);
   box-shadow:
     inset 0 0 0 2px #0a0403,
-    inset 0 0 0 3px rgba(212, 175, 55, 0.32),
+    inset 0 0 0 3px rgba(212, 175, 55, 0.35),
     inset 0 0 0 4px #0a0403,
     0 34px 70px -24px rgba(0, 0, 0, 0.9),
-    0 0 90px rgba(255, 215, 0, 0.06);
+    0 0 80px rgba(255, 215, 0, 0.07);
+  animation: frameAmbientGlow 9s ease-in-out infinite alternate;
+}
+@keyframes frameAmbientGlow {
+  0% { box-shadow: inset 0 0 0 2px #0a0403, inset 0 0 0 3px rgba(212, 175, 55, 0.3), inset 0 0 0 4px #0a0403, 0 34px 70px -24px rgba(0, 0, 0, 0.9), 0 0 70px rgba(255, 215, 0, 0.05); }
+  100% { box-shadow: inset 0 0 0 2px #0a0403, inset 0 0 0 3px rgba(255, 215, 0, 0.55), inset 0 0 0 4px #0a0403, 0 34px 70px -24px rgba(0, 0, 0, 0.9), 0 0 110px rgba(255, 215, 0, 0.14); }
 }
 .frame::before {
   content: "";
   position: absolute;
   inset: 8px;
   border-radius: 20px;
-  border: 1px solid rgba(212, 175, 55, 0.22);
+  border: 1px solid rgba(212, 175, 55, 0.25);
   pointer-events: none;
+  animation: frameInlayShimmer 8s ease-in-out infinite alternate;
+}
+@keyframes frameInlayShimmer {
+  0% { border-color: rgba(212, 175, 55, 0.2); opacity: 0.7; }
+  50% { border-color: rgba(255, 215, 0, 0.6); opacity: 1; box-shadow: inset 0 0 16px rgba(255, 215, 0, 0.14); }
+  100% { border-color: rgba(212, 175, 55, 0.25); opacity: 0.75; }
 }
 #board {
   position: relative;
@@ -378,9 +466,30 @@ body {
   background-image:
     repeating-linear-gradient(0deg, rgba(139, 90, 43, 0.08) 0 1px, transparent 1px 4px);
 }
+.cell.castle::before {
+  content: "";
+  position: absolute;
+  inset: 1px;
+  border-radius: 3px;
+  background: radial-gradient(circle at 50% 50%, rgba(255, 215, 0, 0.22) 0%, transparent 70%);
+  pointer-events: none;
+  animation: castleShieldPulse 3.6s ease-in-out infinite alternate;
+  z-index: 1;
+}
+@keyframes castleShieldPulse {
+  0% { opacity: 0.35; transform: scale(0.96); }
+  100% { opacity: 0.85; transform: scale(1.03); filter: drop-shadow(0 0 5px rgba(255, 215, 0, 0.55)); }
+}
 .cell.castle .zchip { position: absolute; inset: 0; display: grid; place-items: center; pointer-events: none; }
 .cell.castle .zchip span { width: 62%; height: 62%; }
-.cell.castle .zchip .cs { background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 2l2.2 7.8L22 12l-7.8 2.2L12 22l-2.2-7.8L2 12l7.8-2.2Z' fill='%23D4AF37'/%3E%3Cpath fill='%23E5C35C' d='M12 5.6L13.8 10l4.4 2-4.4 2-1.8 4.4L10 14l-4.4-2 4.4-2Z'/%3E%3C/svg%3E") center / contain no-repeat; }
+.cell.castle .zchip .cs {
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 2l2.2 7.8L22 12l-7.8 2.2L12 22l-2.2-7.8L2 12l7.8-2.2Z' fill='%23D4AF37'/%3E%3Cpath fill='%23E5C35C' d='M12 5.6L13.8 10l4.4 2-4.4 2-1.8 4.4L10 14l-4.4-2 4.4-2Z'/%3E%3C/svg%3E") center / contain no-repeat;
+  animation: starGlint 5s ease-in-out infinite alternate;
+}
+@keyframes starGlint {
+  0%, 100% { filter: brightness(1) drop-shadow(0 0 1px rgba(212, 175, 55, 0.5)); }
+  50% { filter: brightness(1.3) drop-shadow(0 0 6px rgba(255, 215, 0, 0.9)); }
+}
 .cell.castle .zchip .cx { position: absolute; inset: 0; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M5 5l14 14M19 5L5 19' stroke='%23D4AF37' stroke-width='2.2' stroke-linecap='round'/%3E%3C/svg%3E") center / 46% no-repeat; opacity: 0.9; }
 .cell.castle.corner {
   background: radial-gradient(circle, rgba(255, 222, 140, 0.45) 0%, rgba(230, 200, 150, 0.75) 100%), var(--wheat);
@@ -454,7 +563,50 @@ body {
 }
 #charkoni .lotus { position: absolute; inset: 6%; }
 #charkoni svg { width: 100%; height: 100%; overflow: visible; }
-#charkoni .ring { position: absolute; inset: 2%; border-radius: 50%; border: 1.5px solid rgba(212, 175, 55, 0.6); box-shadow: 0 0 22px rgba(255, 215, 0, 0.35), inset 0 0 14px rgba(255, 215, 0, 0.25); }
+#charkoni .ring {
+  position: absolute;
+  inset: 2%;
+  border-radius: 50%;
+  border: 1.5px solid rgba(212, 175, 55, 0.6);
+  box-shadow: 0 0 22px rgba(255, 215, 0, 0.35), inset 0 0 14px rgba(255, 215, 0, 0.25);
+  animation: charkoniRingPulse 4.5s ease-in-out infinite alternate;
+}
+@keyframes charkoniRingPulse {
+  0% { box-shadow: 0 0 16px rgba(255, 215, 0, 0.25), inset 0 0 10px rgba(255, 215, 0, 0.2); transform: scale(1); }
+  100% { box-shadow: 0 0 32px rgba(255, 215, 0, 0.55), inset 0 0 18px rgba(255, 215, 0, 0.4); transform: scale(1.02); }
+}
+.ch-ring-outer {
+  transform-origin: 50px 50px;
+  animation: chRingRotateCW 42s linear infinite;
+}
+.ch-ring-mid {
+  transform-origin: 50px 50px;
+  animation: chRingRotateCCW 32s linear infinite;
+}
+@keyframes chRingRotateCW {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+@keyframes chRingRotateCCW {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(-360deg); }
+}
+.ch-petals {
+  transform-origin: 50px 50px;
+  animation: chPetalsBreathe 4.5s ease-in-out infinite alternate;
+}
+@keyframes chPetalsBreathe {
+  0% { transform: scale(0.97); opacity: 0.85; filter: drop-shadow(0 0 2px rgba(255, 215, 0, 0.4)); }
+  100% { transform: scale(1.03); opacity: 1; filter: drop-shadow(0 0 9px rgba(255, 215, 0, 0.85)); }
+}
+.ch-star {
+  transform-origin: 50px 50px;
+  animation: chStarTwinkle 3s ease-in-out infinite alternate;
+}
+@keyframes chStarTwinkle {
+  0% { transform: scale(0.92) rotate(0deg); opacity: 0.8; }
+  100% { transform: scale(1.22) rotate(45deg); opacity: 1; filter: drop-shadow(0 0 6px #fff8dc); }
+}
 
 /* tokens */
 #tokens { position: absolute; inset: 0; z-index: 6; pointer-events: none; }
@@ -545,18 +697,23 @@ body {
   pointer-events: none;
   z-index: 10;
 }
-.tok.in-yard { opacity: 0.95; }
+.tok.in-yard { opacity: 0.95; transition: none; }
 .tok.in-yard .pawn { transform: scale(0.68); }
 .tok.in-yard .sym { font-size: calc(var(--ts) * 0.48); }
-.tok.hop .pawn { animation: hopAnim 0.28s cubic-bezier(0.25, 0.5, 0.2, 1); }
-@keyframes hopAnim {
-  0% { transform: translateY(0) scale(1); }
-  40% { transform: translateY(calc(var(--ts) * -0.55)) scale(1.12); }
-  70% { transform: translateY(calc(var(--ts) * 0.08)) scale(0.95); }
-  100% { transform: translateY(0) scale(1); }
+.tok.hop .pawn { animation: royalHop 0.32s cubic-bezier(0.25, 0.5, 0.2, 1); }
+@keyframes royalHop {
+  0% { transform: translateY(0) scale(1, 1); box-shadow: inset 0 -2px 3px rgba(0, 0, 0, 0.4), 0 4px 8px -2px rgba(0, 0, 0, 0.65); }
+  35% { transform: translateY(calc(var(--ts) * -0.7)) scale(1.1, 1.15); box-shadow: inset 0 -2px 3px rgba(0, 0, 0, 0.4), 0 20px 18px -4px rgba(0, 0, 0, 0.35); filter: brightness(1.15); }
+  68% { transform: translateY(calc(var(--ts) * 0.08)) scale(1.08, 0.88); box-shadow: inset 0 -2px 3px rgba(0, 0, 0, 0.4), 0 2px 4px rgba(0, 0, 0, 0.85); }
+  85% { transform: translateY(calc(var(--ts) * -0.06)) scale(0.98, 1.03); }
+  100% { transform: translateY(0) scale(1, 1); box-shadow: inset 0 -2px 3px rgba(0, 0, 0, 0.4), 0 4px 8px -2px rgba(0, 0, 0, 0.65); }
 }
-.tok.finish-fade .pawn { animation: finGone 0.5s ease-in forwards; }
-@keyframes finGone { 0% { opacity: 1; transform: scale(1); } 100% { opacity: 0; transform: scale(0.2) translateY(-14px); } }
+.tok.finish-fade .pawn { animation: finGone 0.52s ease-in forwards; }
+@keyframes finGone {
+  0% { opacity: 1; transform: scale(1); filter: brightness(1.2) drop-shadow(0 0 10px #ffd700); }
+  50% { opacity: 0.8; transform: scale(1.25) translateY(-8px); filter: brightness(1.6) drop-shadow(0 0 18px #fff8dc); }
+  100% { opacity: 0; transform: scale(0.15) translateY(-20px); filter: brightness(2) drop-shadow(0 0 24px #ffd700); }
+}
 
 /* yard trays */
 .tray {
@@ -566,6 +723,7 @@ body {
   place-items: center;
   pointer-events: auto;
   transform: translate(-50%, -50%);
+  transition: filter 0.3s ease;
 }
 .tray[data-side="S"] .plate,
 .tray[data-side="N"] .plate {
@@ -590,6 +748,25 @@ body {
   align-items: center;
   justify-content: center;
   gap: calc(var(--cell) * 0.4);
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+.tray.active-turn .plate {
+  border-color: rgba(255, 215, 0, 0.95);
+  box-shadow:
+    inset 0 1px 2px rgba(255, 255, 255, 0.35),
+    inset 0 0 20px var(--pl),
+    0 0 24px var(--pl),
+    0 12px 28px -6px rgba(0, 0, 0, 0.9);
+  animation: activeTrayPulse 2.2s ease-in-out infinite alternate;
+}
+@keyframes activeTrayPulse {
+  0% { box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.3), inset 0 0 14px var(--pl), 0 0 16px var(--pl), 0 10px 24px -6px rgba(0, 0, 0, 0.85); }
+  100% { box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.5), inset 0 0 24px var(--pl), 0 0 32px var(--pl), 0 14px 30px -6px rgba(0, 0, 0, 0.9); }
+}
+.tray.active-turn .lbl {
+  color: #fff9e6;
+  text-shadow: 0 0 12px var(--pl), 0 1px 4px rgba(0, 0, 0, 0.95);
+  font-weight: 700;
 }
 .tray .tm {
   width: calc(var(--cell) * 0.48);
@@ -618,12 +795,69 @@ body {
   white-space: nowrap;
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.9);
   pointer-events: none;
+  transition: color 0.3s, text-shadow 0.3s;
 }
-.tray[data-side="S"] .lbl { left: 50%; top: calc(100% + 4px); transform: translateX(-50%); }
-.tray[data-side="N"] .lbl { left: 50%; bottom: calc(100% + 4px); top: auto; transform: translateX(-50%); }
-.tray[data-side="W"] .lbl { right: calc(100% + 6px); left: auto; top: 50%; transform: translateY(-50%); }
-.tray[data-side="E"] .lbl { left: calc(100% + 6px); top: 50%; transform: translateY(-50%); }
+.tray[data-side="S"] .lbl { left: 50%; top: calc(100% + 5px); transform: translateX(-50%); }
+.tray[data-side="N"] .lbl { left: 50%; bottom: calc(100% + 5px); top: auto; transform: translateX(-50%); }
+.tray[data-side="W"] .lbl { left: 50%; bottom: calc(100% + 5px); top: auto; right: auto; transform: translateX(-50%); }
+.tray[data-side="E"] .lbl { left: 50%; bottom: calc(100% + 5px); top: auto; right: auto; transform: translateX(-50%); }
 .tray.waiting { cursor: pointer; }
+
+/* ============ VFX effects ============ */
+.board-zone.board-shake {
+  animation: boardRumble 0.28s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+}
+@keyframes boardRumble {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  20% { transform: translate(-3px, 2px) rotate(-0.35deg); }
+  40% { transform: translate(3px, -2px) rotate(0.35deg); }
+  60% { transform: translate(-2px, -1px) rotate(-0.18deg); }
+  80% { transform: translate(2px, 1px) rotate(0.18deg); }
+}
+
+.capture-shockwave {
+  position: absolute;
+  width: calc(var(--cell) * 2.8);
+  height: calc(var(--cell) * 2.8);
+  border-radius: 50%;
+  border: 2.5px solid #ff4a36;
+  box-shadow: 0 0 22px #ff4a36, inset 0 0 16px rgba(255, 74, 54, 0.6);
+  pointer-events: none;
+  z-index: 15;
+  transform: translate(-50%, -50%) scale(0.2);
+  animation: captureRing 0.5s cubic-bezier(0.1, 0.8, 0.3, 1) forwards;
+}
+@keyframes captureRing {
+  0% { transform: translate(-50%, -50%) scale(0.2); opacity: 1; border-width: 3px; }
+  65% { opacity: 0.9; }
+  100% { transform: translate(-50%, -50%) scale(1.6); opacity: 0; border-width: 1px; }
+}
+
+.finish-shockwave {
+  position: absolute;
+  width: calc(var(--cell) * 4.2);
+  height: calc(var(--cell) * 4.2);
+  border-radius: 50%;
+  border: 3px solid #ffd700;
+  box-shadow: 0 0 35px #ffd700, inset 0 0 25px rgba(255, 215, 0, 0.8);
+  pointer-events: none;
+  z-index: 15;
+  transform: translate(-50%, -50%) scale(0.3);
+  animation: finishRing 0.75s cubic-bezier(0.15, 0.85, 0.35, 1) forwards;
+}
+@keyframes finishRing {
+  0% { transform: translate(-50%, -50%) scale(0.3); opacity: 1; }
+  100% { transform: translate(-50%, -50%) scale(2.6); opacity: 0; }
+}
+
+.dicetray.grace-glow {
+  animation: graceTrayGlow 1.2s ease-out forwards;
+}
+@keyframes graceTrayGlow {
+  0% { box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.8), 0 0 35px rgba(255, 215, 0, 0.95); border-color: #ffd700; }
+  50% { box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.8), 0 0 50px rgba(255, 215, 0, 1); border-color: #fff8dc; }
+  100% { box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.8), 0 8px 24px -8px rgba(0, 0, 0, 0.7); border-color: rgba(212, 175, 55, 0.4); }
+}
 
 /* ============ HUD: players ============ */
 .pscore {
@@ -724,7 +958,7 @@ body {
   border-radius: 5px 5px 0 0;
   pointer-events: none;
 }
-.stick .pip {
+.stick .pip, .tut-stick .pip {
   position: absolute;
   width: 8px; height: 8px;
   border-radius: 50%;
@@ -732,15 +966,15 @@ body {
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.8), inset 0 1px 1px rgba(255, 255, 255, 0.8), inset 0 -1px 2px rgba(0, 0, 0, 0.5);
   border: 0.5px solid rgba(70, 45, 10, 0.5);
 }
-.stick .pip.l { left: 6px; top: 50%; transform: translateY(-50%); }
-.stick .pip.r { right: 6px; top: 50%; transform: translateY(-50%); }
-.stick .pip.c { left: 50%; top: 50%; transform: translate(-50%, -50%); }
-.stick .pip.tl { left: 6px; top: 3px; }
-.stick .pip.tr { right: 6px; top: 3px; }
-.stick .pip.ml { left: 6px; top: 50%; transform: translateY(-50%); }
-.stick .pip.mr { right: 6px; top: 50%; transform: translateY(-50%); }
-.stick .pip.bl { left: 6px; bottom: 3px; }
-.stick .pip.br { right: 6px; bottom: 3px; }
+.stick .pip.l, .tut-stick .pip.l { left: 6px; top: 50%; transform: translateY(-50%); }
+.stick .pip.r, .tut-stick .pip.r { right: 6px; top: 50%; transform: translateY(-50%); }
+.stick .pip.c, .tut-stick .pip.c { left: 50%; top: 50%; transform: translate(-50%, -50%); }
+.stick .pip.tl, .tut-stick .pip.tl { left: 6px; top: 3px; }
+.stick .pip.tr, .tut-stick .pip.tr { right: 6px; top: 3px; }
+.stick .pip.ml, .tut-stick .pip.ml { left: 6px; top: 50%; transform: translateY(-50%); }
+.stick .pip.mr, .tut-stick .pip.mr { right: 6px; top: 50%; transform: translateY(-50%); }
+.stick .pip.bl, .tut-stick .pip.bl { left: 6px; bottom: 3px; }
+.stick .pip.br, .tut-stick .pip.br { right: 6px; bottom: 3px; }
 
 @keyframes tumble1 {
   0% { transform: translateY(0) rotate(0deg) rotateX(0deg); }
@@ -829,6 +1063,475 @@ body {
 .endbtns { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 16px; }
 .endfine { font-size: 12.5px; color: var(--inkD); margin-top: 12px; }
 
+/* ============ Tutorial Banner in Menu ============ */
+.tutorial-banner {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: radial-gradient(circle at 10% 50%, rgba(255, 215, 0, 0.15), transparent 70%), rgba(0, 0, 0, 0.4);
+  border: 1.5px solid rgba(212, 175, 55, 0.55);
+  border-radius: 18px;
+  padding: 13px 18px;
+  margin: 16px 0 10px;
+  text-align: left;
+  box-shadow: 0 4px 20px -4px rgba(0, 0, 0, 0.7), inset 0 0 16px rgba(255, 215, 0, 0.08);
+  animation: tutBannerPulse 3.5s ease-in-out infinite alternate;
+}
+@keyframes tutBannerPulse {
+  0% { border-color: rgba(212, 175, 55, 0.45); box-shadow: 0 4px 18px -4px rgba(0, 0, 0, 0.6), 0 0 12px rgba(255, 215, 0, 0.08); }
+  100% { border-color: rgba(255, 215, 0, 0.85); box-shadow: 0 4px 24px -4px rgba(0, 0, 0, 0.75), 0 0 22px rgba(255, 215, 0, 0.24); }
+}
+.tb-icon {
+  font-size: 30px;
+  flex: none;
+  filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.65));
+}
+.tb-text { flex: 1 1 auto; }
+.tb-title {
+  font-family: var(--serif);
+  font-weight: 700;
+  font-size: 16px;
+  color: var(--ink);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.tb-badge {
+  font-family: var(--sans);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  background: linear-gradient(135deg, #ffd700, #b8860b);
+  color: #1a0406;
+  border-radius: 999px;
+  padding: 2px 7px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.45);
+}
+.tb-sub {
+  font-size: 13px;
+  color: var(--inkD);
+  margin-top: 3px;
+  line-height: 1.45;
+}
+.tb-btn {
+  flex: none;
+  white-space: nowrap;
+  min-height: 40px;
+  padding: 8px 16px;
+  font-size: 14px;
+  font-family: var(--serif);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  border-color: rgba(255, 215, 0, 0.85);
+  background: linear-gradient(180deg, #8a6d22, #5a420f);
+  color: #fff8e6;
+  box-shadow: 0 0 16px rgba(255, 215, 0, 0.3);
+}
+.tb-btn:hover {
+  border-color: #ffd700;
+  box-shadow: 0 0 26px rgba(255, 215, 0, 0.6);
+  transform: translateY(-1px);
+}
+
+/* ============ Tutorial Modal & Slides ============ */
+.modal.tutorial-modal {
+  width: min(640px, 96vw);
+  max-height: 92vh;
+  padding: 24px 26px 22px;
+  display: flex;
+  flex-direction: column;
+}
+.tut-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+  padding-bottom: 12px;
+  margin-bottom: 16px;
+}
+.tut-header h2 {
+  font-family: var(--serif);
+  font-size: 21px;
+  margin: 0;
+  color: var(--ink);
+}
+.tut-header h2 .g { color: var(--zariH); }
+.tut-header-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.tut-steps-pills {
+  display: flex;
+  gap: 7px;
+  align-items: center;
+}
+.tut-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(212, 175, 55, 0.5);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  padding: 0;
+}
+.tut-dot.cur {
+  background: #ffd700;
+  border-color: #fff;
+  transform: scale(1.35);
+  box-shadow: 0 0 10px rgba(255, 215, 0, 0.85);
+}
+.tut-close-btn {
+  background: transparent;
+  border: none;
+  color: var(--inkD);
+  font-size: 24px;
+  cursor: pointer;
+  line-height: 1;
+  padding: 2px 8px;
+  border-radius: 8px;
+  transition: color 0.15s, background 0.15s;
+}
+.tut-close-btn:hover { color: #fff; background: rgba(255, 255, 255, 0.1); }
+
+.tut-slide-viewport {
+  position: relative;
+  min-height: 360px;
+  flex: 1 1 auto;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+.tut-slide {
+  display: none;
+  animation: tutFadeSlide 0.28s cubic-bezier(0.2, 0.8, 0.3, 1);
+}
+.tut-slide.active { display: block; }
+@keyframes tutFadeSlide {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.tut-slide-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+.tut-slide-num {
+  font-family: var(--serif);
+  font-size: 13px;
+  font-weight: 800;
+  color: #1a0406;
+  background: var(--zariH);
+  border-radius: 50%;
+  width: 25px;
+  height: 25px;
+  display: grid;
+  place-items: center;
+  flex: none;
+  box-shadow: 0 0 8px rgba(255, 215, 0, 0.5);
+}
+.tut-slide-title {
+  font-family: var(--serif);
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--zariH);
+}
+
+.tut-card-body {
+  font-size: 14.5px;
+  line-height: 1.6;
+  color: var(--ink);
+}
+.tut-card-body p + p { margin-top: 10px; }
+.tut-card-body b { color: #fff8e6; }
+
+/* Visual diagrams inside slides */
+.tut-diagram {
+  background: rgba(0, 0, 0, 0.42);
+  border: 1px solid rgba(212, 175, 55, 0.35);
+  border-radius: 14px;
+  padding: 14px;
+  margin: 12px 0 14px;
+  box-shadow: inset 0 0 18px rgba(0, 0, 0, 0.5);
+}
+
+/* Interactive hints on slides */
+.tut-interactive-hint {
+  text-align: center;
+  margin-bottom: 10px;
+}
+.tut-interactive-hint span {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--zariH);
+  background: rgba(255, 215, 0, 0.12);
+  border: 1px solid rgba(255, 215, 0, 0.4);
+  border-radius: 999px;
+  padding: 3px 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+}
+
+.mobile-tap-btn {
+  touch-action: manipulation;
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+.mobile-tap-btn:active {
+  transform: scale(0.96) !important;
+}
+
+/* House grid & spotlight */
+.tut-house-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  width: 100%;
+}
+.tut-house-card {
+  border-radius: 10px;
+  border: 1px solid rgba(212, 175, 55, 0.35);
+  padding: 10px 6px;
+  text-align: center;
+  background: rgba(0, 0, 0, 0.35);
+  cursor: pointer;
+  touch-action: manipulation;
+  transition: transform 0.15s ease, border-color 0.15s ease, background 0.15s ease, box-shadow 0.15s ease;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+.tut-house-card:active { transform: scale(0.94); }
+.tut-house-card.selected {
+  border-color: #ffd700 !important;
+  background: rgba(255, 215, 0, 0.16) !important;
+  box-shadow: 0 0 16px rgba(255, 215, 0, 0.4);
+  transform: translateY(-2px);
+}
+.tut-house-card .th-dot {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  margin: 0 auto 6px;
+  display: grid;
+  place-items: center;
+  color: #fff;
+  font-size: 12px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+}
+.tut-house-card .th-name { font-family: var(--serif); font-size: 13px; font-weight: 700; display: block; }
+.tut-house-card .th-dir { font-size: 11px; color: var(--inkD); display: block; margin-top: 2px; }
+
+.tut-house-spotlight {
+  margin-top: 10px;
+  padding: 9px 12px;
+  background: rgba(0, 0, 0, 0.45);
+  border: 1px solid rgba(212, 175, 55, 0.35);
+  border-radius: 8px;
+  font-size: 12.5px;
+  line-height: 1.45;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.ths-badge {
+  font-size: 11px;
+  font-weight: 700;
+  border-radius: 6px;
+  padding: 3px 8px;
+  flex: none;
+}
+.ths-desc { flex: 1 1 auto; color: var(--ink); }
+
+/* Pasha Dice Demo Widget inside slide 2 */
+.tut-dice-demo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  padding: 10px 8px;
+}
+.tut-dice-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  min-height: 48px;
+  perspective: 600px;
+}
+.tut-dice-row .stick {
+  cursor: pointer;
+  touch-action: manipulation;
+  transition: transform 0.15s ease;
+}
+.tut-dice-row .stick:active {
+  transform: scale(0.95);
+}
+.tut-dice-controls {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 4px;
+}
+.tut-dice-result {
+  font-family: var(--serif);
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--zariH);
+  letter-spacing: 0.04em;
+  text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+}
+.tut-dice-result .grace-tag {
+  color: #fff;
+  background: #c8402f;
+  border-radius: 6px;
+  padding: 2px 7px;
+  font-size: 11px;
+  margin-left: 6px;
+  font-family: var(--sans);
+}
+
+/* Battle Simulator inside Slide 4 */
+.tut-battle-demo {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+}
+.tut-battle-actions {
+  display: flex;
+  gap: 10px;
+  width: 100%;
+  justify-content: center;
+}
+.tut-battle-stage {
+  display: flex;
+  gap: 14px;
+  width: 100%;
+  justify-content: center;
+}
+.tbs-cell {
+  position: relative;
+  width: 130px;
+  height: 68px;
+  background: rgba(0, 0, 0, 0.5);
+  border: 1.5px solid rgba(212, 175, 55, 0.4);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  overflow: hidden;
+}
+.tbs-cell.castle-road {
+  border-color: #ffd700;
+  background: radial-gradient(circle, rgba(255, 215, 0, 0.18), rgba(0, 0, 0, 0.6));
+}
+.tbs-label {
+  position: absolute;
+  top: 3px;
+  font-size: 9.5px;
+  letter-spacing: 0.05em;
+  color: var(--inkD);
+  text-transform: uppercase;
+}
+.tbs-piece {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.7);
+  transition: all 0.35s cubic-bezier(0.2, 0.8, 0.3, 1);
+}
+.tbs-piece.p-sindoor { background: #C8402F; border: 1.5px solid #ff7a6b; }
+.tbs-piece.p-mayur { background: #10727F; border: 1.5px solid #4ed0e0; }
+.tbs-shield {
+  font-size: 20px;
+  animation: shieldPulse 1.5s ease-in-out infinite alternate;
+}
+@keyframes shieldPulse {
+  0% { transform: scale(0.9); opacity: 0.7; }
+  100% { transform: scale(1.15); opacity: 1; filter: drop-shadow(0 0 8px #ffd700); }
+}
+.tut-battle-msg {
+  font-size: 12.5px;
+  color: var(--zariH);
+  text-align: center;
+  min-height: 20px;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+/* Lotus Celebration inside Slide 5 */
+.tut-lotus-celebration {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.tut-lotus-msg {
+  animation: tutFadeSlide 0.25s ease;
+}
+
+/* Mobile swipe hint */
+.tut-swipe-hint {
+  display: none;
+  text-align: center;
+  padding: 4px 0 2px;
+  font-size: 11.5px;
+  color: var(--zariH);
+  opacity: 0.85;
+  letter-spacing: 0.06em;
+  user-select: none;
+  pointer-events: none;
+}
+
+/* Callout highlight boxes */
+.tut-callout {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 215, 0, 0.4);
+  background: rgba(255, 215, 0, 0.07);
+  padding: 10px 14px;
+  margin: 10px 0;
+  font-size: 13.5px;
+}
+.tut-callout-icon { font-size: 22px; flex: none; }
+.tut-callout-text { flex: 1 1 auto; line-height: 1.45; }
+
+/* Stepper Bottom Nav */
+.tut-nav-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid rgba(212, 175, 55, 0.3);
+  padding-top: 14px;
+  margin-top: 14px;
+}
+.tut-nav-bar .step-text {
+  font-size: 13px;
+  color: var(--inkD);
+  letter-spacing: 0.08em;
+  font-family: var(--sans);
+}
+.tut-nav-actions {
+  display: flex;
+  gap: 10px;
+}
+
 /* ============ a11y / responsive ============ */
 .sr-only {
   position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden;
@@ -867,6 +1570,20 @@ body {
   .mode-grid { grid-template-columns: 1fr; }
   .opts { grid-template-columns: 1fr; }
   .hud.turn { display: block; }
+  .tutorial-banner { flex-direction: column; text-align: center; gap: 10px; }
+  .tb-btn { width: 100%; justify-content: center; }
+  .tut-swipe-hint { display: block; }
+  .tut-house-grid { grid-template-columns: repeat(2, 1fr); gap: 6px; }
+  .modal.tutorial-modal { width: min(440px, 95vw); max-height: 94dvh; padding: 14px 12px 10px; margin: auto; }
+  .tut-slide-viewport { min-height: 310px; max-height: calc(94dvh - 120px); -webkit-overflow-scrolling: touch; overscroll-behavior: contain; }
+  .tut-nav-bar { padding-top: 10px; margin-top: 8px; }
+  .tut-nav-actions .btn { min-height: 42px; padding: 6px 14px; font-size: 13px; }
+  .mobile-tap-btn { width: 100%; min-height: 42px; justify-content: center; }
+  .tut-battle-actions { flex-direction: column; width: 100%; }
+  .tut-battle-actions .btn { width: 100%; }
+  .tut-battle-stage { gap: 8px; }
+  .tbs-cell { width: 110px; height: 60px; }
+  .tut-dot { width: 14px; height: 14px; margin: 0 4px; }
 }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
@@ -882,9 +1599,12 @@ body {
 <div id="stage" aria-hidden="true">
   <div class="filigree fs"><svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="0.8"><path d="M50 4l6 14-2 18 14-8 8 14-12 10 6 18-16 4-6 16-6-16-16-4 6-18-12-10 8-14 14 8-2-18z" fill="currentColor" opacity="0.35"/><circle cx="50" cy="50" r="34" stroke-dasharray="2 5"/><circle cx="50" cy="50" r="22" stroke-dasharray="1 4"/><path d="M50 26v12M50 62v12M26 50h12M62 50h12" stroke-width="1.4"/></svg></div>
   <div class="filigree fe"><svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="0.8"><path d="M50 4l6 14-2 18 14-8 8 14-12 10 6 18-16 4-6 16-6-16-16-4 6-18-12-10 8-14 14 8-2-18z" fill="currentColor" opacity="0.35"/><circle cx="50" cy="50" r="34" stroke-dasharray="2 5"/><circle cx="50" cy="50" r="22" stroke-dasharray="1 4"/><path d="M50 26v12M50 62v12M26 50h12M62 50h12" stroke-width="1.4"/></svg></div>
+  <div class="filigree fs-b"><svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="0.8"><path d="M50 4l6 14-2 18 14-8 8 14-12 10 6 18-16 4-6 16-6-16-16-4 6-18-12-10 8-14 14 8-2-18z" fill="currentColor" opacity="0.35"/><circle cx="50" cy="50" r="34" stroke-dasharray="2 5"/><circle cx="50" cy="50" r="22" stroke-dasharray="1 4"/><path d="M50 26v12M50 62v12M26 50h12M62 50h12" stroke-width="1.4"/></svg></div>
+  <div class="filigree fe-b"><svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="0.8"><path d="M50 4l6 14-2 18 14-8 8 14-12 10 6 18-16 4-6 16-6-16-16-4 6-18-12-10 8-14 14 8-2-18z" fill="currentColor" opacity="0.35"/><circle cx="50" cy="50" r="34" stroke-dasharray="2 5"/><circle cx="50" cy="50" r="22" stroke-dasharray="1 4"/><path d="M50 26v12M50 62v12M26 50h12M62 50h12" stroke-width="1.4"/></svg></div>
   <div class="diya d1"></div>
   <div class="diya d2"></div>
   <div class="diya d3"></div>
+  <div class="diya d4"></div>
 </div>
 <canvas id="dust" aria-hidden="true"></canvas>
 
@@ -899,6 +1619,7 @@ body {
     </div>
     <div class="spacer"></div>
     <div class="top-actions" id="top-actions">
+      <button class="btn ghost sm" id="btn-tutorial-top" type="button">Tutorial</button>
       <button class="btn ghost sm" id="btn-rules-top" type="button">Rules</button>
       <button class="btn ghost sm" id="btn-sound-top" type="button" aria-pressed="true">Sound: On</button>
       <button class="btn ghost sm" id="btn-pause-top" type="button" hidden>Pause</button>
@@ -914,6 +1635,17 @@ body {
         <h1>चौपड़ <span class="d">CHAUPAD</span></h1>
         <div class="sub">Chaupar — the Cloth Cross Race</div>
         <p class="line">Pachisi&rsquo;s courtly sibling: bring all four of your lacquered gothi around the embroidered cross and into the Charkoni. Murky throws, gracious captures.</p>
+
+        <!-- Tutorial Banner for 1st Timers -->
+        <div class="tutorial-banner" id="tutorial-banner">
+          <div class="tb-icon" aria-hidden="true">📖</div>
+          <div class="tb-text">
+            <div class="tb-title">New to Chaupad? <span class="tb-badge">1st Timers</span></div>
+            <div class="tb-sub">Learn the cloth cross, pasha long-dice, and grace throws in 1 minute.</div>
+          </div>
+          <button class="btn tb-btn" id="btn-tutorial-menu" type="button">Start Tutorial</button>
+        </div>
+
         <div class="mode-grid" id="mode-grid" role="group" aria-label="Game mode">
           <button class="mode-btn" data-mode="1p" type="button"><span class="m">Vs &nbsp;AI</span><span class="s">You play Sindoor (South); three AI rivals</span></button>
           <button class="mode-btn" data-mode="2p" type="button"><span class="m">Two Players</span><span class="s">Local pass-and-play</span></button>
@@ -957,11 +1689,11 @@ body {
               <div class="lotus">
                 <svg viewBox="0 0 100 100" fill="none" stroke="#D4AF37">
                   <!-- Concentric Gold Zari Rings -->
-                  <circle cx="50" cy="50" r="38" stroke="#D4AF37" stroke-width="0.8" stroke-dasharray="2 3" opacity="0.6"/>
-                  <circle cx="50" cy="50" r="28" stroke="#D4AF37" stroke-width="0.9" opacity="0.8"/>
-                  <circle cx="50" cy="50" r="14" stroke="#FFD700" stroke-width="1.2" fill="rgba(212,175,55,0.18)"/>
+                  <circle class="ch-ring-outer" cx="50" cy="50" r="38" stroke="#D4AF37" stroke-width="0.8" stroke-dasharray="2 3" opacity="0.6"/>
+                  <circle class="ch-ring-mid" cx="50" cy="50" r="28" stroke="#D4AF37" stroke-width="0.9" opacity="0.8"/>
+                  <circle class="ch-ring-inner" cx="50" cy="50" r="14" stroke="#FFD700" stroke-width="1.2" fill="rgba(212,175,55,0.18)"/>
                   <!-- 8 Symmetrical Lotus Petals radiating from center (50, 50) -->
-                  <g stroke="#FFD700" stroke-width="1" fill="rgba(255, 215, 0, 0.16)">
+                  <g class="ch-petals" stroke="#FFD700" stroke-width="1" fill="rgba(255, 215, 0, 0.16)">
                     <path d="M50 50 C44 32 40 18 50 10 C60 18 56 32 50 50 Z" />
                     <path d="M50 50 C44 32 40 18 50 10 C60 18 56 32 50 50 Z" transform="rotate(45 50 50)" />
                     <path d="M50 50 C44 32 40 18 50 10 C60 18 56 32 50 50 Z" transform="rotate(90 50 50)" />
@@ -972,8 +1704,10 @@ body {
                     <path d="M50 50 C44 32 40 18 50 10 C60 18 56 32 50 50 Z" transform="rotate(315 50 50)" />
                   </g>
                   <!-- Central Bindu Star -->
-                  <circle cx="50" cy="50" r="5" fill="#FFD700" stroke="#8a6d22" stroke-width="0.8"/>
-                  <path d="M50 43 L52 48 L57 50 L52 52 L50 57 L48 52 L43 50 L48 48 Z" fill="#FFF8DC"/>
+                  <g class="ch-bindu">
+                    <circle cx="50" cy="50" r="5" fill="#FFD700" stroke="#8a6d22" stroke-width="0.8"/>
+                    <path class="ch-star" d="M50 43 L52 48 L57 50 L52 52 L50 57 L48 52 L43 50 L48 48 Z" fill="#FFF8DC"/>
+                  </g>
                 </svg>
               </div>
             </div>
@@ -1017,6 +1751,212 @@ body {
   </main>
 </div>
 
+<!-- ================= TUTORIAL (1ST TIMERS) ================= -->
+<div class="overlay" id="ovl-tutorial" hidden>
+  <div class="modal tutorial-modal" role="dialog" aria-modal="true" aria-labelledby="tut-main-title">
+    <div class="tut-header">
+      <div class="tut-title-wrap">
+        <h2 id="tut-main-title">Chaupad <span class="g">Tutorial</span></h2>
+      </div>
+      <div class="tut-header-right">
+        <div class="tut-steps-pills" role="tablist" aria-label="Tutorial Steps">
+          <button class="tut-dot cur" data-step="0" type="button" aria-label="Step 1: The Board" aria-selected="true"></button>
+          <button class="tut-dot" data-step="1" type="button" aria-label="Step 2: The Pasha Dice" aria-selected="false"></button>
+          <button class="tut-dot" data-step="2" type="button" aria-label="Step 3: Grace Throws" aria-selected="false"></button>
+          <button class="tut-dot" data-step="3" type="button" aria-label="Step 4: March &amp; Castles" aria-selected="false"></button>
+          <button class="tut-dot" data-step="4" type="button" aria-label="Step 5: Charkoni Victory" aria-selected="false"></button>
+        </div>
+        <button class="tut-close-btn" id="btn-tut-close" type="button" aria-label="Close tutorial">✕</button>
+      </div>
+    </div>
+
+    <div class="tut-slide-viewport">
+      <!-- SLIDE 1 -->
+      <div class="tut-slide active" data-slide="0">
+        <div class="tut-slide-head">
+          <span class="tut-slide-num">1</span>
+          <h3 class="tut-slide-title">The Cloth Cross &amp; 4 Royal Houses</h3>
+        </div>
+        <div class="tut-card-body">
+          <p>Welcome to <b>Chaupad</b>, India&rsquo;s regal cloth-cross race game. You command four lacquered wooden pieces (<i>gothi</i>). Your quest is to march all four pieces along the cross and guide them into the central lotus sanctuary called the <b>Charkoni</b>.</p>
+          <div class="tut-diagram">
+            <div class="tut-interactive-hint"><span>👆 Tap any house to inspect</span></div>
+            <div class="tut-house-grid" id="tut-house-grid">
+              <button class="tut-house-card selected" data-house="S" type="button" aria-label="Sindoor House">
+                <div class="th-dot" style="background:#C8402F">◆</div>
+                <span class="th-name" style="color:#ff8573">Sindoor</span>
+                <span class="th-dir">South (You)</span>
+              </button>
+              <button class="tut-house-card" data-house="W" type="button" aria-label="Mayur House">
+                <div class="th-dot" style="background:#10727F">▲</div>
+                <span class="th-name" style="color:#56c8d8">Mayur</span>
+                <span class="th-dir">West</span>
+              </button>
+              <button class="tut-house-card" data-house="N" type="button" aria-label="Haldi House">
+                <div class="th-dot" style="background:#E8A317">●</div>
+                <span class="th-name" style="color:#ffd066">Haldi</span>
+                <span class="th-dir">North</span>
+              </button>
+              <button class="tut-house-card" data-house="E" type="button" aria-label="Neel House">
+                <div class="th-dot" style="background:#2F4B7C">★</div>
+                <span class="th-name" style="color:#8caaf0">Neel</span>
+                <span class="th-dir">East</span>
+              </button>
+            </div>
+            <div class="tut-house-spotlight" id="tut-house-spotlight">
+              <span class="ths-badge" style="background:#C8402F;color:#fff">◆ Sindoor</span>
+              <span class="ths-desc"><b>South Arm (Player)</b>: Commands 4 vermilion pieces from the southern yard into battle.</span>
+            </div>
+          </div>
+          <div class="tut-callout">
+            <span class="tut-callout-icon">💡</span>
+            <div class="tut-callout-text"><b>First Rule:</b> You can bring a fresh gothi out from your yard tray onto your home gate on <b>any throw</b>! No special roll of 1 or 6 is needed to enter.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SLIDE 2 -->
+      <div class="tut-slide" data-slide="1">
+        <div class="tut-slide-head">
+          <span class="tut-slide-num">2</span>
+          <h3 class="tut-slide-title">Throwing the Pasha (Long-Dice)</h3>
+        </div>
+        <div class="tut-card-body">
+          <p>Unlike Western cubes, Chaupad is played with <b>three rectangular wooden sticks</b> called <i>pasha</i>. Each stick has four carved faces: <b>1, 2, 5, and 6</b> (there are no 3s or 4s!).</p>
+          <div class="tut-diagram">
+            <div class="tut-interactive-hint"><span>👆 Tap sticks or button to roll</span></div>
+            <div class="tut-dice-demo">
+              <div class="dicerow tut-dice-row" id="tut-dice-row">
+                <div class="stick s1 tut-stick" id="tut-stick0" role="button" tabindex="0" aria-label="Throw Stick 1"></div>
+                <div class="stick s2 tut-stick" id="tut-stick1" role="button" tabindex="0" aria-label="Throw Stick 2"></div>
+                <div class="stick s3 tut-stick" id="tut-stick2" role="button" tabindex="0" aria-label="Throw Stick 3"></div>
+              </div>
+              <div class="tut-dice-controls">
+                <button class="btn sm primary mobile-tap-btn" id="btn-tut-roll" type="button">🎲 Tap to Throw Pasha</button>
+                <div class="tut-dice-result" id="tut-dice-result">Total: <span id="tut-sum-val">12</span></div>
+              </div>
+            </div>
+          </div>
+          <div class="tut-callout">
+            <span class="tut-callout-icon">✨</span>
+            <div class="tut-callout-text">The <b>sum of all three sticks</b> (between 3 and 18) is your movement count. Tap a highlighted piece on your turn to preview where it lands!</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SLIDE 3 -->
+      <div class="tut-slide" data-slide="2">
+        <div class="tut-slide-head">
+          <span class="tut-slide-num">3</span>
+          <h3 class="tut-slide-title">Grace Throws (चौ &bull; Chau / Triples)</h3>
+        </div>
+        <div class="tut-card-body">
+          <p>When all three sticks reveal the <b>exact same face</b> (such as 1-1-1, 2-2-2, 5-5-5, or 6-6-6), the court declares a <b>Grace Throw (चौ)</b>!</p>
+          <div class="tut-diagram" style="text-align: center; border-color: rgba(255,215,0,0.6); background: radial-gradient(circle, rgba(255,215,0,0.12) 0%, rgba(0,0,0,0.5) 70%)">
+            <div class="tut-interactive-hint"><span>👆 Tap below to test a live Grace throw</span></div>
+            <div style="font-size: 22px; font-family: var(--serif); color: var(--zariH); text-shadow: 0 0 16px rgba(255,215,0,0.8)">
+              ★ चौ &bull; CHAU &bull; BONUS THROW ★
+            </div>
+            <div style="font-size: 13.5px; color: var(--inkD); margin-top: 6px">
+              Three identical sticks grant you your move <b>PLUS an extra throw</b>!
+            </div>
+            <div style="margin-top: 12px">
+              <button class="btn sm primary mobile-tap-btn" id="btn-tut-grace-test" type="button">✨ Test Roll a Grace (चौ)</button>
+              <div class="tut-grace-feedback" id="tut-grace-feedback" style="display:none;margin-top:8px;font-size:13.5px;color:var(--zariH);line-height:1.4"></div>
+            </div>
+          </div>
+          <div class="tut-callout">
+            <span class="tut-callout-icon">⚡</span>
+            <div class="tut-callout-text"><b>Bonus Chain:</b> Up to 3 consecutive bonus throws can be chained in a single turn through Grace rolls or enemy captures!</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SLIDE 4 -->
+      <div class="tut-slide" data-slide="3">
+        <div class="tut-slide-head">
+          <span class="tut-slide-num">4</span>
+          <h3 class="tut-slide-title">Marching, Castles &amp; Captures</h3>
+        </div>
+        <div class="tut-card-body">
+          <p>Pieces travel <b>counter-clockwise</b> around the 72 squares of the cloth cross.</p>
+          <div class="tut-diagram">
+            <div class="tut-interactive-hint"><span>👆 Tap buttons below to test battle rules</span></div>
+            <div class="tut-battle-demo">
+              <div class="tut-battle-actions">
+                <button class="btn sm mobile-tap-btn" id="btn-tut-sim-capture" type="button">⚔️ Simulate Capture</button>
+                <button class="btn sm mobile-tap-btn" id="btn-tut-sim-castle" type="button">🛡️ Test Castle Defense</button>
+              </div>
+              <div class="tut-battle-stage">
+                <div class="tbs-cell open-road" id="tbs-cell1">
+                  <div class="tbs-label">Open Road</div>
+                  <div class="tbs-piece p-sindoor" id="tbs-p1">◆</div>
+                  <div class="tbs-piece p-mayur" id="tbs-p2">▲</div>
+                </div>
+                <div class="tbs-cell castle-road" id="tbs-cell2">
+                  <div class="tbs-label">⭐ Castle Safe Haven</div>
+                  <div class="tbs-piece p-sindoor" id="tbs-p3">◆</div>
+                  <div class="tbs-shield" id="tbs-shield">🛡️</div>
+                </div>
+              </div>
+              <div class="tut-battle-msg" id="tut-battle-msg">Tap a button above to test Capture vs Castle Sanctuary!</div>
+            </div>
+          </div>
+          <div class="tut-callout">
+            <span class="tut-callout-icon">🤝</span>
+            <div class="tut-callout-text"><b>Stacking:</b> Multiple pawns of your own house can share a square, marching together as a reinforced squad.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SLIDE 5 -->
+      <div class="tut-slide" data-slide="4">
+        <div class="tut-slide-head">
+          <span class="tut-slide-num">5</span>
+          <h3 class="tut-slide-title">Home Column &amp; Charkoni Victory</h3>
+        </div>
+        <div class="tut-card-body">
+          <p>After completing the outer circuit of all four arms, your gothi arrives back at your home gate:</p>
+          <div class="tut-diagram">
+            <div class="tut-interactive-hint"><span>👆 Tap to celebrate reaching home</span></div>
+            <div style="text-align: center; width: 100%">
+              <div style="font-family: var(--serif); font-size: 15px; color: var(--zariH); font-weight: 700; margin-bottom: 6px">
+                🌸 Descending into the Lotus Charkoni
+              </div>
+              <p style="font-size: 13.5px; color: var(--inkD); line-height: 1.5; margin: 0">
+                1. Reaching your gate by an exact count turns your gothi <b>inward</b> down your private column.<br/>
+                2. Any throw <b>equal to or greater</b> than remaining steps carries the piece safely home into the central <b>Charkoni</b>.<br/>
+                3. The first player to bring all <b>4 gothi home</b> triumphs over the court!
+              </p>
+              <div class="tut-lotus-celebration">
+                <button class="btn sm primary mobile-tap-btn" id="btn-tut-lotus-celebrate" type="button">🌸 Celebrate Charkoni Lotus</button>
+                <div class="tut-lotus-msg" id="tut-lotus-msg" style="display:none;margin-top:8px;font-size:13.5px;color:var(--zariH);font-weight:700"></div>
+              </div>
+            </div>
+          </div>
+          <div class="tut-callout" style="background: rgba(255,215,0,0.12); border-color: rgba(255,215,0,0.7)">
+            <span class="tut-callout-icon">🏆</span>
+            <div class="tut-callout-text"><b>You are ready!</b> Begin your first match as <b>Sindoor (South)</b> against courtly AI rivals.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile Swipe Hint -->
+    <div class="tut-swipe-hint" aria-hidden="true"><span>👈 Swipe to navigate 👉</span></div>
+
+    <!-- Stepper Navigation Footer -->
+    <div class="tut-nav-bar">
+      <button class="btn sm ghost" id="btn-tut-prev" type="button" disabled>← Prev</button>
+      <span class="step-text" id="tut-step-text">Step 1 of 5</span>
+      <div class="tut-nav-actions">
+        <button class="btn sm" id="btn-tut-skip" type="button">Close</button>
+        <button class="btn sm primary" id="btn-tut-next" type="button">Next Step →</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- ================= RULES ================= -->
 <div class="overlay" id="ovl-rules" hidden>
   <div class="modal" role="dialog" aria-modal="true" aria-labelledby="rules-title">
@@ -1032,6 +1972,7 @@ body {
       <li><b>Partnerships.</b> In 2v2, opposite players are allies; they may share squares, and the team wins when all eight gothis are home.</li>
     </ul>
     <p class="cultural" style="font-size:13px;color:var(--inkD);margin-top:12px">From &ldquo;An Anthology of Native &amp; Indigenous Sports of India&rdquo; (CUTM, 2025) — Pachisi&rsquo;s courtly sibling, thrown with stick dice.</p>
+    <button class="btn ghost sm" id="btn-rules-to-tutorial" type="button" style="margin-top:12px;width:100%;border-color:rgba(255,215,0,0.6)">📖 View Illustrated 1st-Timer Tutorial</button>
     <button class="btn close" id="btn-rules-close" type="button">Close</button>
   </div>
 </div>
@@ -1043,8 +1984,9 @@ body {
     <div class="actions" style="margin-top:6px">
       <button class="btn primary wide" id="btn-resume" type="button">Resume</button>
       <button class="btn" id="btn-restart" type="button">Restart this Game</button>
+      <button class="btn" id="btn-pause-tutorial" type="button">Tutorial</button>
       <button class="btn" id="btn-pause-rules" type="button">Rules</button>
-      <button class="btn" id="btn-pause-quit" type="button">Quit to Court</button>
+      <button class="btn wide" id="btn-pause-quit" type="button">Quit to Court</button>
     </div>
   </div>
 </div>
@@ -1142,13 +2084,13 @@ body {
 
   var SIDE = {
     S: { colour: '#C8402F', dark: '#8f2c1e', sym: '◆', hi: 'सिन्दूर', en: 'Sindoor', gate: [18, 9],
-         home: [[17, 9], [16, 9], [15, 9], [14, 9], [13, 9], [12, 9], [11, 9]], finish: [10, 9], tray: [19.9, 9], label: 'South' },
+         home: [[17, 9], [16, 9], [15, 9], [14, 9], [13, 9], [12, 9], [11, 9]], finish: [10, 9], tray: [18.9, 9], label: 'South' },
     W: { colour: '#10727F', dark: '#0a4d56', sym: '▲', hi: 'मयूर', en: 'Mayur', gate: [9, 0],
          home: [[9, 1], [9, 2], [9, 3], [9, 4], [9, 5], [9, 6], [9, 7]], finish: [9, 8], tray: [9, -0.9], label: 'West' },
     N: { colour: '#E8A317', dark: '#a8730e', sym: '●', hi: 'हल्दी', en: 'Haldi', gate: [0, 9],
          home: [[1, 9], [2, 9], [3, 9], [4, 9], [5, 9], [6, 9], [7, 9]], finish: [8, 9], tray: [-0.9, 9], label: 'North' },
     E: { colour: '#2F4B7C', dark: '#1f3052', sym: '★', hi: 'नील', en: 'Neel', gate: [9, 18],
-         home: [[9, 17], [9, 16], [9, 15], [9, 14], [9, 13], [9, 12], [9, 11]], finish: [9, 10], tray: [9, 19.9], label: 'East' }
+         home: [[9, 17], [9, 16], [9, 15], [9, 14], [9, 13], [9, 12], [9, 11]], finish: [9, 10], tray: [9, 18.9], label: 'East' }
   };
   var PORDER = ['S', 'W', 'N', 'E'];
   var PS = PORDER.map(function (k) { return SIDE[k]; });
@@ -1646,7 +2588,7 @@ body {
       rollSum.textContent = String(total);
       rollCap.textContent = grace ? 'चौ · bonus throw' : 'total';
       rollCap.classList.toggle('grace', grace);
-      if (grace) SFX.grace();
+      if (grace) { SFX.grace(); triggerGraceVFX(); }
       else SFX.clack(0.3);
     }, RM ? 10 : 800);
     ROLL.v = values;
@@ -1681,6 +2623,7 @@ body {
       for (var j = 0; j < 4; j++) makeToken(i, j);
     }
     cur = 0;
+    updateActiveTray(cur);
     rankNext = 1;
     chain = 0;
     undoSnap = null;
@@ -1722,6 +2665,7 @@ body {
       if (nxt === null) { finishGame(); return; }
       cur = nxt;
     }
+    updateActiveTray(cur);
     renderScores();
     selected = null;
     legalMoves = [];
@@ -1892,6 +2836,7 @@ body {
             vt.moved = false;
           });
           SFX.capture();
+          triggerCaptureVFX(m.dst);
           if (victims.length) setStatus(nameOf(m.pl) + ' captures ' + victims.map(function (v) { return PS[v.p].en; }).join(' & ') + '!', 'A bonus throw is granted.');
           restack();
           await wait(420);
@@ -1941,6 +2886,7 @@ body {
         restack();
         ftok.el.classList.add('finish-fade');
         SFX.finish();
+        triggerFinishVFX(m.pl);
         await wait(RM ? 0 : 560);
         ftok.el.style.transform = 'translate(-999px,-999px) scale(0)';
         var over = maybeFinish(m.pl);
@@ -1994,6 +2940,7 @@ body {
 
   function finishGame() {
     state = 'over';
+    updateActiveTray(-1);
     var title = '';
     var champ = null;
     var sorted = P.map(function (pl, i) { return { i: i, rank: pl.rank || 99 }; }).sort(function (a, b) { return a.rank - b.rank; });
@@ -2225,13 +3172,12 @@ body {
       w = isWide ? (window.innerWidth - 560) : (window.innerWidth - 24);
       h = isWide ? (window.innerHeight - 80) : (window.innerHeight * 0.48);
     }
-    // Board is 19 cells + 3.8 cells frame padding = 22.8 cells
-    var cs = Math.floor(Math.min(w, h) / 23.2);
-    if (w < 560 && h < 700 && cs > 0 && isMobile()) cs = Math.floor(w / 21.4);
+    // Board is 19 cells + 4.4 cells frame padding = 23.4 cells
+    var cs = Math.floor(Math.min(w, h) / 23.8);
+    if (w < 560 && cs > 0 && isMobile()) cs = Math.floor(w / 23.8);
     cs = Math.max(14, Math.min(38, cs || 26));
     cell = cs;
     document.documentElement.style.setProperty('--cell', cs + 'px');
-    syncAll();
     if (document.querySelector('.tray')) {
       document.querySelectorAll('.tray').forEach(function (tr) {
         var i = parseInt(tr.getAttribute('data-tray'), 10);
@@ -2243,37 +3189,243 @@ body {
         tr.style.top = y + 'px';
       });
     }
+    syncAll();
   }
   function isMobile() { return window.innerWidth < 920; }
 
-  /* ---------------- dust ---------------- */
-  var dust = $('dust'), dustCtx = dust.getContext('2d');
+  /* ---------------- dust & dynamic VFX engine ---------------- */
+  var dust = $('dust'), dustCtx = dust ? dust.getContext('2d') : null;
   var motes = [];
+  var bursts = [];
+  var pointer = { x: -1000, y: -1000, vx: 0, vy: 0 };
+
+  function drawStar4(ctx, cx, cy, rOuter, rInner, angle, fillStyle) {
+    ctx.save();
+    ctx.translate(cx, cy);
+    ctx.rotate(angle);
+    ctx.beginPath();
+    for (var i = 0; i < 4; i++) {
+      var a = (i * Math.PI) / 2;
+      var aMid = a + Math.PI / 4;
+      var x1 = Math.cos(a) * rOuter, y1 = Math.sin(a) * rOuter;
+      var x2 = Math.cos(aMid) * rInner, y2 = Math.sin(aMid) * rInner;
+      if (i === 0) ctx.moveTo(x1, y1);
+      else ctx.lineTo(x1, y1);
+      ctx.lineTo(x2, y2);
+    }
+    ctx.closePath();
+    ctx.fillStyle = fillStyle;
+    ctx.fill();
+    ctx.restore();
+  }
+
+  function spawnBurst(x, y, count, type) {
+    if (RM || !dust) return;
+    for (var i = 0; i < count; i++) {
+      var angle = Math.random() * Math.PI * 2;
+      var spd = (type === 'clash' ? 3.5 : type === 'gold' ? 3.8 : 2.4) * (0.35 + Math.random() * 0.9);
+      var vx = Math.cos(angle) * spd;
+      var vy = Math.sin(angle) * spd - (type === 'grace' ? 1.6 : 0.5);
+      var life = 24 + Math.floor(Math.random() * 26);
+      var size = 2.2 + Math.random() * 3.8;
+      var color = '#ffd700';
+      if (type === 'clash') {
+        color = Math.random() > 0.45 ? '#ff4020' : (Math.random() > 0.5 ? '#ffd700' : '#ff8533');
+      } else if (type === 'gold') {
+        color = Math.random() > 0.35 ? '#ffd700' : (Math.random() > 0.5 ? '#fff9e6' : '#e6a817');
+      } else if (type === 'grace') {
+        color = Math.random() > 0.3 ? '#ffe066' : '#ffd700';
+      }
+      bursts.push({
+        x: x, y: y,
+        vx: vx, vy: vy,
+        rot: Math.random() * 6.28,
+        vrot: (Math.random() - 0.5) * 0.28,
+        size: size,
+        color: color,
+        life: life,
+        maxLife: life,
+        isStar: Math.random() > 0.3
+      });
+    }
+  }
+
+  function triggerCaptureVFX(loopIdx) {
+    if (RM) return;
+    var bZone = document.querySelector('.board-zone');
+    if (bZone) {
+      bZone.classList.remove('board-shake');
+      void bZone.offsetWidth;
+      bZone.classList.add('board-shake');
+      setTimeout(function () { bZone.classList.remove('board-shake'); }, 300);
+    }
+    var rc = LOOP[loopIdx];
+    if (rc) {
+      var cs = cellPx();
+      var shock = document.createElement('div');
+      shock.className = 'capture-shockwave';
+      shock.style.left = ((rc[1] + 0.5) * cs) + 'px';
+      shock.style.top = ((rc[0] + 0.5) * cs) + 'px';
+      boardEl.appendChild(shock);
+      setTimeout(function () { shock.remove(); }, 520);
+
+      var bRect = boardEl.getBoundingClientRect();
+      var screenX = bRect.left + (rc[1] + 0.5) * cs;
+      var screenY = bRect.top + (rc[0] + 0.5) * cs;
+      spawnBurst(screenX, screenY, 34, 'clash');
+    }
+  }
+
+  function triggerFinishVFX(pl) {
+    if (RM) return;
+    var cs = cellPx();
+    var shock = document.createElement('div');
+    shock.className = 'finish-shockwave';
+    shock.style.left = (9.5 * cs) + 'px';
+    shock.style.top = (9.5 * cs) + 'px';
+    boardEl.appendChild(shock);
+    setTimeout(function () { shock.remove(); }, 800);
+
+    var bRect = boardEl.getBoundingClientRect();
+    var screenX = bRect.left + 9.5 * cs;
+    var screenY = bRect.top + 9.5 * cs;
+    spawnBurst(screenX, screenY, 48, 'gold');
+  }
+
+  function triggerGraceVFX() {
+    if (RM) return;
+    var dt = document.querySelector('.dicetray');
+    if (dt) {
+      dt.classList.remove('grace-glow');
+      void dt.offsetWidth;
+      dt.classList.add('grace-glow');
+      setTimeout(function () { dt.classList.remove('grace-glow'); }, 1250);
+      var rect = dt.getBoundingClientRect();
+      spawnBurst(rect.left + rect.width / 2, rect.top + rect.height / 2, 28, 'grace');
+    }
+  }
+
+  function updateActiveTray(curPl) {
+    document.querySelectorAll('.tray').forEach(function (tr) {
+      var ti = parseInt(tr.getAttribute('data-tray'), 10);
+      var isCur = (ti === curPl && state !== 'over' && state !== 'idle');
+      tr.classList.toggle('active-turn', isCur);
+      if (isCur && PS[curPl]) {
+        tr.style.setProperty('--pl', PS[curPl].colour);
+      }
+    });
+  }
+
   (function initDust() {
+    if (!dust) return;
     function size() { dust.width = window.innerWidth; dust.height = window.innerHeight; }
     size();
-    var n = RM ? 0 : Math.max(22, Math.min(90, Math.floor(window.innerWidth / 20)));
+    var n = RM ? 0 : Math.max(30, Math.min(100, Math.floor(window.innerWidth / 18)));
     for (var i = 0; i < n; i++) {
-      motes.push({ x: Math.random(), y: Math.random(), s: 0.6 + Math.random() * 1.8, a: 0.12 + Math.random() * 0.4, vy: 0.00012 + Math.random() * 0.0003, ph: Math.random() * 6.28, vx: (Math.random() - 0.5) * 0.0001 });
+      var kind = Math.random() < 0.35 ? 'star' : (Math.random() < 0.65 ? 'ember' : 'dust');
+      var baseVx = (Math.random() - 0.5) * 0.00015;
+      var baseVy = kind === 'ember' ? (0.0002 + Math.random() * 0.0004) : (0.0001 + Math.random() * 0.00025);
+      motes.push({
+        x: Math.random(),
+        y: Math.random(),
+        s: (kind === 'star' ? 2.5 : kind === 'ember' ? 1.6 : 1.2) + Math.random() * 2.2,
+        a: 0.15 + Math.random() * 0.5,
+        baseVy: baseVy,
+        vy: baseVy,
+        baseVx: baseVx,
+        vx: baseVx,
+        ph: Math.random() * 6.28,
+        rot: Math.random() * 6.28,
+        vrot: (Math.random() - 0.5) * 0.02,
+        kind: kind
+      });
     }
-    window.addEventListener('resize', function () { size(); });
+    window.addEventListener('resize', size);
+    window.addEventListener('pointermove', function (e) {
+      if (RM) return;
+      var dx = e.clientX - pointer.x, dy = e.clientY - pointer.y;
+      pointer.x = e.clientX;
+      pointer.y = e.clientY;
+      pointer.vx = dx * 0.05;
+      pointer.vy = dy * 0.05;
+    }, { passive: true });
   })();
+
   (function dustLoop() {
-    if (RM) return;
+    if (RM || !dustCtx) return;
     dustCtx.clearRect(0, 0, dust.width, dust.height);
-    motes.forEach(function (m) {
+    var dw = dust.width, dh = dust.height;
+
+    // Ambient motes
+    for (var i = 0; i < motes.length; i++) {
+      var m = motes[i];
       m.y -= m.vy;
       m.x += m.vx;
       if (m.y < -0.05) m.y = 1.05;
       if (m.x < -0.05) m.x = 1.05;
       if (m.x > 1.05) m.x = -0.05;
       m.ph += 0.02;
-      var a = m.a * (0.5 + 0.5 * Math.sin(m.ph));
-      dustCtx.beginPath();
-      dustCtx.arc(m.x * dust.width, m.y * dust.height, m.s, 0, 6.283);
-      dustCtx.fillStyle = 'rgba(255, 215, 125, ' + a.toFixed(3) + ')';
-      dustCtx.fill();
-    });
+      m.rot += m.vrot;
+
+      // Pointer gentle swirl
+      var px = m.x * dw, py = m.y * dh;
+      var pdx = px - pointer.x, pdy = py - pointer.y;
+      var pdist2 = pdx * pdx + pdy * pdy;
+      if (pdist2 < 16000 && pdist2 > 4) {
+        var pdist = Math.sqrt(pdist2);
+        var force = (1 - pdist / 126) * 0.0003;
+        m.vx += (pdx / pdist) * force;
+        m.vy += (pdy / pdist) * force;
+      }
+      m.vx += (m.baseVx - m.vx) * 0.02;
+      m.vy += (m.baseVy - m.vy) * 0.02;
+
+      var alpha = m.a * (0.45 + 0.55 * Math.sin(m.ph));
+      if (m.kind === 'star') {
+        drawStar4(dustCtx, px, py, m.s * 1.8, m.s * 0.45, m.rot, 'rgba(255, 225, 140, ' + alpha.toFixed(3) + ')');
+      } else if (m.kind === 'ember') {
+        dustCtx.beginPath();
+        dustCtx.arc(px, py, m.s, 0, 6.283);
+        dustCtx.fillStyle = 'rgba(255, 160, 60, ' + alpha.toFixed(3) + ')';
+        dustCtx.fill();
+      } else {
+        dustCtx.beginPath();
+        dustCtx.arc(px, py, m.s, 0, 6.283);
+        dustCtx.fillStyle = 'rgba(255, 215, 125, ' + alpha.toFixed(3) + ')';
+        dustCtx.fill();
+      }
+    }
+
+    // Dynamic bursts (sparks & celebrations)
+    if (bursts.length > 0) {
+      for (var b = bursts.length - 1; b >= 0; b--) {
+        var p = bursts[b];
+        p.x += p.vx;
+        p.y += p.vy;
+        p.vy += 0.07;
+        p.vx *= 0.95;
+        p.vy *= 0.95;
+        p.rot += p.vrot;
+        p.life--;
+        if (p.life <= 0) {
+          bursts.splice(b, 1);
+          continue;
+        }
+        var pAlpha = (p.life / p.maxLife);
+        dustCtx.save();
+        dustCtx.globalAlpha = pAlpha;
+        if (p.isStar) {
+          drawStar4(dustCtx, p.x, p.y, p.size * 2, p.size * 0.5, p.rot, p.color);
+        } else {
+          dustCtx.beginPath();
+          dustCtx.arc(p.x, p.y, p.size, 0, 6.283);
+          dustCtx.fillStyle = p.color;
+          dustCtx.fill();
+        }
+        dustCtx.restore();
+      }
+    }
+
     requestAnimationFrame(dustLoop);
   })();
 
@@ -2378,6 +3530,20 @@ body {
     }
   }
   function onDocKey(e) {
+    if (ovlTutorial && !ovlTutorial.hidden) {
+      if (e.key === 'ArrowRight' || e.key === ' ') {
+        e.preventDefault();
+        if (tutStep < 4) setTutStep(tutStep + 1);
+        else startTutorialFirstGame();
+        return;
+      }
+      if (e.key === 'ArrowLeft') {
+        e.preventDefault();
+        if (tutStep > 0) setTutStep(tutStep - 1);
+        return;
+      }
+      if (e.key === 'Escape') { closeTutorial(); return; }
+    }
     if (e.key === 'r' || e.key === 'R') { if (ovlRules.hidden && !ovlPause.hidden) return; toggleRules(); return; }
     if (state === 'over') return;
     if (e.key === 'Escape') { closeModals(); return; }
@@ -2398,6 +3564,296 @@ body {
     }
   }
 
+  /* ---------------- tutorial (1st timers) ---------------- */
+  var ovlTutorial = $('ovl-tutorial');
+  var btnTutorialMenu = $('btn-tutorial-menu');
+  var btnTutorialTop = $('btn-tutorial-top');
+  var btnTutClose = $('btn-tut-close');
+  var btnTutSkip = $('btn-tut-skip');
+  var btnTutPrev = $('btn-tut-prev');
+  var btnTutNext = $('btn-tut-next');
+  var tutStepText = $('tut-step-text');
+  var btnTutRoll = $('btn-tut-roll');
+  var tutSticks = [$('tut-stick0'), $('tut-stick1'), $('tut-stick2')];
+  var tutSumVal = $('tut-sum-val');
+  var tutStep = 0;
+  var tutRolling = false;
+
+  function haptic(pattern) {
+    try {
+      if (navigator.vibrate) navigator.vibrate(pattern);
+    } catch (e) {}
+  }
+
+  function openTutorial(initialStep) {
+    if (!ovlTutorial) return;
+    ovlTutorial.hidden = false;
+    setTutStep(initialStep || 0);
+    initTutDice();
+    SFX.click();
+    haptic(20);
+  }
+
+  function closeTutorial() {
+    if (ovlTutorial) ovlTutorial.hidden = true;
+    try { localStorage.setItem('chaupad-seen-tutorial', 'true'); } catch (e) {}
+  }
+
+  function setTutStep(idx) {
+    idx = Math.max(0, Math.min(4, idx));
+    tutStep = idx;
+    var tutSlides = document.querySelectorAll('.tut-slide');
+    var tutDots = document.querySelectorAll('.tut-dot');
+    tutSlides.forEach(function (sl, i) {
+      sl.classList.toggle('active', i === idx);
+    });
+    tutDots.forEach(function (d, i) {
+      d.classList.toggle('cur', i === idx);
+      d.setAttribute('aria-selected', i === idx ? 'true' : 'false');
+    });
+    if (tutStepText) tutStepText.textContent = 'Step ' + (idx + 1) + ' of 5';
+    if (btnTutPrev) btnTutPrev.disabled = (idx === 0);
+    if (btnTutNext) {
+      if (idx === 4) {
+        btnTutNext.textContent = '⚔️ Begin My First Game';
+        btnTutNext.classList.add('pulse-action');
+      } else {
+        btnTutNext.textContent = 'Next Step →';
+        btnTutNext.classList.remove('pulse-action');
+      }
+    }
+    if (idx === 1) {
+      initTutDice();
+    }
+  }
+
+  /* Slide 1: Interactive Royal House Selection */
+  var TUT_HOUSES = {
+    S: { title: '◆ Sindoor', color: '#C8402F', text: '<b>South Arm (Player)</b>: Commands 4 vermilion pieces from the southern yard into battle.' },
+    W: { title: '▲ Mayur', color: '#10727F', text: '<b>West Arm (Rival / P2)</b>: Commands 4 peacock teal pieces starting at the western gate.' },
+    N: { title: '● Haldi', color: '#E8A317', text: '<b>North Arm (Rival / P3)</b>: Commands 4 turmeric gold pieces starting at the northern gate.' },
+    E: { title: '★ Neel', color: '#2F4B7C', text: '<b>East Arm (Rival / P4)</b>: Commands 4 royal indigo pieces starting at the eastern gate.' }
+  };
+  function selectTutHouse(houseKey) {
+    var h = TUT_HOUSES[houseKey];
+    if (!h) return;
+    document.querySelectorAll('.tut-house-card').forEach(function (c) {
+      c.classList.toggle('selected', c.getAttribute('data-house') === houseKey);
+    });
+    var spot = $('tut-house-spotlight');
+    if (spot) {
+      spot.innerHTML = '<span class="ths-badge" style="background:' + h.color + ';color:#fff">' + h.title + '</span><span class="ths-desc">' + h.text + '</span>';
+    }
+    SFX.click();
+    haptic(15);
+  }
+
+  function initTutDice() {
+    paintTutStick(tutSticks[0], 2);
+    paintTutStick(tutSticks[1], 5);
+    paintTutStick(tutSticks[2], 5);
+    if (tutSumVal) tutSumVal.innerHTML = '12';
+  }
+
+  function paintTutStick(el, v) {
+    if (!el) return;
+    el.innerHTML = '';
+    (PIPS[v] || ['c']).forEach(function (pos) {
+      var p = document.createElement('span');
+      p.className = 'pip ' + pos;
+      el.appendChild(p);
+    });
+  }
+
+  function doTutRoll() {
+    if (tutRolling) return;
+    tutRolling = true;
+    if (btnTutRoll) btnTutRoll.disabled = true;
+    var values = [
+      [1, 2, 5, 6][Math.floor(Math.random() * 4)],
+      [1, 2, 5, 6][Math.floor(Math.random() * 4)],
+      [1, 2, 5, 6][Math.floor(Math.random() * 4)]
+    ];
+    if (Math.random() < 0.35) {
+      var pick = [1, 2, 5, 6][Math.floor(Math.random() * 4)];
+      values = [pick, pick, pick];
+    }
+    var sum = values[0] + values[1] + values[2];
+    var isGrace = (values[0] === values[1] && values[1] === values[2]);
+    SFX.roll();
+    haptic([20, 25, 20]);
+    tutSticks.forEach(function (st, i) {
+      if (!st) return;
+      st.classList.remove('roll');
+      void st.offsetWidth;
+      st.classList.add('roll');
+      var cnt = 0;
+      var timer = setInterval(function () {
+        cnt++;
+        paintTutStick(st, [1, 2, 5, 6][Math.floor(Math.random() * 4)]);
+        if (cnt === 3) SFX.clack(i * 0.05 + 0.1);
+        if (cnt >= 4) clearInterval(timer);
+      }, 120);
+      setTimeout(function () { paintTutStick(st, values[i]); }, 750);
+    });
+    setTimeout(function () {
+      tutRolling = false;
+      if (btnTutRoll) btnTutRoll.disabled = false;
+      if (tutSumVal) {
+        if (isGrace) {
+          tutSumVal.innerHTML = sum + ' <span class="grace-tag">चौ · GRACE!</span>';
+          SFX.grace();
+          haptic([40, 50, 60]);
+        } else {
+          tutSumVal.innerHTML = String(sum);
+          SFX.clack(0.2);
+          haptic(15);
+        }
+      }
+    }, 820);
+  }
+
+  /* Slide 3: Interactive Grace (Chau) Test */
+  function doTutGraceTest() {
+    if (tutRolling) return;
+    tutRolling = true;
+    var btn = $('btn-tut-grace-test');
+    if (btn) btn.disabled = true;
+    var triples = [5, 6, 2, 1];
+    var val = triples[Math.floor(Math.random() * triples.length)];
+    SFX.roll();
+    haptic([30, 40, 50]);
+    tutSticks.forEach(function (st, i) {
+      if (!st) return;
+      st.classList.remove('roll');
+      void st.offsetWidth;
+      st.classList.add('roll');
+      var cnt = 0;
+      var timer = setInterval(function () {
+        cnt++;
+        paintTutStick(st, [1, 2, 5, 6][Math.floor(Math.random() * 4)]);
+        if (cnt === 3) SFX.clack(i * 0.05 + 0.1);
+        if (cnt >= 4) clearInterval(timer);
+      }, 120);
+      setTimeout(function () { paintTutStick(st, val); }, 750);
+    });
+    setTimeout(function () {
+      tutRolling = false;
+      if (btn) btn.disabled = false;
+      SFX.grace();
+      haptic([40, 60, 40, 80]);
+      if (tutSumVal) tutSumVal.innerHTML = (val * 3) + ' <span class="grace-tag">चौ · GRACE!</span>';
+      var fb = $('tut-grace-feedback');
+      if (fb) {
+        fb.style.display = 'block';
+        fb.innerHTML = '✨ <b>Triple ' + val + 's rolled (' + (val * 3) + ' steps)!</b> The court grants your move <b>PLUS an extra Bonus Throw!</b>';
+      }
+    }, 820);
+  }
+
+  /* Slide 4: Interactive Battle Simulation */
+  function simCapture() {
+    var p1 = $('tbs-p1');
+    var p2 = $('tbs-p2');
+    var msg = $('tut-battle-msg');
+    if (!p1 || !p2) return;
+    SFX.hop();
+    haptic(25);
+    p1.style.transform = 'translateX(26px) scale(1.15)';
+    setTimeout(function () {
+      SFX.capture();
+      haptic([40, 60, 40]);
+      p2.style.transform = 'translate(60px, -40px) scale(0) rotate(180deg)';
+      p2.style.opacity = '0';
+      if (msg) {
+        msg.innerHTML = '⚔️ <b>Enemy Captured!</b> Sent back to yard. <b>+1 Bonus Throw Awarded!</b>';
+        msg.style.color = '#ff6854';
+      }
+      setTimeout(function () {
+        p1.style.transform = 'none';
+        p2.style.transform = 'none';
+        p2.style.opacity = '1';
+      }, 1800);
+    }, 320);
+  }
+
+  function simCastle() {
+    var shield = $('tbs-shield');
+    var msg = $('tut-battle-msg');
+    if (!shield || !msg) return;
+    SFX.hop();
+    haptic(20);
+    shield.style.transform = 'scale(1.4)';
+    setTimeout(function () {
+      SFX.clack(0.1);
+      shield.style.transform = 'scale(1)';
+      msg.innerHTML = '🛡️ <b>Castle Safe Haven!</b> Gold star cells are safe havens. Pieces cannot be captured here!';
+      msg.style.color = 'var(--zariH)';
+    }, 300);
+  }
+
+  /* Slide 5: Interactive Lotus Celebration */
+  function celebrateLotus() {
+    SFX.win();
+    haptic([60, 40, 80]);
+    var msg = $('tut-lotus-msg');
+    if (msg) {
+      msg.style.display = 'block';
+      msg.innerHTML = '🌸 <b>Victory Declared!</b> All 4 pieces resting in the Charkoni!';
+    }
+    if (btnTutNext) {
+      btnTutNext.classList.add('pulse-action');
+      btnTutNext.style.boxShadow = '0 0 25px rgba(255, 215, 0, 0.9)';
+    }
+  }
+
+  /* Touch Swipe Navigation for Phones */
+  var tutTouchStartX = 0;
+  var tutTouchStartY = 0;
+  var tutTouchStartTime = 0;
+
+  function onTutTouchStart(e) {
+    if (!e.touches || e.touches.length !== 1) return;
+    tutTouchStartX = e.touches[0].clientX;
+    tutTouchStartY = e.touches[0].clientY;
+    tutTouchStartTime = Date.now();
+  }
+
+  function onTutTouchEnd(e) {
+    if (!e.changedTouches || e.changedTouches.length !== 1) return;
+    var dx = e.changedTouches[0].clientX - tutTouchStartX;
+    var dy = e.changedTouches[0].clientY - tutTouchStartY;
+    var dt = Date.now() - tutTouchStartTime;
+
+    // Only swipe if predominantly horizontal and far enough
+    if (Math.abs(dx) > 36 && Math.abs(dx) > Math.abs(dy) * 1.3 && dt < 600) {
+      if (dx < 0) {
+        // Swipe left -> Next Step
+        if (tutStep < 4) {
+          setTutStep(tutStep + 1);
+          haptic(15);
+        } else {
+          startTutorialFirstGame();
+        }
+      } else {
+        // Swipe right -> Prev Step
+        if (tutStep > 0) {
+          setTutStep(tutStep - 1);
+          haptic(15);
+        }
+      }
+    }
+  }
+
+  function startTutorialFirstGame() {
+    closeTutorial();
+    setMode('1p');
+    var c = modeToCfg('1p');
+    c.aiHuman = [true, false, false, false];
+    c.diff = 1;
+    startGame(c);
+  }
+
   /* ---------------- modals & settings ---------------- */
   function toggleRules() {
     var open = ovlRules.hidden;
@@ -2407,6 +3863,7 @@ body {
   function closeModals() {
     ovlRules.hidden = true;
     ovlPause.hidden = true;
+    if (ovlTutorial) ovlTutorial.hidden = true;
   }
   function pauseGame() {
     if (state === 'over') return;
@@ -2455,6 +3912,14 @@ body {
     });
   }
   function bindMenu() {
+    if (btnTutorialMenu) btnTutorialMenu.addEventListener('click', function () { openTutorial(0); });
+    var tutBanner = $('tutorial-banner');
+    if (tutBanner) {
+      tutBanner.addEventListener('click', function (e) {
+        if (e.target !== btnTutorialMenu) openTutorial(0);
+      });
+      tutBanner.style.cursor = 'pointer';
+    }
     document.querySelectorAll('#mode-grid .mode-btn').forEach(function (b) {
       b.addEventListener('click', function () {
         SFX.click();
@@ -2482,6 +3947,62 @@ body {
   }
 
   function bindGame() {
+    if (btnTutorialTop) btnTutorialTop.addEventListener('click', function () { openTutorial(0); });
+    if (btnTutClose) btnTutClose.addEventListener('click', closeTutorial);
+    if (btnTutSkip) btnTutSkip.addEventListener('click', closeTutorial);
+    if (btnTutPrev) btnTutPrev.addEventListener('click', function () { setTutStep(tutStep - 1); });
+    if (btnTutNext) btnTutNext.addEventListener('click', function () {
+      if (tutStep < 4) setTutStep(tutStep + 1);
+      else startTutorialFirstGame();
+    });
+    if (btnTutRoll) btnTutRoll.addEventListener('click', doTutRoll);
+    document.querySelectorAll('.tut-dot').forEach(function (d) {
+      d.addEventListener('click', function () {
+        var s = parseInt(this.getAttribute('data-step'), 10);
+        if (!isNaN(s)) {
+          setTutStep(s);
+          haptic(15);
+        }
+      });
+    });
+
+    // Mobile touch swipe gestures
+    if (ovlTutorial) {
+      ovlTutorial.addEventListener('touchstart', onTutTouchStart, { passive: true });
+      ovlTutorial.addEventListener('touchend', onTutTouchEnd, { passive: true });
+    }
+
+    // Pasha sticks direct tap to roll
+    tutSticks.forEach(function (st) {
+      if (st) {
+        st.addEventListener('click', function () {
+          doTutRoll();
+        });
+      }
+    });
+
+    // Royal House cards interactive inspection
+    document.querySelectorAll('.tut-house-card').forEach(function (hc) {
+      hc.addEventListener('click', function () {
+        var hKey = this.getAttribute('data-house');
+        if (hKey) selectTutHouse(hKey);
+      });
+    });
+
+    // Grace test button
+    var bTutGrace = $('btn-tut-grace-test');
+    if (bTutGrace) bTutGrace.addEventListener('click', doTutGraceTest);
+
+    // Battle simulation buttons
+    var bSimCap = $('btn-tut-sim-capture');
+    if (bSimCap) bSimCap.addEventListener('click', simCapture);
+    var bSimCas = $('btn-tut-sim-castle');
+    if (bSimCas) bSimCas.addEventListener('click', simCastle);
+
+    // Lotus celebration button
+    var bLotus = $('btn-tut-lotus-celebrate');
+    if (bLotus) bLotus.addEventListener('click', celebrateLotus);
+
     btnRoll.addEventListener('click', function () { if (state === 'roll' && !P[cur].ai) doRoll(cur); });
     btnConfirm.addEventListener('click', confirmSelected);
     btnHint.addEventListener('click', function () { if (state === 'choose') { snapUndoHint(); giveHint(); } });
@@ -2497,6 +4018,10 @@ body {
     $('btn-rules').addEventListener('click', toggleRules);
     $('btn-rules-top').addEventListener('click', toggleRules);
     $('btn-rules-close').addEventListener('click', function () { ovlRules.hidden = true; });
+    var bRulesTut = $('btn-rules-to-tutorial');
+    if (bRulesTut) bRulesTut.addEventListener('click', function () { ovlRules.hidden = true; openTutorial(0); });
+    var bPauseTut = $('btn-pause-tutorial');
+    if (bPauseTut) bPauseTut.addEventListener('click', function () { ovlPause.hidden = true; openTutorial(0); });
     btnSound.addEventListener('click', function () { setSound(!SOUND); });
     btnSoundTop.addEventListener('click', function () { setSound(!SOUND); });
     $('btn-rematch').addEventListener('click', function () { ovlEnd.hidden = true; location.reload(); });
@@ -2513,11 +4038,13 @@ body {
     ovlEnd.hidden = true;
     ovlPause.hidden = true;
     ovlRules.hidden = true;
+    if (ovlTutorial) ovlTutorial.hidden = true;
     screenGame.hidden = true;
     screenMenu.hidden = false;
     $('btn-pause-top').hidden = true;
     $('btn-menu-top').hidden = true;
     state = 'idle';
+    updateActiveTray(-1);
     setStatus('Awaiting the throw', 'Choose a mode from the court to begin.');
   }
 
@@ -2530,6 +4057,7 @@ body {
     bindGame();
     setMode('1p');
     setStatus('Awaiting the throw', 'Choose a mode from the court to begin.');
+    initTutDice();
     document.addEventListener('pointerdown', function once() {
       ac();
       SFX.load();
