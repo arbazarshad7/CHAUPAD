@@ -7,7 +7,7 @@
 <title>Chaupad — The Cloth Cross Race</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;800&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;800&family=Outfit:wght@300;400;500;600;700&family=Noto+Sans+Devanagari:wght@400;600;700&family=Noto+Sans+Oriya:wght@400;600;700&display=swap" rel="stylesheet" />
 <style>
 /* OD-LAYOUT-PRIMITIVES v1 — structure only: display, flex/grid, overflow, wrapping, ratio.
    Put this @layer first; product CSS outside the layer always wins. */
@@ -68,8 +68,8 @@
   --cell: 34px;
   --ts: calc(var(--cell) * 0.56);
   --pad: calc(var(--cell) * 2.2);
-  --serif: 'Cinzel', Georgia, 'Times New Roman', serif;
-  --sans: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  --serif: 'Cinzel', 'Noto Sans Devanagari', 'Noto Sans Oriya', Georgia, 'Times New Roman', serif;
+  --sans: 'Outfit', 'Noto Sans Devanagari', 'Noto Sans Oriya', 'Nirmala UI', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -323,7 +323,7 @@ body {
 .mode-btn.lg { grid-column: 1 / -1; }
 .mode-btn:hover, .mode-btn.cur { border-color: rgba(255, 215, 0, 0.9); background: rgba(255, 215, 0, 0.07); transform: translateY(-1px); }
 .mode-btn:focus-visible { outline: 2px solid var(--zariH); outline-offset: 2px; }
-.opts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin: 14px 0 18px; }
+.opts { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 12px; margin: 14px 0 18px; }
 .opt { text-align: left; }
 .opt label { font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--inkD); display: block; margin-bottom: 6px; }
 .opt select, .opt input { width: 100%; }
@@ -1801,7 +1801,7 @@ body {
   .mode-btn .s { font-size: 9.5px; line-height: 1.25; margin-top: 2px; }
   .seatrow { margin: 4px 0 6px; gap: 4px !important; }
   .seat { padding: 4px 8px; font-size: 10px; border-radius: 6px; }
-  .opts { margin: 6px 0 10px; gap: 6px; }
+  .opts { margin: 6px 0 10px; gap: 6px; grid-template-columns: repeat(auto-fit, minmax(105px, 1fr)); }
   .opt label { font-size: 10px; margin-bottom: 2px; }
   .fld { height: 32px; font-size: 11.5px; padding: 0 8px; border-radius: 8px; }
   .chk { font-size: 10.5px; }
@@ -1858,12 +1858,13 @@ body {
     <div class="brand">
       <svg class="crest" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="28" fill="none" stroke="#D4AF37" stroke-width="2" stroke-dasharray="3 4"/><circle cx="32" cy="32" r="20" fill="rgba(212,175,55,0.12)" stroke="#D4AF37" stroke-width="1"/><path d="M32 8l4 9 9 4-9 4-4 9-4-9-9-4 9-4z" fill="#D4AF37" opacity="0.9"/><circle cx="32" cy="32" r="4" fill="#FFD700"/></svg>
       <div>
-        <div class="t">चौपड़ <em>CHAUPAḌ</em></div>
-        <div class="st">The Cloth Cross Race</div>
+        <div class="t" id="brand-title">CHAUPAD</div>
+        <div class="st" id="brand-sub">The Cloth Cross Race</div>
       </div>
     </div>
     <div class="spacer"></div>
     <div class="top-actions" id="top-actions">
+      <button class="btn ghost sm" id="btn-lang-top" type="button" title="Change Language">🌐 English</button>
       <button class="btn ghost sm" id="btn-tutorial-top" type="button">Tutorial</button>
       <button class="btn ghost sm" id="btn-rules-top" type="button">Rules</button>
       <button class="btn ghost sm" id="btn-sound-top" type="button" aria-pressed="true">Sound: On</button>
@@ -1877,52 +1878,60 @@ body {
     <section id="screen-menu">
       <div class="menu-card">
         <svg class="menu-crest" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="28" fill="none" stroke="#D4AF37" stroke-width="2" stroke-dasharray="3 4"/><circle cx="32" cy="32" r="20" fill="rgba(212,175,55,0.12)" stroke="#D4AF37" stroke-width="1"/><path d="M32 8l4 9 9 4-9 4-4 9-4-9-9-4 9-4z" fill="#D4AF37"/><circle cx="32" cy="32" r="4" fill="#FFD700"/></svg>
-        <h1>चौपड़ <span class="d">CHAUPAD</span></h1>
-        <div class="sub">Chaupar — the Cloth Cross Race</div>
-        <p class="line">Pachisi&rsquo;s courtly sibling: bring all four of your lacquered gothi around the embroidered cross and into the Charkoni. Murky throws, gracious captures.</p>
+        <h1 id="menu-main-title">CHAUPAD</h1>
+        <div class="sub" id="menu-main-sub">The Cloth Cross Race</div>
+        <p class="line" id="menu-main-line">Pachisi&rsquo;s courtly sibling: bring all four of your lacquered gothi around the embroidered cross and into the Charkoni. Murky throws, gracious captures.</p>
 
         <!-- Tutorial Banner for 1st Timers -->
         <div class="tutorial-banner" id="tutorial-banner">
           <div class="tb-icon" aria-hidden="true">📖</div>
           <div class="tb-text">
-            <div class="tb-title">New to Chaupad? <span class="tb-badge">1st Timers</span></div>
-            <div class="tb-sub">Learn the cloth cross, pasha long-dice, and grace throws in 1 minute.</div>
+            <div class="tb-title" id="tb-title-text">New to Chaupad? <span class="tb-badge">1st Timers</span></div>
+            <div class="tb-sub" id="tb-sub-text">Learn the cloth cross, pasha long-dice, and grace throws in 1 minute.</div>
           </div>
           <button class="btn tb-btn" id="btn-tutorial-menu" type="button">Start Tutorial</button>
         </div>
 
         <div class="mode-grid" id="mode-grid" role="group" aria-label="Game mode">
-          <button class="mode-btn" data-mode="1p" type="button"><span class="m">Vs AI</span><span class="s">You play Sindoor (South); three AI rivals</span></button>
-          <button class="mode-btn" data-mode="2p" type="button"><span class="m">Two Players</span><span class="s">Local pass-and-play</span></button>
-          <button class="mode-btn lg" data-mode="4p" type="button"><span class="m">Four Players</span><span class="s">Free-for-all at the court</span></button>
-          <button class="mode-btn lg" data-mode="team" type="button"><span class="m">Partnerships 2v2</span><span class="s">Opposite players ride together on one board</span></button>
+          <button class="mode-btn" data-mode="1p" type="button"><span class="m" id="mode-1p-m">Vs AI</span><span class="s" id="mode-1p-s">You play Sindoor (South); three AI rivals</span></button>
+          <button class="mode-btn" data-mode="2p" type="button"><span class="m" id="mode-2p-m">Two Players</span><span class="s" id="mode-2p-s">Local pass-and-play</span></button>
+          <button class="mode-btn lg" data-mode="4p" type="button"><span class="m" id="mode-4p-m">Four Players</span><span class="s" id="mode-4p-s">Free-for-all at the court</span></button>
+          <button class="mode-btn lg" data-mode="team" type="button"><span class="m" id="mode-team-m">Partnerships 2v2</span><span class="s" id="mode-team-s">Opposite players ride together on one board</span></button>
         </div>
         <div class="seatrow od-cluster" id="seatrow" style="--od-gap:8px"></div>
         <div class="opts">
           <div class="opt">
-            <label for="se-diff">AI Calibre</label>
-            <select class="fld" id="se-diff">
-              <option value="0">Easy — rash but loose</option>
-              <option value="1" selected>Medium — courtly policy</option>
-              <option value="2">Hard — expects your reply</option>
+            <label for="se-lang" id="lbl-se-lang">Language</label>
+            <select class="fld" id="se-lang">
+              <option value="en" selected>English</option>
+              <option value="hi">हिन्दी (Hindi)</option>
+              <option value="or">ଓଡ଼ିଆ (Odia)</option>
             </select>
           </div>
           <div class="opt">
-            <label for="se-fx">Ambience</label>
-            <label class="chk" for="se-sound"><input type="checkbox" id="se-sound" checked /><span>Lamplit sound</span></label>
-            <label class="chk" for="se-motion"><input type="checkbox" id="se-motion" checked /><span>Flicker &amp; dust</span></label>
+            <label for="se-diff" id="lbl-se-diff">AI Calibre</label>
+            <select class="fld" id="se-diff">
+              <option value="0" id="opt-diff-0">Easy — rash but loose</option>
+              <option value="1" id="opt-diff-1" selected>Medium — courtly policy</option>
+              <option value="2" id="opt-diff-2">Hard — expects your reply</option>
+            </select>
+          </div>
+          <div class="opt">
+            <label for="se-sound" id="lbl-se-ambience">Ambience</label>
+            <label class="chk" for="se-sound"><input type="checkbox" id="se-sound" checked /><span id="lbl-se-sound">Lamplit sound</span></label>
+            <label class="chk" for="se-motion"><input type="checkbox" id="se-motion" checked /><span id="lbl-se-motion">Flicker &amp; dust</span></label>
           </div>
         </div>
         <button class="btn primary start" id="btn-start" type="button">Begin the Game</button>
-        <p class="cultural">Chaupad honours the anthology of Native &amp; Indigenous Sports of India (CUTM, 2025) — a cloth cross race, drawn on khadi silk, thrown with pasha long-dice.</p>
-        <div class="menu-foot">Keyboard: Space = roll/confirm &bull; 1&ndash;4 = pick move, 1&ndash;4 differ per side &bull; R = rules</div>
+        <p class="cultural" id="menu-cultural">Chaupad honours the anthology of Native &amp; Indigenous Sports of India (CUTM, 2025) — a cloth cross race, drawn on khadi silk, thrown with pasha long-dice.</p>
+        <div class="menu-foot" id="menu-foot">Keyboard: Space = roll/confirm • 1–4 = pick move • R = rules</div>
       </div>
     </section>
 
     <!-- ================= GAME ================= -->
     <section id="screen-game" hidden>
       <aside class="hud players" aria-label="Players">
-        <h3>Players</h3>
+        <h3 id="hud-players-h3">Players</h3>
         <div class="pscore" id="pscore"></div>
       </aside>
 
@@ -2206,17 +2215,7 @@ body {
 <div class="overlay" id="ovl-rules" hidden>
   <div class="modal" role="dialog" aria-modal="true" aria-labelledby="rules-title">
     <h2 id="rules-title">How to Play <span class="g">Chaupad</span></h2>
-    <p><b>Objective.</b> First player (or partnership) to bring every lacquered <i>gothi</i> around the cross and into the central Charkoni wins. Others finish in rank order.</p>
-    <ul>
-      <li><b>The cloth.</b> Four arms of embroidered velvet-cloth squares run from a central 3&times;3 sanctuary. Each player owns a side: <span style="color:var(--zariH)">◆</span> Sindoor South, <span style="color:var(--zariH)">▲</span> Mayur West, <span style="color:var(--zariH)">●</span> Haldi North, <span style="color:var(--zariH)">★</span> Neel East.</li>
-      <li><b>Throwing.</b> Three long pasha sticks, each carved with 1, 2, 5 or 6. The total of the three is your step count.</li>
-      <li><b>Moving.</b> Tap a glowing gothi to preview its landing square, then confirm. One new gothi may enter from the tray on any throw.</li>
-      <li><b>Grace (चौ).</b> A triple of equal sticks grants a bonus throw as well as your move.</li>
-      <li><b>Capture.</b> Landing on an enemy on any square that is not a castle sends it home and grants a bonus throw. Castles are marked with the gold star-and-cross.</li>
-      <li><b>Home.</b> Reaching the top of your own arm by an exact land turns the gothi inward; descend your private column to the Charkoni. Any throw equal to or greater than the last steps brings it home.</li>
-      <li><b>Partnerships.</b> In 2v2, opposite players are allies; they may share squares, and the team wins when all eight gothis are home.</li>
-    </ul>
-    <p class="cultural" style="font-size:13px;color:var(--inkD);margin-top:12px">From &ldquo;An Anthology of Native &amp; Indigenous Sports of India&rdquo; (CUTM, 2025) — Pachisi&rsquo;s courtly sibling, thrown with stick dice.</p>
+    <div id="rules-body"></div>
     <button class="btn ghost sm" id="btn-rules-to-tutorial" type="button" style="margin-top:12px;width:100%;border-color:rgba(255,215,0,0.6)">📖 View Illustrated 1st-Timer Tutorial</button>
     <button class="btn close" id="btn-rules-close" type="button">Close</button>
   </div>
@@ -2229,6 +2228,7 @@ body {
     <div class="actions" style="margin-top:6px">
       <button class="btn primary wide" id="btn-resume" type="button">Resume</button>
       <button class="btn" id="btn-restart" type="button">Restart this Game</button>
+      <button class="btn" id="btn-pause-lang" type="button">Language: English</button>
       <button class="btn" id="btn-pause-tutorial" type="button">Tutorial</button>
       <button class="btn" id="btn-pause-rules" type="button">Rules</button>
       <button class="btn wide" id="btn-pause-quit" type="button">Quit to Court</button>
@@ -2250,8 +2250,548 @@ body {
 </div>
 
 <script>
+
 (function () {
   'use strict';
+
+/* ---------------- localization (i18n) ---------------- */
+  var currentLang = 'en';
+  try {
+    var savedLang = localStorage.getItem('chaupad-lang');
+    if (savedLang === 'hi' || savedLang === 'or' || savedLang === 'en') {
+      currentLang = savedLang;
+    }
+  } catch (e) {}
+
+  var I18N = {
+    en: {
+      pageTitle: 'Chaupad — The Cloth Cross Race',
+      brandTitle: 'CHAUPAD',
+      brandSub: 'The Cloth Cross Race',
+      menuTitle: 'CHAUPAD',
+      menuSub: 'The Cloth Cross Race',
+      menuLine: 'Pachisi’s courtly sibling: bring all four of your lacquered gothi around the embroidered cross and into the Charkoni. Murky throws, gracious captures.',
+      tutBannerTitle: 'New to Chaupad? <span class="tb-badge">1st Timers</span>',
+      tutBannerSub: 'Learn the cloth cross, pasha long-dice, and grace throws in 1 minute.',
+      tutBannerBtn: 'Start Tutorial',
+      mode1pTitle: 'Vs AI',
+      mode1pSub: 'You play Sindoor (South); three AI rivals',
+      mode2pTitle: 'Two Players',
+      mode2pSub: 'Local pass-and-play',
+      mode4pTitle: 'Four Players',
+      mode4pSub: 'Free-for-all at the court',
+      modeTeamTitle: 'Partnerships 2v2',
+      modeTeamSub: 'Opposite players ride together on one board',
+      lblAiCalibre: 'AI Calibre',
+      diffEasy: 'Easy — rash but loose',
+      diffMed: 'Medium — courtly policy',
+      diffHard: 'Hard — expects your reply',
+      lblLang: 'Language',
+      lblAmbience: 'Ambience',
+      lblSound: 'Lamplit sound',
+      lblMotion: 'Flicker & dust',
+      btnStart: 'Begin the Game',
+      culturalNote: 'Chaupad honours the anthology of Native & Indigenous Sports of India (CUTM, 2025) — a cloth cross race, drawn on khadi silk, thrown with pasha long-dice.',
+      menuFoot: 'Keyboard: Space = roll/confirm • 1–4 = pick move • R = rules',
+      hudPlayers: 'Players',
+      hudTurn: 'Game controls',
+      stAwaiting: 'Awaiting the throw',
+      stChooseMode: 'Choose a mode from the court to begin.',
+      stToPlay: '{p} to play',
+      stPressRoll: 'Tap Roll — or press Space.',
+      stStudies: '{p} studies the cloth…',
+      stAiPlanning: 'The AI is planning its move.',
+      stThrows: '{p} throws the pasha…',
+      stDiceTumble: 'long dice tumble in the tray.',
+      stNoMove: '{p} has no legal move',
+      stPassTurn: 'The turn passes.',
+      stPassGrace: '{p} passes the grace',
+      stNoMovePossible: 'No move was possible.',
+      stRolls: '{p} rolls {s}',
+      stChauExcl: ' — Chau!',
+      stOnlyOneMove: 'Only one move is possible — tap Confirm.',
+      stPickGothi: 'Tap a glowing gothi, then Confirm.',
+      stMoves: '{p} moves {action}',
+      stWill: '{p} will {action}',
+      stTapConfirm: 'Tap Confirm, or press Space.',
+      stCaptureBonus: '{p} captures {enemies}! A bonus throw is granted.',
+      stTurnsInward: '{p} turns inward',
+      stDescendingHome: 'Now descending the private home column.',
+      stBonusEarned: '{p} earns a bonus throw ({c}/3)',
+      stBonusKeep: 'A capture or Chau keeps the turn.',
+      stHintPrefix: 'Hint: ',
+      stHintSub: 'Best wisdom of the court.',
+      stUndone: 'Undone — back to {p}',
+      stRestored: 'The pasha is restored to the tray.',
+      rollTap: 'tap Roll',
+      rollTotal: 'total',
+      rollGrace: 'Chau · Bonus Throw!',
+      btnRoll: 'Roll the Pasha',
+      btnConfirm: 'Confirm Move',
+      btnHint: 'Hint',
+      btnUndo: 'Undo',
+      btnRules: 'Rules',
+      btnSound: 'Sound',
+      btnSoundOn: 'Sound: On',
+      btnSoundOff: 'Sound: Off',
+      btnPause: 'Pause',
+      btnQuit: 'Quit to Court',
+      btnResume: 'Resume',
+      btnRestart: 'Restart this Game',
+      btnTutorial: 'Tutorial',
+      btnMenu: 'Menu',
+      capFlag: 'Capture',
+      homeLaneFlag: 'Home Lane',
+      tagAi: 'AI',
+      tagSeat: 'Seat',
+      tagYou: 'You',
+      rank1: '1st',
+      rank2: '2nd',
+      rank3: '3rd',
+      rank4: '4th',
+      gothiHome: '{n} gothi home',
+      endTitleSolo: '{p} <span class="g">Triumphs</span>',
+      endTitleTeam: 'Team {p1} &amp; {p2} Rules the Court',
+      endNoteSolo: 'For the house of {p}, rematch or return to the court.',
+      endNoteTeam: 'For the partnership of {p}, rematch or return to the court.',
+      btnRematch: 'Rematch',
+      pauseTitle: 'Paused at the <span class="g">Pavilion</span>',
+      rulesTitle: 'How to Play <span class="g">Chaupad</span>',
+      rulesClose: 'Close',
+      rulesToTut: '📖 View Illustrated 1st-Timer Tutorial',
+      tutMainTitle: 'Chaupad <span class="g">Tutorial</span>',
+      tutStepOf: 'Step {cur} of 5',
+      tutPrev: '← Prev',
+      tutNext: 'Next Step →',
+      tutBeginGame: '⚔️ Begin My First Game',
+      tutClose: 'Close',
+      tutSwipe: '👈 Swipe to navigate 👉',
+      actions: {
+        enter: 'a fresh gothi onto the board',
+        enterAction: 'enter a gothi',
+        moveNormal: 'along the cloth',
+        moveToGate: 'to the home gate',
+        capture: 'capturing an enemy!',
+        captureAction: 'capture an enemy',
+        turnHome: 'down the home column',
+        turnHomeAction: 'turn down the home column',
+        advanceHome: 'advance toward the Charkoni',
+        fin: 'into the Charkoni',
+        finAction: 'bring a gothi home'
+      },
+      rulesHtml: '<p><b>Objective.</b> First player (or partnership) to bring every lacquered <i>gothi</i> around the cross and into the central Charkoni wins. Others finish in rank order.</p>' +
+        '<ul>' +
+        '<li><b>The cloth.</b> Four arms of embroidered velvet-cloth squares run from a central 3&times;3 sanctuary. Each player owns a side: <span style="color:var(--zariH)">◆</span> Sindoor South, <span style="color:var(--zariH)">▲</span> Mayur West, <span style="color:var(--zariH)">●</span> Haldi North, <span style="color:var(--zariH)">★</span> Neel East.</li>' +
+        '<li><b>Throwing.</b> Three long pasha sticks, each carved with 1, 2, 5 or 6. The total of the three is your step count.</li>' +
+        '<li><b>Moving.</b> Tap a glowing gothi to preview its landing square, then confirm. One new gothi may enter from the tray on any throw.</li>' +
+        '<li><b>Grace (Chau).</b> A triple of equal sticks grants a bonus throw as well as your move.</li>' +
+        '<li><b>Capture.</b> Landing on an enemy on any square that is not a castle sends it home and grants a bonus throw. Castles are marked with the gold star-and-cross.</li>' +
+        '<li><b>Home.</b> Reaching the top of your own arm by an exact land turns the gothi inward; descend your private column to the Charkoni. Any throw equal to or greater than the last steps brings it home.</li>' +
+        '<li><b>Partnerships.</b> In 2v2, opposite players are allies; they may share squares, and the team wins when all eight gothis are home.</li>' +
+        '</ul>' +
+        '<p class="cultural" style="font-size:13px;color:var(--inkD);margin-top:12px">From &ldquo;An Anthology of Native &amp; Indigenous Sports of India&rdquo; (CUTM, 2025) — Pachisi&rsquo;s courtly sibling, thrown with stick dice.</p>',
+      tutSlides: [
+        {
+          title: 'The Cloth Cross & 4 Royal Houses',
+          body: 'Welcome to <b>Chaupad</b>, India&rsquo;s regal cloth-cross race game. You command four lacquered wooden pieces (<i>gothi</i>). Your quest is to march all four pieces along the cross and guide them into the central lotus sanctuary called the <b>Charkoni</b>.',
+          hint: '👆 Tap any house to inspect',
+          callout: '<b>First Rule:</b> You can bring a fresh gothi out from your yard tray onto your home gate on <b>any throw</b>! No special roll of 1 or 6 is needed to enter.'
+        },
+        {
+          title: 'Throwing the Pasha (Long-Dice)',
+          body: 'Unlike Western cubes, Chaupad is played with <b>three rectangular wooden sticks</b> called <i>pasha</i>. Each stick has four carved faces: <b>1, 2, 5, and 6</b> (there are no 3s or 4s!).',
+          hint: '👆 Tap sticks or button to roll',
+          btnRoll: '🎲 Tap to Throw Pasha',
+          resPrefix: 'Total: ',
+          callout: 'The <b>sum of all three sticks</b> (between 3 and 18) is your movement count. Tap a highlighted piece on your turn to preview where it lands!'
+        },
+        {
+          title: 'Grace Throws (Chau / Triples)',
+          body: 'When all three sticks reveal the <b>exact same face</b> (such as 1-1-1, 2-2-2, 5-5-5, or 6-6-6), the court declares a <b>Grace Throw (Chau)</b>!',
+          hint: '👆 Tap below to test a live Grace throw',
+          banner: '★ CHAU &bull; BONUS THROW ★',
+          sub: 'Three identical sticks grant you your move <b>PLUS an extra throw</b>!',
+          btnGrace: '✨ Test Roll a Grace (Chau)',
+          callout: '<b>Bonus Chain:</b> Up to 3 consecutive bonus throws can be chained in a single turn through Grace rolls or enemy captures!'
+        },
+        {
+          title: 'Marching, Castles & Captures',
+          body: 'Pieces travel <b>counter-clockwise</b> around the 72 squares of the cloth cross.',
+          hint: '👆 Tap buttons below to test battle rules',
+          btnCap: '⚔️ Simulate Capture',
+          btnCas: '🛡️ Test Castle Defense',
+          lblOpen: 'Open Road',
+          lblCastle: '⭐ Castle Safe Haven',
+          initMsg: 'Tap a button above to test Capture vs Castle Sanctuary!',
+          callout: '<b>Stacking:</b> Multiple pawns of your own house can share a square, marching together as a reinforced squad.'
+        },
+        {
+          title: 'Home Column & Charkoni Victory',
+          body: 'After completing the outer circuit of all four arms, your gothi arrives back at your home gate:',
+          hint: '👆 Tap to celebrate reaching home',
+          lotusTitle: '🌸 Descending into the Lotus Charkoni',
+          lotusDesc: '1. Reaching your gate by an exact count turns your gothi <b>inward</b> down your private column.<br/>2. Any throw <b>equal to or greater</b> than remaining steps carries the piece safely home into the central <b>Charkoni</b>.<br/>3. The first player to bring all <b>4 gothi home</b> triumphs over the court!',
+          btnLotus: '🌸 Celebrate Charkoni Lotus',
+          callout: '<b>You are ready!</b> Begin your first match as <b>Sindoor (South)</b> against courtly AI rivals.'
+        }
+      ]
+    },
+    hi: {
+      pageTitle: 'चौपड़ — वस्त्र क्रॉस दौड़',
+      brandTitle: 'चौपड़',
+      brandSub: 'वस्त्र क्रॉस दौड़',
+      menuTitle: 'चौपड़',
+      menuSub: 'वस्त्र क्रॉस दौड़',
+      menuLine: 'पचीसी का राजसी रूप: अपनी चारों गोटियों को कशीदाकारी क्रॉस के चारों ओर ले जाकर चारकोनी में पहुँचाएं। रोमांचक पासा और शानदार विजय।',
+      tutBannerTitle: 'चौपड़ में नए हैं? <span class="tb-badge">शुरुआत करें</span>',
+      tutBannerSub: '१ मिनट में वस्त्र क्रॉस, पासा और चौ बोनस फेंकना सीखें।',
+      tutBannerBtn: 'ट्यूटोरियल शुरू करें',
+      mode1pTitle: 'एआई के विरुद्ध',
+      mode1pSub: 'आप सिन्दूर (दक्षिण); तीन एआई प्रतिद्वंद्वी',
+      mode2pTitle: 'दो खिलाड़ी',
+      mode2pSub: 'स्थानीय पास-एंड-प्ले',
+      mode4pTitle: 'चार खिलाड़ी',
+      mode4pSub: 'दरबार में मुक्त मुकाबला',
+      modeTeamTitle: 'साझेदारी 2v2',
+      modeTeamSub: 'आमने-सामने के खिलाड़ी एक टीम में खेलते हैं',
+      lblAiCalibre: 'एआई क्षमता',
+      diffEasy: 'सरल — आसान और ढीला',
+      diffMed: 'मध्यम — दरबारी नीति',
+      diffHard: 'कठिन — गहरी चालें',
+      lblLang: 'भाषा',
+      lblAmbience: 'माहौल',
+      lblSound: 'दीपक ध्वनि',
+      lblMotion: 'लौ और धूलिकण',
+      btnStart: 'खेल शुरू करें',
+      culturalNote: 'चौपड़ भारत के देशी और पारंपरिक खेलों के संकलन (CUTM, 2025) का सम्मान करता है — रेशमी वस्त्र पर खेला जाने वाला पासा दौड़ खेल।',
+      menuFoot: 'कीबोर्ड: Space = फेंकें/पुष्टि • 1–4 = चाल चुनें • R = नियम',
+      hudPlayers: 'खिलाड़ी',
+      hudTurn: 'खेल नियंत्रण',
+      stAwaiting: 'फेंकने की प्रतीक्षा',
+      stChooseMode: 'शुरू करने के लिए दरबार से एक मोड चुनें।',
+      stToPlay: '{p} की बारी',
+      stPressRoll: 'पासा फेंकें — या Space दबाएं।',
+      stStudies: '{p} बिसात का अध्ययन कर रहा है…',
+      stAiPlanning: 'एआई अपनी चाल की योजना बना रहा है।',
+      stThrows: '{p} ने पासा फेंका…',
+      stDiceTumble: 'पासा खांचे में लुढ़क रहा है।',
+      stNoMove: '{p} के पास कोई वैध चाल नहीं है',
+      stPassTurn: 'बारी आगे बढ़ती है।',
+      stPassGrace: '{p} चौ का उपयोग नहीं कर सका',
+      stNoMovePossible: 'कोई चाल संभव नहीं थी।',
+      stRolls: '{p} का अंक {s}',
+      stChauExcl: ' — चौ!',
+      stOnlyOneMove: 'केवल एक चाल संभव है — पुष्टि करें पर टैप करें।',
+      stPickGothi: 'चमकती गोटी चुनें, फिर पुष्टि करें।',
+      stMoves: '{p} चला: {action}',
+      stWill: '{p} करेगा: {action}',
+      stTapConfirm: 'पुष्टि करें पर टैप करें, या Space दबाएं।',
+      stCaptureBonus: '{p} ने {enemies} को काटा! अतिरिक्त फेंक प्राप्त हुआ।',
+      stTurnsInward: '{p} भीतर मुड़ा',
+      stDescendingHome: 'अब निजी गृह मार्ग से आगे बढ़ रहा है।',
+      stBonusEarned: '{p} को अतिरिक्त फेंक मिला ({c}/3)',
+      stBonusKeep: 'काटने या चौ से बारी बनी रहती है।',
+      stHintPrefix: 'संकेत: ',
+      stHintSub: 'दरबार का सर्वोत्तम परामर्श।',
+      stUndone: 'वापस किया गया — {p} पर लौटे',
+      stRestored: 'पासा पुनः तैयार है।',
+      rollTap: 'पासा फेंकें',
+      rollTotal: 'कुल',
+      rollGrace: 'चौ · अतिरिक्त फेंक!',
+      btnRoll: 'पासा फेंकें',
+      btnConfirm: 'चाल की पुष्टि करें',
+      btnHint: 'संकेत',
+      btnUndo: 'वापस',
+      btnRules: 'नियम',
+      btnSound: 'ध्वनि',
+      btnSoundOn: 'ध्वनि: चालू',
+      btnSoundOff: 'ध्वनि: बंद',
+      btnPause: 'रोकें',
+      btnQuit: 'दरबार लौटें',
+      btnResume: 'जारी रखें',
+      btnRestart: 'खेल पुनः प्रारंभ करें',
+      btnTutorial: 'ट्यूटोरियल',
+      btnMenu: 'मेनू',
+      capFlag: 'कब्ज़ा',
+      homeLaneFlag: 'गृह मार्ग',
+      tagAi: 'एआई',
+      tagSeat: 'स्थान',
+      tagYou: 'आप',
+      rank1: 'प्रथम',
+      rank2: 'द्वितीय',
+      rank3: 'तृतीय',
+      rank4: 'चतुर्थ',
+      gothiHome: '{n} गोटी घर पहुंची',
+      endTitleSolo: '{p} <span class="g">विजयी हुआ</span>',
+      endTitleTeam: 'टीम {p1} और {p2} का राज',
+      endNoteSolo: '{p} के घराने के लिए, पुनः खेलें या दरबार लौटें।',
+      endNoteTeam: '{p} की साझेदारी के लिए, पुनः खेलें या दरबार लौटें।',
+      btnRematch: 'पुनः खेलें',
+      pauseTitle: 'विश्राम मंडप में <span class="g">स्थगित</span>',
+      rulesTitle: 'चौपड़ खेलने के <span class="g">नियम</span>',
+      rulesClose: 'बंद करें',
+      rulesToTut: '📖 सचित्र ट्यूटोरियल देखें',
+      tutMainTitle: 'चौपड़ <span class="g">ट्यूटोरियल</span>',
+      tutStepOf: 'चरण {cur} / 5',
+      tutPrev: '← पिछला',
+      tutNext: 'अगला चरण →',
+      tutBeginGame: '⚔️ पहला खेल शुरू करें',
+      tutClose: 'बंद करें',
+      tutSwipe: '👈 नेविगेट करने के लिए स्वाइप करें 👉',
+      actions: {
+        enter: 'अहाते से नई गोटी बिसात पर',
+        enterAction: 'नई गोटी बिसात पर लाएं',
+        moveNormal: 'वस्त्र पर आगे',
+        moveToGate: 'गृह द्वार तक',
+        capture: 'शत्रु की गोटी काटते हुए!',
+        captureAction: 'शत्रु की गोटी काटें',
+        turnHome: 'गृह मार्ग में',
+        turnHomeAction: 'गृह मार्ग में मुड़ें',
+        advanceHome: 'चारकोनी की ओर आगे बढ़ें',
+        fin: 'चारकोनी में प्रवेश',
+        finAction: 'गोटी को घर पहुँचाएं'
+      },
+      rulesHtml: '<p><b>उद्देश्य:</b> अपनी चारों लाख की गोटियों को वस्त्र क्रॉस के चारों ओर घुमाकर केंद्रीय चारकोनी में सबसे पहले पहुँचाने वाला खिलाड़ी (या साझेदारी) विजयी होता है।</p>' +
+        '<ul>' +
+        '<li><b>वस्त्र बिसात:</b> चार मखमली भुजाएं केंद्रीय ३&times;३ चारकोनी से निकलती हैं। प्रत्येक खिलाड़ी का अपना घराना है: <span style="color:var(--zariH)">◆</span> सिन्दूर दक्षिण, <span style="color:var(--zariH)">▲</span> मयूर पश्चिम, <span style="color:var(--zariH)">●</span> हल्दी उत्तर, <span style="color:var(--zariH)">★</span> नील पूर्व।</li>' +
+        '<li><b>पासा फेंकना:</b> तीन लंबे लकड़ी के पासे, जिन पर १, २, ५ और ६ अंकित हैं। तीनों का योग आपकी चाल की दूरी है।</li>' +
+        '<li><b>चाल चलना:</b> चमकती गोटी पर टैप करके उसके गंतव्य को देखें, फिर पुष्टि करें। किसी भी फेंक पर अहाते से नई गोटी गृह द्वार पर लाई जा सकती है।</li>' +
+        '<li><b>चौ (अतिरिक्त फेंक):</b> तीनों पासों पर समान अंक आने पर चौ होती है, जिससे चाल के साथ एक अतिरिक्त फेंक मिलता है।</li>' +
+        '<li><b>काटना:</b> गैर-सुरक्षित वर्ग पर शत्रु की गोटी पर उतरने से वह अहाते लौट जाती है और अतिरिक्त फेंक मिलता है। सुनहरे तारे वाले वर्ग सुरक्षित किले हैं।</li>' +
+        '<li><b>घर पहुँचना:</b> अपनी भुजा का चक्कर पूरा करने पर गोटी निजी गृह मार्ग में मुड़ती है; चारकोनी में पहुँचने पर गोटी सफल मानी जाती है।</li>' +
+        '<li><b>साझेदारी (2v2):</b> आमने-सामने के खिलाड़ी मित्र होते हैं; वे एक साथ वर्ग साझा कर सकते हैं और सभी ८ गोटियां घर पहुँचने पर जीतते हैं।</li>' +
+        '</ul>' +
+        '<p class="cultural" style="font-size:13px;color:var(--inkD);margin-top:12px">भारतीय पारंपरिक खेल संकलन (CUTM, 2025) से — पचीसी का प्राचीन पासा साथी।</p>',
+      tutSlides: [
+        {
+          title: 'वस्त्र क्रॉस और ४ राजसी घराने',
+          body: '<b>चौपड़</b> में आपका स्वागत है, जो भारत का प्रतिष्ठित वस्त्र-क्रॉस दौड़ खेल है। आप चार लाख की गोटियों का संचालन करते हैं। आपका लक्ष्य चारों गोटियों को घुमाकर केंद्रीय कमल चारकोनी में पहुँचाना है।',
+          hint: '👆 किसी भी घराने पर टैप करके देखें',
+          callout: '<b>पहला नियम:</b> आप <b>किसी भी फेंक पर</b> अपने अहाते से नई गोटी अपने गृह द्वार पर ला सकते हैं! इसके लिए १ या ६ की आवश्यकता नहीं है।'
+        },
+        {
+          title: 'पासा फेंकना (लंबा पासा)',
+          body: 'सामान्य पासे के विपरीत, चौपड़ <b>तीन लंबे लकड़ी के पासों</b> से खेला जाता है। प्रत्येक पासे पर चार फलक होते हैं: <b>१, २, ५ और ६</b> (३ या ४ नहीं होते)।',
+          hint: '👆 फेंकने के लिए पासे या बटन पर टैप करें',
+          btnRoll: '🎲 पासा फेंकने के लिए टैप करें',
+          resPrefix: 'कुल: ',
+          callout: 'तीनों पासों का <b>योग (३ से १८ के बीच)</b> आपकी चाल की दूरी है। अपनी बारी पर चमकती गोटी चुनकर उसका गंतव्य देखें!'
+        },
+        {
+          title: 'चौ फेंक (समान पासे / बोनस)',
+          body: 'जब तीनों पासों पर <b>एक समान फलक</b> आए (जैसे १-१-१, २-२-२, ५-५-५, या ६-६-६), तो दरबार इसे <b>चौ</b> घोषित करता है!',
+          hint: '👆 चौ का परीक्षण करने के लिए नीचे टैप करें',
+          banner: '★ चौ &bull; अतिरिक्त फेंक ★',
+          sub: 'तीन समान पासे आने पर चाल के साथ <b>एक अतिरिक्त फेंक भी मिलता है!</b>',
+          btnGrace: '✨ चौ (बोनस) का परीक्षण करें',
+          callout: '<b>बोनस शृंखला:</b> चौ या शत्रु को काटने से एक बारी में अधिकतम ३ लगातार अतिरिक्त फेंक प्राप्त किए जा सकते हैं!'
+        },
+        {
+          title: 'प्रस्थान, किले और काटना',
+          body: 'गोटियां वस्त्र क्रॉस के ७२ वर्गों पर <b>घड़ी की विपरीत दिशा (वामावर्त)</b> में चलती हैं।',
+          hint: '👆 युद्ध के नियमों की जांच के लिए नीचे टैप करें',
+          btnCap: '⚔️ काटने का अनुकरण',
+          btnCas: '🛡️ किले की सुरक्षा जांचें',
+          lblOpen: 'खुला मार्ग',
+          lblCastle: '⭐ किला सुरक्षित स्थान',
+          initMsg: 'काटने बनाम किले की सुरक्षा का परीक्षण करने के लिए ऊपर टैप करें!',
+          callout: '<b>गोटियों का जमावड़ा:</b> एक ही घराने की कई गोटियां एक ही वर्ग पर मिलकर एक साथ चल सकती हैं।'
+        },
+        {
+          title: 'गृह मार्ग और चारकोनी विजय',
+          body: 'चारों भुजाओं की परिक्रमा पूरी करने के बाद आपकी गोटी अपने गृह द्वार पर लौटती है:',
+          hint: '👆 घर पहुँचने का उत्सव मनाने के लिए टैप करें',
+          lotusTitle: '🌸 कमल चारकोनी में प्रवेश',
+          lotusDesc: '१. द्वार पर पहुँचकर गोटी <b>भीतर</b> निजी गृह मार्ग में मुड़ती है।<br/>२. शेष दूरी के बराबर या अधिक अंक आने पर गोटी सुरक्षित केंद्रीय <b>चारकोनी</b> में पहुँच जाती है।<br/>३. अपनी सभी <b>४ गोटियां घर पहुँचाने वाला</b> प्रथम खिलाड़ी विजयी होता है!',
+          btnLotus: '🌸 चारकोनी कमल विजय मनाएं',
+          callout: '<b>आप तैयार हैं!</b> दरबार में एआई प्रतिद्वंद्वियों के विरुद्ध <b>सिन्दूर (दक्षिण)</b> के रूप में अपना पहला खेल शुरू करें।'
+        }
+      ]
+    },
+    or: {
+      pageTitle: 'ଚୌପଡ଼ — ବସ୍ତ୍ର କ୍ରସ୍ ଦୌଡ଼',
+      brandTitle: 'ଚୌପଡ଼',
+      brandSub: 'ବସ୍ତ୍ର କ୍ରସ୍ ଦୌଡ଼',
+      menuTitle: 'ଚୌପଡ଼',
+      menuSub: 'ବସ୍ତ୍ର କ୍ରସ୍ ଦୌଡ଼',
+      menuLine: 'ପଚିଶିର ରାଜକୀୟ ସଂସ୍କରଣ: ନିଜର ଚାରୋଟି ଗୋଟିକୁ କ୍ରସ୍ ଚାରିପଟେ ବୁଲାଇ ଚାରକୋଣିରେ ପ୍ରବେଶ କରାନ୍ତୁ। ରୋମାଞ୍ଚକର ପାଶା ଓ ବିଜୟ।',
+      tutBannerTitle: 'ଚୌପଡ଼ରେ ନୂଆ? <span class="tb-badge">ଆରମ୍ଭ କରନ୍ତୁ</span>',
+      tutBannerSub: '୧ ମିନିଟରେ ବସ୍ତ୍ର କ୍ରସ୍, ପାଶା ଏବଂ ଚୌ ବୋନସ ଶିଖନ୍ତୁ।',
+      tutBannerBtn: 'ଟ୍ୟୁଟୋରିଆଲ୍ ଆରମ୍ଭ କରନ୍ତୁ',
+      mode1pTitle: 'ଏଆଇ ବିପକ୍ଷରେ',
+      mode1pSub: 'ଆପଣ ସିନ୍ଦୂର (ଦକ୍ଷିଣ); ତିନି ଏଆଇ ପ୍ରତିଦ୍ୱନ୍ଦ୍ୱୀ',
+      mode2pTitle: 'ଦୁଇ ଖେଳାଳି',
+      mode2pSub: 'ଲୋକାଲ୍ ପାସ୍-ଏଣ୍ଡ-ପ୍ଲେ',
+      mode4pTitle: 'ଚାରି ଖେଳାଳି',
+      mode4pSub: 'ଦରବାରରେ ମୁକ୍ତ ପ୍ରତିଯୋଗିତା',
+      modeTeamTitle: 'ଭାଗିଦାରୀ ୨v୨',
+      modeTeamSub: 'ସାମ୍ନାସାମ୍ନି ଖେଳାଳି ଗୋଟିଏ ଦଳରେ ଖେଳନ୍ତି',
+      lblAiCalibre: 'ଏଆଇ ଦକ୍ଷତା',
+      diffEasy: 'ସହଜ — ସରଳ ଓ ନରମ',
+      diffMed: 'ମଧ୍ୟମ — ଦରବାରୀ ନୀତି',
+      diffHard: 'କଠିନ — ଗଭୀର ଚାଲ୍',
+      lblLang: 'ଭାଷା',
+      lblAmbience: 'ପରିବେଶ',
+      lblSound: 'ଦୀପ ଶବ୍ଦ',
+      lblMotion: 'ଅଗ୍ନି ଓ ଧୂଳିକଣା',
+      btnStart: 'ଖେଳ ଆରମ୍ଭ କରନ୍ତୁ',
+      culturalNote: 'ଚୌପଡ଼ ଭାରତର ପାରମ୍ପରିକ ଓ ଦେଶୀୟ କ୍ରୀଡ଼ା ସଙ୍କଳନ (CUTM, 2025) କୁ ସମ୍ମାନ ଜଣାଏ — ରେଶମୀ ବସ୍ତ୍ର ଉପରେ ପାଶା ଦ୍ୱାରା ଖେଳାଯାଉଥିବା ଦୌଡ଼ ଖେଳ।',
+      menuFoot: 'କୀବୋର୍ଡ୍: Space = ଫିଙ୍ଗନ୍ତୁ/ନିଶ୍ଚିତ • 1–4 = ଚାଲ୍ ବାଛନ୍ତୁ • R = ନିୟମ',
+      hudPlayers: 'ଖେଳାଳି',
+      hudTurn: 'ଖେଳ ନିୟନ୍ତ୍ରଣ',
+      stAwaiting: 'ଫିଙ୍ଗିବା ଅପେକ୍ଷା',
+      stChooseMode: 'ଆରମ୍ଭ କରିବାକୁ ଦରବାରରୁ ଏକ ମୋଡ୍ ବାଛନ୍ତୁ।',
+      stToPlay: '{p}ଙ୍କ ପାଳି',
+      stPressRoll: 'ପାଶା ଫିଙ୍ଗନ୍ତୁ — କିମ୍ବା Space ଦବାନ୍ତୁ।',
+      stStudies: '{p} ବୋର୍ଡ୍ ଅନୁଧ୍ୟାନ କରୁଛନ୍ତି…',
+      stAiPlanning: 'ଏଆଇ ଚାଲ୍ ଯୋଜନା କରୁଛି।',
+      stThrows: '{p} ପାଶା ଫିଙ୍ଗିଲେ…',
+      stDiceTumble: 'ପାଶା ଖୋପରେ ଗଡ଼ୁଛି।',
+      stNoMove: '{p}ଙ୍କ ପାଖରେ କୌଣସି ବୈଧ ଚାଲ୍ ନାହିଁ',
+      stPassTurn: 'ପାଳି ଆଗକୁ ବଢ଼ିଲା।',
+      stPassGrace: '{p} ଚୌ ବ୍ୟବହାର କରିପାରିଲେ ନାହିଁ',
+      stNoMovePossible: 'କୌଣସି ଚାଲ୍ ସମ୍ଭବ ନଥିଲା।',
+      stRolls: '{p}ଙ୍କ ଅଙ୍କ {s}',
+      stChauExcl: ' — ଚୌ!',
+      stOnlyOneMove: 'କେବଳ ଗୋଟିଏ ଚାଲ୍ ସମ୍ଭବ — ନିଶ୍ଚିତ ଉପରେ ଟ୍ୟାପ୍ କରନ୍ତୁ।',
+      stPickGothi: 'ଚମକୁଥିବା ଗୋଟି ବାଛନ୍ତୁ, ତା’ପରେ ନିଶ୍ଚିତ କରନ୍ତୁ।',
+      stMoves: '{p} ଚାଲିଲେ: {action}',
+      stWill: '{p} କରିବେ: {action}',
+      stTapConfirm: 'ନିଶ୍ଚିତ ଉପରେ ଟ୍ୟାପ୍ କରନ୍ତୁ, କିମ୍ବା Space ଦବାନ୍ତୁ।',
+      stCaptureBonus: '{p} {enemies}ଙ୍କୁ କାଟିଲେ! ବୋନସ ଫିଙ୍ଗା ମିଳିଲା।',
+      stTurnsInward: '{p} ଭିତରକୁ ବୁଲିଲେ',
+      stDescendingHome: 'ବର୍ତ୍ତମାନ ନିଜ ଗୃହ ପଥରେ ଆଗକୁ ବଢୁଛନ୍ତି।',
+      stBonusEarned: '{p}ଙ୍କୁ ବୋନସ ଫିଙ୍ଗା ମିଳିଲା ({c}/3)',
+      stBonusKeep: 'କାଟିବା ବା ଚୌ ଦ୍ୱାରା ପାଳି ରହିଥାଏ।',
+      stHintPrefix: 'ସଙ୍କେତ: ',
+      stHintSub: 'ଦରବାରର ଶ୍ରେଷ୍ଠ ପରାମର୍ଶ।',
+      stUndone: 'ପଛକୁ ଫେରାଗଲା — {p}ଙ୍କ ପାଖକୁ',
+      stRestored: 'ପାଶା ପୁନର୍ବାର ସଜଡ଼ା ଗଲା।',
+      rollTap: 'ଫିଙ୍ଗନ୍ତୁ',
+      rollTotal: 'ମୋଟ',
+      rollGrace: 'ଚୌ · ବୋନସ ଫିଙ୍ଗା!',
+      btnRoll: 'ପାଶା ଫିଙ୍ଗନ୍ତୁ',
+      btnConfirm: 'ଚାଲ୍ ନିଶ୍ଚିତ କରନ୍ତୁ',
+      btnHint: 'ସଙ୍କେତ',
+      btnUndo: 'ପଛକୁ',
+      btnRules: 'ନିୟମ',
+      btnSound: 'ଶବ୍ଦ',
+      btnSoundOn: 'ଶବ୍ଦ: ଅନ୍',
+      btnSoundOff: 'ଶବ୍ଦ: ଅଫ୍',
+      btnPause: 'ରଖନ୍ତୁ',
+      btnQuit: 'ଦରବାର ଫେରନ୍ତୁ',
+      btnResume: 'ଜାରି ରଖନ୍ତୁ',
+      btnRestart: 'ପୁନର୍ବାର ଆରମ୍ଭ କରନ୍ତୁ',
+      btnTutorial: 'ଟ୍ୟୁଟୋରିଆଲ୍',
+      btnMenu: 'ମେନୁ',
+      capFlag: 'କବ୍‌ଜା',
+      homeLaneFlag: 'ଗୃହ ପଥ',
+      tagAi: 'ଏଆଇ',
+      tagSeat: 'ସ୍ଥାନ',
+      tagYou: 'ଆପଣ',
+      rank1: 'ପ୍ରଥମ',
+      rank2: 'ଦ୍ୱିତୀୟ',
+      rank3: 'ତୃତୀୟ',
+      rank4: 'ଚତୁର୍ଥ',
+      gothiHome: '{n} ଗୋଟି ଘରେ ପହଞ୍ଚିଲା',
+      endTitleSolo: '{p} <span class="g">ବିଜୟୀ ହେଲେ</span>',
+      endTitleTeam: 'ଦଳ {p1} ଏବଂ {p2}ଙ୍କ ରାଜୁତି',
+      endNoteSolo: '{p}ଙ୍କ ଘର ପାଇଁ, ପୁଣି ଖେଳନ୍ତୁ ବା ଦରବାର ଫେରନ୍ତୁ।',
+      endNoteTeam: '{p}ଙ୍କ ଭାଗିଦାରୀ ପାଇଁ, ପୁଣି ଖେଳନ୍ତୁ ବା ଦରବାର ଫେରନ୍ତୁ।',
+      btnRematch: 'ପୁଣି ଖେଳନ୍ତୁ',
+      pauseTitle: 'ବିଶ୍ରାମ ମଣ୍ଡପରେ <span class="g">ସ୍ଥଗିତ</span>',
+      rulesTitle: 'ଚୌପଡ଼ ଖେଳର <span class="g">ନିୟମ</span>',
+      rulesClose: 'ବନ୍ଦ କରନ୍ତୁ',
+      rulesToTut: '📖 ସଚିତ୍ର ଟ୍ୟୁଟୋରିଆଲ୍ ଦେଖନ୍ତୁ',
+      tutMainTitle: 'ଚୌପଡ଼ <span class="g">ଟ୍ୟୁଟୋରିଆଲ୍</span>',
+      tutStepOf: 'ପର୍ଯ୍ୟାୟ {cur} / 5',
+      tutPrev: '← ପୂର୍ବ',
+      tutNext: 'ପରବର୍ତ୍ତୀ ପର୍ଯ୍ୟାୟ →',
+      tutBeginGame: '⚔️ ପ୍ରଥମ ଖେଳ ଆରମ୍ଭ କରନ୍ତୁ',
+      tutClose: 'ବନ୍ଦ କରନ୍ତୁ',
+      tutSwipe: '👈 ଆଗପଛ କରିବାକୁ ସ୍ୱାଇପ୍ କରନ୍ତୁ 👉',
+      actions: {
+        enter: 'ଅଗଣାରୁ ନୂଆ ଗୋଟି ବୋର୍ଡ୍‌କୁ',
+        enterAction: 'ନୂଆ ଗୋଟି ପ୍ରବେଶ କରାନ୍ତୁ',
+        moveNormal: 'ବସ୍ତ୍ର ଉପରେ ଆଗକୁ',
+        moveToGate: 'ଗୃହ ଦ୍ୱାର ପର୍ଯ୍ୟନ୍ତ',
+        capture: 'ଶତ୍ରୁ ଗୋଟି କାଟିବା ସହ!',
+        captureAction: 'ଶତ୍ରୁ ଗୋଟି କାଟନ୍ତୁ',
+        turnHome: 'ଗୃହ ପଥରେ',
+        turnHomeAction: 'ଗୃହ ପଥରେ ମୁଡ଼ନ୍ତୁ',
+        advanceHome: 'ଚାରକୋଣି ଆଡ଼କୁ ଆଗକୁ ବଢ଼ନ୍ତୁ',
+        fin: 'ଚାରକୋଣିରେ ପ୍ରବେଶ',
+        finAction: 'ଗୋଟି ଘରେ ପହଞ୍ଚାନ୍ତୁ'
+      },
+      rulesHtml: '<p><b>ଉଦ୍ଦେଶ୍ୟ:</b> ନିଜର ଚାରୋଟି କାଠ ଗୋଟିକୁ ବସ୍ତ୍ର କ୍ରସ୍ ଚାରିପଟେ ବୁଲାଇ କେନ୍ଦ୍ରୀୟ ଚାରକୋଣିରେ ସର୍ବପ୍ରଥମେ ପହଞ୍ଚାଇବା ଖେଳାଳି (ବା ଦଳ) ବିଜୟୀ ହୁଅନ୍ତି।</p>' +
+        '<ul>' +
+        '<li><b>ବସ୍ତ୍ର ପଟ:</b> ଚାରୋଟି ମଖମଲ ବାହୁ କେନ୍ଦ୍ରୀୟ ୩&times;୩ ଚାରକୋଣିରୁ ବାହାରିଥାଏ। ପ୍ରତ୍ୟେକ ଖେଳାଳିଙ୍କ ନିଜ ଦିଗ: <span style="color:var(--zariH)">◆</span> ସିନ୍ଦୂର ଦକ୍ଷିଣ, <span style="color:var(--zariH)">▲</span> ମୟୂର ପଶ୍ଚିମ, <span style="color:var(--zariH)">●</span> ହଳଦୀ ଉତ୍ତର, <span style="color:var(--zariH)">★</span> ନୀଳ ପୂର୍ବ।</li>' +
+        '<li><b>ପାଶା ଫିଙ୍ଗିବା:</b> ତିନୋଟି କାଠ ପାଶା, ଯେଉଁଥିରେ ୧, ୨, ୫ ଓ ୬ ଅଙ୍କିତ ଥାଏ। ତିନୋଟିର ଯୋଗଫଳ ଆପଣଙ୍କ ଚାଲ୍‌ର ଦୂରତା।</li>' +
+        '<li><b>ଚାଲ୍ ଚାଲିବା:</b> ଚମକୁଥିବା ଗୋଟି ଉପରେ ଟ୍ୟାପ୍ କରି ଗନ୍ତବ୍ୟ ଦେଖନ୍ତୁ ଓ ନିଶ୍ଚିତ କରନ୍ତୁ। ଯେକୌଣସି ଫିଙ୍ଗାରେ ଅଗଣାରୁ ଗୋଟି ଗୃହ ଦ୍ୱାରକୁ ଆସିପାରେ।</li>' +
+        '<li><b>ଚୌ (ବୋନସ ଫିଙ୍ଗା):</b> ତିନୋଟି ଯାକ ପାଶାରେ ସମାନ ଅଙ୍କ ଆସିଲେ ଚୌ ହୁଏ ଏବଂ ଏକ ଅତିରିକ୍ତ ଫିଙ୍ଗା ମିଳେ।</li>' +
+        '<li><b>କାଟିବା:</b> ଅସୁରକ୍ଷିତ ଘରେ ଶତ୍ରୁ ଗୋଟି ଉପରେ ପଡ଼ିଲେ ତାହା ଅଗଣାକୁ ଫେରିଯାଏ ଓ ବୋନସ ଫିଙ୍ଗା ମିଳେ। ସୁନେଲି ତାରା ଥିବା ଘର ସୁରକ୍ଷିତ।</li>' +
+        '<li><b>ଘରେ ପ୍ରବେଶ:</b> ନିଜ ବାହୁର ଚକ୍କର ଶେଷ କରି ଗୋଟି ଗୃହ ପଥରେ ପ୍ରବେଶ କରେ ଏବଂ ଚାରକୋଣିରେ ବିଜୟ ଲାଭ କରେ।</li>' +
+        '<li><b>ଭାଗିଦାରୀ (୨v୨):</b> ସାମ୍ନାସାମ୍ନି ଖେଳାଳି ସାଥୀ ଅଟନ୍ତି; ସେମାନେ ଏକାଠି ଘର ସେୟାର କରିପାରିବେ ଏବଂ ସମସ୍ତ ୮ଟି ଗୋଟି ଘରେ ପହଞ୍ଚିଲେ ଜିତନ୍ତି।</li>' +
+        '</ul>' +
+        '<p class="cultural" style="font-size:13px;color:var(--inkD);margin-top:12px">ଭାରତର ପାରମ୍ପରିକ କ୍ରୀଡ଼ା ସଙ୍କଳନ (CUTM, 2025) ରୁ ପ୍ରାପ୍ତ — ପଚିଶିର କାଠ ପାଶା ସଂସ୍କରଣ।</p>',
+      tutSlides: [
+        {
+          title: 'ବସ୍ତ୍ର କ୍ରସ୍ ଓ ୪ ରାଜକୀୟ ଘର',
+          body: '<b>ଚୌପଡ଼</b>ରେ ଆପଣଙ୍କୁ ସ୍ୱାଗତ, ଯାହା ଭାରତର ଏକ ପ୍ରସିଦ୍ଧ ବସ୍ତ୍ର-କ୍ରସ୍ ଦୌଡ଼ ଖେଳ। ଆପଣ ଚାରୋଟି କାଠ ଗୋଟିକୁ ନିୟନ୍ତ୍ରଣ କରନ୍ତି। ଆପଣଙ୍କ ଲକ୍ଷ୍ୟ ହେଉଛି ଚାରୋଟି ଗୋଟିକୁ ବୁଲାଇ କେନ୍ଦ୍ରୀୟ ପଦ୍ମ ଚାରକୋଣିରେ ପହଞ୍ଚାଇବା।',
+          hint: '👆 ଯେକୌଣସି ଘର ଉପରେ ଟ୍ୟାପ୍ କରି ଦେଖନ୍ତୁ',
+          callout: '<b>ପ୍ରଥମ ନିୟମ:</b> ଆପଣ <b>ଯେକୌଣସି ଫିଙ୍ଗାରେ</b> ଅଗଣାରୁ ନୂଆ ଗୋଟି ଗୃହ ଦ୍ୱାରକୁ ଆଣିପାରିବେ! ଏଥିପାଇଁ ୧ କିମ୍ବା ୬ ଦରକାର ନାହିଁ।'
+        },
+        {
+          title: 'ପାଶା ଫିଙ୍ଗିବା (ଲମ୍ବା ପାଶା)',
+          body: 'ସାଧାରଣ ଲୁଡୋ ପାଶା ପରି ନୁହେଁ, ଚୌପଡ଼ <b>ତିନୋଟି ଲମ୍ବା କାଠ ପାଶା</b> ଦ୍ୱାରା ଖେଳାଯାଏ। ପ୍ରତ୍ୟେକ ପାଶାରେ ୪ଟି ପାର୍ଶ୍ୱ ଥାଏ: <b>୧, ୨, ୫ ଓ ୬</b> (୩ ବା ୪ ନଥାଏ)।',
+          hint: '👆 ଫିଙ୍ଗିବା ପାଇଁ ପାଶା ବା ବଟନ୍ ଟ୍ୟାପ୍ କରନ୍ତୁ',
+          btnRoll: '🎲 ପାଶା ଫିଙ୍ଗିବାକୁ ଟ୍ୟାପ୍ କରନ୍ତୁ',
+          resPrefix: 'ମୋଟ: ',
+          callout: 'ତିନୋଟି ପାଶାର <b>ଯୋଗଫଳ (୩ ରୁ ୧୮ ମଧ୍ୟରେ)</b> ଆପଣଙ୍କ ଚାଲ୍‌ର ଦୂରତା। ନିଜ ପାଳିରେ ଚମକୁଥିବା ଗୋଟି ବାଛି ଗନ୍ତବ୍ୟ ଦେଖନ୍ତୁ!'
+        },
+        {
+          title: 'ଚୌ ଫିଙ୍ଗା (ସମାନ ପାଶା / ବୋନସ)',
+          body: 'ଯେତେବେଳେ ତିନୋଟି ଯାକ ପାଶାରେ <b>ଗୋଟିଏ ସମାନ ସଂଖ୍ୟା</b> ଆସେ (ଯେପରି ୧-୧-୧, ୨-୨-୨, ୫-୫-୫, ବା ୬-୬-୬), ଦରବାର ଏହାକୁ <b>ଚୌ</b> ଘୋଷଣା କରେ!',
+          hint: '👆 ଚୌ ପରୀକ୍ଷଣ ପାଇଁ ତଳେ ଟ୍ୟାପ୍ କରନ୍ତୁ',
+          banner: '★ ଚୌ &bull; ବୋନସ ଫିଙ୍ଗା ★',
+          sub: 'ତିନୋଟି ସମାନ ପାଶା ଆସିଲେ ଚାଲ୍ ସହ <b>ଏକ ଅତିରିକ୍ତ ଫିଙ୍ଗା ମିଳେ!</b>',
+          btnGrace: '✨ ଚୌ (ବୋନସ) ପରୀକ୍ଷଣ କରନ୍ତୁ',
+          callout: '<b>ବୋନସ ଶୃଙ୍ଖଳା:</b> ଚୌ ବା ଶତ୍ରୁ କାଟିବା ଦ୍ୱାରା ଗୋଟିଏ ପାଳିରେ ସର୍ବାଧିକ ୩ଟି ଲଗାତାର ବୋନସ ଫିଙ୍ଗା ମିଳିପାରେ!'
+        },
+        {
+          title: 'ଯାତ୍ରା, କିଲ୍ଲା ଏବଂ କାଟିବା',
+          body: 'ଗୋଟିଗୁଡ଼ିକ ବସ୍ତ୍ର କ୍ରସ୍‌ର ୭୨ଟି ଘର ଚାରିପଟେ <b>ବାମାବର୍ତ୍ତ (ଆଣ୍ଟି-କ୍ଲକ୍‌ୱାଇଜ୍)</b> ଦିଗରେ ଚାଲନ୍ତି।',
+          hint: '👆 ଯୁଦ୍ଧ ନିୟମ ପରୀକ୍ଷା ପାଇଁ ତଳେ ଟ୍ୟାପ୍ କରନ୍ତୁ',
+          btnCap: '⚔️ କାଟିବାର ଅନୁକରଣ',
+          btnCas: '🛡️ କିଲ୍ଲାର ସୁରକ୍ଷା ପରୀକ୍ଷା',
+          lblOpen: 'ଖୋଲା ରାସ୍ତା',
+          lblCastle: '⭐ କିଲ୍ଲା ସୁରକ୍ଷିତ ସ୍ଥାନ',
+          initMsg: 'କାଟିବା ବନାମ କିଲ୍ଲା ସୁରକ୍ଷା ପରୀକ୍ଷା ପାଇଁ ଉପରେ ଟ୍ୟାପ୍ କରନ୍ତୁ!',
+          callout: '<b>ଗୋଟି ଏକତ୍ରୀକରଣ:</b> ଗୋଟିଏ ଘରର ଏକାଧିକ ଗୋଟି ଗୋଟିଏ ଘରେ ଏକାଠି ମିଶି ଆଗକୁ ବଢ଼ିପାରନ୍ତି।'
+        },
+        {
+          title: 'ଗୃହ ପଥ ଏବଂ ଚାରକୋଣି ବିଜୟ',
+          body: 'ଚାରୋଟି ବାହୁର ଚକ୍କର ଶେଷ କରିବା ପରେ ଆପଣଙ୍କ ଗୋଟି ନିଜ ଗୃହ ଦ୍ୱାରରେ ପହଞ୍ଚେ:',
+          hint: '👆 ଘରେ ପହଞ୍ଚିବା ଉତ୍ସବ ପାଇଁ ଟ୍ୟାପ୍ କରନ୍ତୁ',
+          lotusTitle: '🌸 ଚାରକୋଣି ପଦ୍ମ ପ୍ରବେଶ',
+          lotusDesc: '୧. ଦ୍ୱାରରେ ପହଞ୍ଚି ଗୋଟି <b>ଭିତରକୁ</b> ନିଜ ଗୃହ ପଥରେ ମୁଡ଼ିଥାଏ।<br/>୨. ବାକି ଥିବା ଦୂରତା ସହ ସମାନ ବା ଅଧିକ ଅଙ୍କ ଆସିଲେ ଗୋଟି ସୁରକ୍ଷିତ <b>ଚାରକୋଣି</b>ରେ ପହଞ୍ଚେ।<br/>୩. ନିଜର ସମସ୍ତ <b>୪ଟି ଗୋଟି ଘରେ ପହଞ୍ଚାଇବା</b> ପ୍ରଥମ ଖେଳାଳି ବିଜୟୀ ହୁଅନ୍ତି!',
+          btnLotus: '🌸 ଚାରକୋଣି ପଦ୍ମ ଉତ୍ସବ ପାଳନ',
+          callout: '<b>ଆପଣ ପ୍ରସ୍ତୁତ!</b> ଦରବାରରେ ଏଆଇ ପ୍ରତିଦ୍ୱନ୍ଦ୍ୱୀଙ୍କ ବିପକ୍ଷରେ <b>ସିନ୍ଦୂର (ଦକ୍ଷିଣ)</b> ଭାବେ ନିଜର ପ୍ରଥମ ଖେଳ ଆରମ୍ଭ କରନ୍ତୁ।'
+        }
+      ]
+    }
+  };
+
+  function t(key, params) {
+    var dict = I18N[currentLang] || I18N.en;
+    var str = dict[key] !== undefined ? dict[key] : (I18N.en[key] !== undefined ? I18N.en[key] : key);
+    if (params && typeof str === 'string') {
+      Object.keys(params).forEach(function (k) {
+        str = str.replace(new RegExp('\\{' + k + '\\}', 'g'), params[k]);
+      });
+    }
+    return str;
+  }
   var RM = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   /* ---------------- audio ---------------- */
@@ -2328,15 +2868,28 @@ body {
   LOOP.forEach(function (cell, i) { LOOPI[cell[0] + ',' + cell[1]] = i; });
 
   var SIDE = {
-    S: { colour: '#C8402F', dark: '#8f2c1e', sym: '◆', hi: 'सिन्दूर', en: 'Sindoor', gate: [18, 9],
+    S: { colour: '#C8402F', dark: '#8f2c1e', sym: '◆', en: 'Sindoor', hi: 'सिन्दूर', or: 'ସିନ୍ଦୂର', gate: [18, 9],
          home: [[17, 9], [16, 9], [15, 9], [14, 9], [13, 9], [12, 9], [11, 9]], finish: [10, 9], tray: [18.9, 9], label: 'South' },
-    W: { colour: '#10727F', dark: '#0a4d56', sym: '▲', hi: 'मयूर', en: 'Mayur', gate: [9, 0],
+    W: { colour: '#10727F', dark: '#0a4d56', sym: '▲', en: 'Mayur', hi: 'मयूर', or: 'ମୟୂର', gate: [9, 0],
          home: [[9, 1], [9, 2], [9, 3], [9, 4], [9, 5], [9, 6], [9, 7]], finish: [9, 8], tray: [9, -0.9], label: 'West' },
-    N: { colour: '#E8A317', dark: '#a8730e', sym: '●', hi: 'हल्दी', en: 'Haldi', gate: [0, 9],
+    N: { colour: '#E8A317', dark: '#a8730e', sym: '●', en: 'Haldi', hi: 'हल्दी', or: 'ହଳଦୀ', gate: [0, 9],
          home: [[1, 9], [2, 9], [3, 9], [4, 9], [5, 9], [6, 9], [7, 9]], finish: [8, 9], tray: [-0.9, 9], label: 'North' },
-    E: { colour: '#2F4B7C', dark: '#1f3052', sym: '★', hi: 'नील', en: 'Neel', gate: [9, 18],
+    E: { colour: '#2F4B7C', dark: '#1f3052', sym: '★', en: 'Neel', hi: 'नील', or: 'ନୀଳ', gate: [9, 18],
          home: [[9, 17], [9, 16], [9, 15], [9, 14], [9, 13], [9, 12], [9, 11]], finish: [9, 10], tray: [9, 18.9], label: 'East' }
   };
+
+  function sideName(i) {
+    var s = PS[i];
+    if (!s) return '';
+    return s[currentLang] || s.en;
+  }
+  function nameOf(i) {
+    return sideName(i);
+  }
+  function diffName(d) {
+    var keys = ['diffEasy', 'diffMed', 'diffHard'];
+    return t(keys[d] || 'diffMed').split(' — ')[0];
+  }
   var PORDER = ['S', 'W', 'N', 'E'];
   var PS = PORDER.map(function (k) { return SIDE[k]; });
   var GATEI = PORDER.map(function (k) { return LOOPI[SIDE[k].gate[0] + ',' + SIDE[k].gate[1]]; });
@@ -2455,10 +3008,20 @@ body {
       }
       var lbl = document.createElement('span');
       lbl.className = 'lbl';
-      lbl.textContent = s.hi + ' · ' + s.en;
+      lbl.textContent = sideName(i);
       tr.appendChild(plate);
       tr.appendChild(lbl);
       tokensEl.appendChild(tr);
+    });
+  }
+
+  function updateTrayLabels() {
+    document.querySelectorAll('.tray').forEach(function (tr) {
+      var ti = parseInt(tr.getAttribute('data-tray'), 10);
+      var lbl = tr.querySelector('.lbl');
+      if (lbl && !isNaN(ti)) {
+        lbl.textContent = sideName(ti);
+      }
     });
   }
 
@@ -2765,7 +3328,7 @@ body {
       if (m.kind === 'move' && m.cap) {
         var flag = document.createElement('span');
         flag.className = 'capflag';
-        flag.textContent = 'Capture';
+        flag.textContent = t('capFlag');
         el.appendChild(flag);
       }
       if (m.kind === 'turn_home') {
@@ -2774,7 +3337,7 @@ body {
         flagHome.style.background = 'rgba(40,24,2,0.85)';
         flagHome.style.borderColor = 'rgba(255,215,0,0.8)';
         flagHome.style.color = '#ffe9a8';
-        flagHome.textContent = 'Home Lane';
+        flagHome.textContent = t('homeLaneFlag');
         el.appendChild(flagHome);
       }
     }
@@ -2788,16 +3351,18 @@ body {
       var home = TOKENS[i].filter(function (t) { return t.fin; }).length;
       var chips = '';
       for (var k = 0; k < 4; k++) chips += '<span class="hc' + (k < home ? ' on' : '') + '"><span class="i">' + (k < home ? '✦' : '✧') + '</span></span>';
-      var tag = pl.ai ? '<span class="tag ai">AI · ' + pl.diffName + '</span>' : '<span class="tag">Seat</span>';
+      var tag = pl.ai ? '<span class="tag ai">' + t('tagAi') + ' · ' + diffName(cfg.diff) + '</span>' : '<span class="tag">' + t('tagYou') + '</span>';
       if (pl.rank) tag += '<span class="tag win">' + rankLabel(pl.rank) + '</span>';
       html += '<div class="pcard' + (cur === i && state !== 'over' ? ' cur' : '') + '" style="--pl:' + s.colour + '">' +
-        '<div class="row1"><span class="pdot"></span><span class="nm">' + s.hi + '<small>' + s.en + '</small></span>' + tag + '</div>' +
+        '<div class="row1"><span class="pdot"></span><span class="nm">' + sideName(i) + '</span>' + tag + '</div>' +
         '<div class="row2"><div class="hchips">' + chips + '</div></div></div>';
     });
     pscoreEl.innerHTML = html;
   }
   function rankLabel(r) {
-    return ['', '1st', '2nd', '3rd', '4th'][r] || (r + 'th');
+    var keys = ['', 'rank1', 'rank2', 'rank3', 'rank4'];
+    var k = keys[r];
+    return k ? t(k) : (r + 'th');
   }
 
   /* ---------------- dice ---------------- */
@@ -2837,7 +3402,7 @@ body {
     });
     setTimeout(function () {
       rollSum.textContent = String(total);
-      rollCap.textContent = grace ? 'चौ · bonus throw' : 'total';
+      rollCap.textContent = grace ? t('rollGrace') : t('rollTotal');
       rollCap.classList.toggle('grace', grace);
       if (grace) { SFX.grace(); triggerGraceVFX(); }
       else SFX.clack(0.3);
@@ -2849,7 +3414,7 @@ body {
   }
   function resetDiceFace() {
     rollSum.textContent = '—';
-    rollCap.textContent = 'tap Roll';
+    rollCap.textContent = t('rollTap');
     rollCap.classList.remove('grace');
     sticks.forEach(function (st) { paintStick(st, 2); });
   }
@@ -2902,7 +3467,7 @@ body {
     }, RM ? 0 : 80);
   }
 
-  function nameOf(i) { return PS[i].hi + ' (' + PS[i].en + ')'; }
+// nameOf is defined above with sideName(i)
 
   function beginTurn() {
     if (state === 'over') return;
@@ -2924,11 +3489,11 @@ body {
     if (P[cur].ai) {
       btnRoll.classList.remove('pulse-action');
       btnConfirm.classList.remove('pulse-action');
-      setStatus(nameOf(cur) + ' studies the cloth…', 'The AI is planning its move.');
+      setStatus(t('stStudies', { p: nameOf(cur) }), t('stAiPlanning'));
       setTimeout(function () { doRoll(cur); }, RM ? 0 : 620);
     } else {
       state = 'roll';
-      setStatus(nameOf(cur) + ' to play', 'Press Roll — or press Space.');
+      setStatus(t('stToPlay', { p: nameOf(cur) }), t('stPressRoll'));
       btnRoll.disabled = false;
       btnRoll.hidden = false;
       btnRoll.classList.add('pulse-action', 'primary');
@@ -2961,7 +3526,7 @@ body {
     btnRoll.hidden = true;
     btnRoll.classList.remove('pulse-action');
     var r = rollDice();
-    setStatus(nameOf(pl) + ' throws the pasha…', 'long dice tumble in the tray.');
+    setStatus(t('stThrows', { p: nameOf(pl) }), t('stDiceTumble'));
     setTimeout(function () { afterRoll(pl, r, false); }, RM ? 20 : 880);
   }
 
@@ -2970,11 +3535,11 @@ body {
     legalMoves = legalMovesFor(pl, r.s);
     selected = null;
     if (legalMoves.length === 0) {
-      setStatus(nameOf(pl) + ' has no legal move', 'The turn passes.');
+      setStatus(t('stNoMove', { p: nameOf(pl) }), t('stPassTurn'));
       SFX.illegal();
       wait(900).then(function () {
         if (r.grace) {
-          setStatus(nameOf(pl) + ' passes the grace', 'No move was possible.');
+          setStatus(t('stPassGrace', { p: nameOf(pl) }), t('stNoMovePossible'));
           wait(700).then(function () { nextTurn(pl); });
         } else nextTurn(pl);
       });
@@ -2985,7 +3550,7 @@ body {
       var pick = aiPick(pl, legalMoves, r);
       selected = pick;
       setTimeout(function () {
-        setStatus(nameOf(pl) + ' moves ' + moveHeading(pick), '');
+        setStatus(t('stMoves', { p: nameOf(pl), action: moveHeading(pick) }), '');
         executeMove(pick);
       }, RM ? 0 : 700);
     } else {
@@ -3000,22 +3565,23 @@ body {
       btnUndo.disabled = false;
       if (legalMoves.length === 1) {
         selected = legalMoves[0];
-        setStatus(nameOf(pl) + ' rolls ' + r.s + (r.grace ? ' — चौ!' : ''), 'Only one move is possible — tap Confirm.');
+        setStatus(t('stRolls', { p: nameOf(pl), s: r.s }) + (r.grace ? t('stChauExcl') : ''), t('stOnlyOneMove'));
         btnConfirm.disabled = false;
         btnConfirm.hidden = false;
         btnConfirm.classList.add('pulse-action');
       } else {
-        setStatus(nameOf(pl) + ' rolls ' + r.s + (r.grace ? ' — चौ!' : ''), 'Tap a glowing gothi, then Confirm.');
+        setStatus(t('stRolls', { p: nameOf(pl), s: r.s }) + (r.grace ? t('stChauExcl') : ''), t('stPickGothi'));
       }
       paintCells();
       if (selected) paintPreview(selected);
     }
   }
   function moveHeading(m) {
-    if (m.kind === 'enter') return 'a fresh gothi onto the board';
-    if (m.kind === 'move') return m.cap ? 'capturing an enemy!' : m.dst === GATEI[m.pl] ? 'to the home gate' : 'along the cloth';
-    if (m.kind === 'home') return 'down the home column';
-    return 'into the Charkoni';
+    var a = t('actions');
+    if (m.kind === 'enter') return a.enter;
+    if (m.kind === 'move') return m.cap ? a.capture : (m.dst === GATEI[m.pl] ? a.moveToGate : a.moveNormal);
+    if (m.kind === 'home') return a.turnHome;
+    return a.fin;
   }
 
   /* ---------------- selection & confirm ---------------- */
@@ -3028,14 +3594,15 @@ body {
       btnConfirm.classList.add('pulse-action', 'primary');
       paintPreview(mv);
       SFX.click();
-      setStatus(nameOf(cur) + ' will ' + moveActionText(mv), 'Tap Confirm, or press Space.');
+      setStatus(t('stWill', { p: nameOf(cur), action: moveActionText(mv) }), t('stTapConfirm'));
     } else { SFX.illegal(); }
   }
   function moveActionText(m) {
-    if (m.kind === 'enter') return 'enter a gothi';
-    if (m.kind === 'move') return m.cap ? 'capture an enemy' : 'move ' + moveHeading(m);
-    if (m.kind === 'home') return 'advance toward the Charkoni';
-    return 'bring a gothi home';
+    var a = t('actions');
+    if (m.kind === 'enter') return a.enterAction;
+    if (m.kind === 'move') return m.cap ? a.captureAction : a.moveNormal;
+    if (m.kind === 'home') return a.advanceHome;
+    return a.finAction;
   }
   function confirmSelected() {
     if (state !== 'choose' || !selected) return;
@@ -3088,7 +3655,7 @@ body {
           });
           SFX.capture();
           triggerCaptureVFX(m.dst);
-          if (victims.length) setStatus(nameOf(m.pl) + ' captures ' + victims.map(function (v) { return PS[v.p].en; }).join(' & ') + '!', 'A bonus throw is granted.');
+          if (victims.length) setStatus(t('stCaptureBonus', { p: nameOf(m.pl), enemies: victims.map(function (v) { return sideName(v.p); }).join(' & ') }), '');
           restack();
           await wait(420);
         }
@@ -3100,7 +3667,7 @@ body {
         moverTurn.st = { k: 'home', rem: m.to };
         moverTurn.dist = m.newDist;
         moverTurn.moved = true;
-        setStatus(nameOf(m.pl) + ' turns inward', 'Now descending the private home column.');
+        setStatus(t('stTurnsInward', { p: nameOf(m.pl) }), t('stDescendingHome'));
         restack();
         moverTurn.el.classList.add('hop');
         setTimeout(function () { moverTurn.el.classList.remove('hop'); }, RM ? 0 : 300);
@@ -3153,7 +3720,7 @@ body {
     await wait(330);
     if (bonus && chain < 3 && !(state === 'over')) {
       chain++;
-      setStatus(nameOf(m.pl) + ' earns a bonus throw (' + chain + '/3)', 'A capture or चौ keeps the turn.');
+      setStatus(t('stBonusEarned', { p: nameOf(m.pl), c: chain }), t('stBonusKeep'));
       await wait(300);
       if (P[m.pl].ai) {
         setTimeout(function () { doRoll(m.pl); }, 80);
@@ -3198,29 +3765,26 @@ body {
     if (cfg.teams && cfg.n === 4) {
       var t0 = P[0].rank, t1 = P[1].rank;
       champ = t0 !== undefined && t1 !== undefined && t0 < t1 ? 0 : (t1 !== undefined ? 1 : 0);
-      title = 'Team ' + PS[champ * 2].hi + ' &amp; ' + PS[(champ * 2 + 2) % 4].hi + ' Rules the Court';
+      var p1 = sideName(champ * 2);
+      var p2 = sideName((champ * 2 + 2) % 4);
+      title = t('endTitleTeam', { p1: p1, p2: p2 });
     } else {
-      title = PS[sorted[0].i].hi + ' <span class="g">Triumphs</span>';
+      title = t('endTitleSolo', { p: sideName(sorted[0].i) });
     }
     $('end-title').innerHTML = title;
-    var list = '';
-    SORTEDFNLBL(sorted, list, cfg, PS);
-    $('ranklist').innerHTML = list;
-    $('end-note').textContent = 'För ' + (cfg.teams ? 'the partnership ' : 'the house of ') + ', rematch or return to the court.';
-    $('ovl-end').hidden = false;
-    SFX.win();
-  }
-  function SORTEDFNLBL(sorted, list, cfg2, ss) {
     var out = '';
     sorted.forEach(function (r) {
-      var s = ss[r.i];
-      var lbl = cfg2.teams ? 'Partner' : 'Ranks';
+      var count = TOKENS[r.i].filter(function (t) { return t.fin; }).length;
       out += '<div class="rankrow"><span class="med">' + rankLabel(r.rank) + '</span>' +
-        '<span class="rnm">' + s.hi + ' <small style="color:var(--inkD)">' + s.en + '</small></span>' +
-        '<span class="rn2">' + TOKENS[r.i].filter(function (t) { return t.fin; }).length + ' gothi home</span></div>';
+        '<span class="rnm">' + sideName(r.i) + '</span>' +
+        '<span class="rn2">' + t('gothiHome', { n: count }) + '</span></div>';
     });
-    var tmp = document.createElement('div'); tmp.innerHTML = out;
     $('ranklist').innerHTML = out;
+    $('end-note').textContent = cfg.teams
+      ? t('endNoteTeam', { p: sideName(champ * 2) })
+      : t('endNoteSolo', { p: sideName(sorted[0].i) });
+    $('ovl-end').hidden = false;
+    SFX.win();
   }
 
   /* ---------------- AI ---------------- */
@@ -3374,7 +3938,7 @@ body {
     var best = null, bs = -999;
     legalMoves.forEach(function (m) { var s = aiStatic(cur, m); if (s > bs) { bs = s; best = m; } });
     trySelect(best);
-    setStatus('Hint: ' + moveActionText(best), 'Best wisdom of the court.');
+    setStatus(t('stHintPrefix') + moveActionText(best), t('stHintSub'));
   }
   function snapNow() {
     undoSnap = {
@@ -3408,7 +3972,7 @@ body {
     resetDiceFace();
     syncAll();
     renderScores();
-    setStatus('Undone — back to ' + nameOf(cur), 'The pasha is restored to the tray.');
+    setStatus(t('stUndone', { p: nameOf(cur) }), t('stRestored'));
     if (P[cur].ai) { setTimeout(function () { doRoll(cur); }, RM ? 0 : 600); }
     else { state = 'roll'; btnRoll.disabled = false; btnRoll.hidden = false; }
   }
@@ -4139,10 +4703,230 @@ body {
     if (!btnSoundTop) return;
     if (window.innerWidth <= 600) {
       btnSoundTop.textContent = SOUND ? '🔊' : '🔇';
-      btnSoundTop.title = 'Sound: ' + (SOUND ? 'On' : 'Off');
+      btnSoundTop.title = SOUND ? t('btnSoundOn') : t('btnSoundOff');
     } else {
-      btnSoundTop.textContent = 'Sound: ' + (SOUND ? 'On' : 'Off');
+      btnSoundTop.textContent = SOUND ? t('btnSoundOn') : t('btnSoundOff');
     }
+  }
+
+
+  /* ---------------- language state & UI synchronization ---------------- */
+  function renderRulesContent() {
+    var titleEl = $('rules-title');
+    var bodyEl = $('rules-body');
+    if (titleEl) titleEl.innerHTML = t('rulesTitle');
+    if (bodyEl) bodyEl.innerHTML = t('rulesHtml');
+    if ($('btn-rules-to-tutorial')) $('btn-rules-to-tutorial').textContent = t('rulesToTut');
+    if ($('btn-rules-close')) $('btn-rules-close').textContent = t('rulesClose');
+  }
+
+  function renderTutorialContent() {
+    if (!ovlTutorial) return;
+    if ($('tut-main-title')) $('tut-main-title').innerHTML = t('tutMainTitle');
+    if (tutStepText) tutStepText.textContent = t('tutStepOf', { cur: tutStep + 1 });
+    if (btnTutPrev) btnTutPrev.textContent = t('tutPrev');
+    if (btnTutNext) {
+      if (tutStep === 4) btnTutNext.textContent = t('tutBeginGame');
+      else btnTutNext.textContent = t('tutNext');
+    }
+    if (btnTutSkip) btnTutSkip.textContent = t('tutClose');
+    var swipeEl = document.querySelector('.tut-swipe-hint span');
+    if (swipeEl) swipeEl.textContent = t('tutSwipe');
+
+    var slidesData = t('tutSlides');
+    if (!slidesData) return;
+
+    var tutSlides = document.querySelectorAll('.tut-slide');
+    tutSlides.forEach(function (sl, idx) {
+      var data = slidesData[idx];
+      if (!data) return;
+      var titleEl = sl.querySelector('.tut-slide-title');
+      if (titleEl) titleEl.innerHTML = data.title;
+      var pEl = sl.querySelector('.tut-card-body > p');
+      if (pEl) pEl.innerHTML = data.body;
+      var hintEl = sl.querySelector('.tut-interactive-hint span');
+      if (hintEl && data.hint) hintEl.innerHTML = data.hint;
+      var calloutEl = sl.querySelector('.tut-callout-text');
+      if (calloutEl && data.callout) calloutEl.innerHTML = data.callout;
+    });
+
+    // Slide 1 house cards
+    var houseList = [
+      { key: 'S', color: '#ff8573', dir: { en: 'South (You)', hi: 'दक्षिण (आप)', or: 'ଦକ୍ଷିଣ (ଆପଣ)' } },
+      { key: 'W', color: '#56c8d8', dir: { en: 'West', hi: 'पश्चिम', or: 'ପଶ୍ଚିମ' } },
+      { key: 'N', color: '#ffd066', dir: { en: 'North', hi: 'उत्तर', or: 'ଉତ୍ତର' } },
+      { key: 'E', color: '#8caaf0', dir: { en: 'East', hi: 'पूर्व', or: 'ପୂର୍ବ' } }
+    ];
+    document.querySelectorAll('.tut-house-card').forEach(function (card) {
+      var k = card.getAttribute('data-house');
+      var item = houseList.find(function (x) { return x.key === k; });
+      if (item) {
+        var nameSpan = card.querySelector('.th-name');
+        var dirSpan = card.querySelector('.th-dir');
+        var pIdx = PORDER.indexOf(k);
+        if (nameSpan) nameSpan.textContent = sideName(pIdx);
+        if (dirSpan) dirSpan.textContent = item.dir[currentLang] || item.dir.en;
+      }
+    });
+
+    var activeCard = document.querySelector('.tut-house-card.selected');
+    if (activeCard) {
+      var hKey = activeCard.getAttribute('data-house');
+      if (hKey) updateTutHouseSpotlight(hKey);
+    }
+
+    if (btnTutRoll && slidesData[1].btnRoll) btnTutRoll.textContent = slidesData[1].btnRoll;
+    var resDiv = $('tut-dice-result');
+    if (resDiv) {
+      resDiv.innerHTML = (slidesData[1].resPrefix || 'Total: ') + '<span id="tut-sum-val">' + (tutSumVal ? tutSumVal.textContent : '12') + '</span>';
+      tutSumVal = $('tut-sum-val');
+    }
+
+    var s3Banner = document.querySelector('.tut-slide[data-slide="2"] .tut-diagram > div:nth-child(2)');
+    if (s3Banner && slidesData[2].banner) s3Banner.innerHTML = slidesData[2].banner;
+    var s3Sub = document.querySelector('.tut-slide[data-slide="2"] .tut-diagram > div:nth-child(3)');
+    if (s3Sub && slidesData[2].sub) s3Sub.innerHTML = slidesData[2].sub;
+    var bTutGrace = $('btn-tut-grace-test');
+    if (bTutGrace && slidesData[2].btnGrace) bTutGrace.textContent = slidesData[2].btnGrace;
+
+    var bSimCap = $('btn-tut-sim-capture');
+    if (bSimCap && slidesData[3].btnCap) bSimCap.textContent = slidesData[3].btnCap;
+    var bSimCas = $('btn-tut-sim-castle');
+    if (bSimCas && slidesData[3].btnCas) bSimCas.textContent = slidesData[3].btnCas;
+    var tbsLbl1 = document.querySelector('#tbs-cell1 .tbs-label');
+    if (tbsLbl1 && slidesData[3].lblOpen) tbsLbl1.textContent = slidesData[3].lblOpen;
+    var tbsLbl2 = document.querySelector('#tbs-cell2 .tbs-label');
+    if (tbsLbl2 && slidesData[3].lblCastle) tbsLbl2.textContent = slidesData[3].lblCastle;
+    var battleMsg = $('tut-battle-msg');
+    if (battleMsg && battleMsg.dataset.custom !== '1') battleMsg.textContent = slidesData[3].initMsg;
+
+    var s5Title = document.querySelector('.tut-slide[data-slide="4"] .tut-diagram div > div:first-child');
+    if (s5Title && slidesData[4].lotusTitle) s5Title.innerHTML = slidesData[4].lotusTitle;
+    var s5Desc = document.querySelector('.tut-slide[data-slide="4"] .tut-diagram p');
+    if (s5Desc && slidesData[4].lotusDesc) s5Desc.innerHTML = slidesData[4].lotusDesc;
+    var bLotus = $('btn-tut-lotus-celebrate');
+    if (bLotus && slidesData[4].btnLotus) bLotus.textContent = slidesData[4].btnLotus;
+  }
+
+  function updateTutHouseSpotlight(houseKey) {
+    var spot = $('tut-house-spotlight');
+    if (!spot) return;
+    var pIdx = PORDER.indexOf(houseKey);
+    var pName = sideName(pIdx);
+    var pCol = PS[pIdx].colour;
+    var descs = {
+      en: {
+        S: '<b>South Arm (Player)</b>: Commands 4 vermilion pieces from the southern yard into battle.',
+        W: '<b>West Arm (Rival / P2)</b>: Commands 4 peacock teal pieces starting at the western gate.',
+        N: '<b>North Arm (Rival / P3)</b>: Commands 4 turmeric gold pieces starting at the northern gate.',
+        E: '<b>East Arm (Rival / P4)</b>: Commands 4 royal indigo pieces starting at the eastern gate.'
+      },
+      hi: {
+        S: '<b>दक्षिण भुजा (खिलाड़ी)</b>: दक्षिणी अहाते से ४ सिन्दूरी गोटियों को युद्ध में उतारता है।',
+        W: '<b>पश्चिम भुजा (प्रतिद्वंद्वी / खिलाड़ी २)</b>: पश्चिमी द्वार से ४ मयूर नीली गोटियों को चलाता है।',
+        N: '<b>उत्तर भुजा (प्रतिद्वंद्वी / खिलाड़ी ३)</b>: उत्तरी द्वार से ४ पीली हल्दी गोटियों को चलाता है।',
+        E: '<b>पूर्व भुजा (प्रतिद्वंद्वी / खिलाड़ी ४)</b>: पूर्वी द्वार से ४ गहरी नीली गोटियों को चलाता है।'
+      },
+      or: {
+        S: '<b>ଦକ୍ଷିଣ ବାହୁ (ଖେଳାଳି)</b>: ଦକ୍ଷିଣ ଅଗଣାରୁ ୪ଟି ସିନ୍ଦୂର ଗୋଟିକୁ ଯୁଦ୍ଧକୁ ପଠାଏ।',
+        W: '<b>ପଶ୍ଚିମ ବାହୁ (ଖେଳାଳି ୨)</b>: ପଶ୍ଚିମ ଦ୍ୱାରରୁ ୪ଟି ମୟୂର ନୀଳ ଗୋଟି ଚଳାଏ।',
+        N: '<b>ଉତ୍ତର ବାହୁ (ଖେଳାଳି ୩)</b>: ଉତ୍ତର ଦ୍ୱାରରୁ ୪ଟି ହଳଦୀ ଗୋଟି ଚଳାଏ।',
+        E: '<b>ପୂର୍ବ ବାହୁ (ଖେଳାଳି ୪)</b>: ପୂର୍ବ ଦ୍ୱାରରୁ ୪ଟି ଗାଢ଼ ନୀଳ ଗୋଟି ଚଳାଏ।'
+      }
+    };
+    var descObj = descs[currentLang] || descs.en;
+    spot.innerHTML = '<span class="ths-badge" style="background:' + pCol + ';color:#fff">' + PS[pIdx].sym + ' ' + pName + '</span>' +
+      '<span class="ths-desc">' + (descObj[houseKey] || '') + '</span>';
+  }
+
+  function setLanguage(lang) {
+    if (lang !== 'en' && lang !== 'hi' && lang !== 'or') lang = 'en';
+    currentLang = lang;
+    try { localStorage.setItem('chaupad-lang', lang); } catch (e) {}
+
+    document.title = t('pageTitle');
+
+    var brandT = $('brand-title'), brandSt = $('brand-sub');
+    if (brandT) brandT.textContent = t('brandTitle');
+    if (brandSt) brandSt.textContent = t('brandSub');
+    if ($('btn-tutorial-top')) $('btn-tutorial-top').textContent = t('btnTutorial');
+    if ($('btn-rules-top')) $('btn-rules-top').textContent = t('btnRules');
+    if ($('btn-pause-top')) $('btn-pause-top').textContent = t('btnPause');
+    if ($('btn-menu-top')) $('btn-menu-top').textContent = t('btnMenu');
+    if ($('btn-lang-top')) $('btn-lang-top').textContent = currentLang === 'en' ? '🌐 English' : (currentLang === 'hi' ? '🌐 हिन्दी' : '🌐 ଓଡ଼ିଆ');
+    updateSoundBtnTop();
+
+    if ($('menu-main-title')) $('menu-main-title').textContent = t('menuTitle');
+    if ($('menu-main-sub')) $('menu-main-sub').textContent = t('menuSub');
+    if ($('menu-main-line')) $('menu-main-line').textContent = t('menuLine');
+
+    if ($('tb-title-text')) $('tb-title-text').innerHTML = t('tutBannerTitle');
+    if ($('tb-sub-text')) $('tb-sub-text').textContent = t('tutBannerSub');
+    if ($('btn-tutorial-menu')) $('btn-tutorial-menu').textContent = t('tutBannerBtn');
+
+    if ($('mode-1p-m')) $('mode-1p-m').textContent = t('mode1pTitle');
+    if ($('mode-1p-s')) $('mode-1p-s').textContent = t('mode1pSub');
+    if ($('mode-2p-m')) $('mode-2p-m').textContent = t('mode2pTitle');
+    if ($('mode-2p-s')) $('mode-2p-s').textContent = t('mode2pSub');
+    if ($('mode-4p-m')) $('mode-4p-m').textContent = t('mode4pTitle');
+    if ($('mode-4p-s')) $('mode-4p-s').textContent = t('mode4pSub');
+    if ($('mode-team-m')) $('mode-team-m').textContent = t('modeTeamTitle');
+    if ($('mode-team-s')) $('mode-team-s').textContent = t('modeTeamSub');
+
+    if ($('lbl-se-lang')) $('lbl-se-lang').textContent = t('lblLang');
+    if ($('se-lang')) $('se-lang').value = currentLang;
+    if ($('lbl-se-diff')) $('lbl-se-diff').textContent = t('lblAiCalibre');
+    if ($('opt-diff-0')) $('opt-diff-0').textContent = t('diffEasy');
+    if ($('opt-diff-1')) $('opt-diff-1').textContent = t('diffMed');
+    if ($('opt-diff-2')) $('opt-diff-2').textContent = t('diffHard');
+    if ($('lbl-se-ambience')) $('lbl-se-ambience').textContent = t('lblAmbience');
+    if ($('lbl-se-sound')) $('lbl-se-sound').textContent = t('lblSound');
+    if ($('lbl-se-motion')) $('lbl-se-motion').textContent = t('lblMotion');
+    if ($('btn-start')) $('btn-start').textContent = t('btnStart');
+    if ($('menu-cultural')) $('menu-cultural').textContent = t('culturalNote');
+    if ($('menu-foot')) $('menu-foot').textContent = t('menuFoot');
+
+    applySeatRow();
+
+    if ($('hud-players-h3')) $('hud-players-h3').textContent = t('hudPlayers');
+    if ($('hud-turn-h3')) $('hud-turn-h3').textContent = t('hudTurn');
+    if (btnRoll) {
+      btnRoll.innerHTML = t('btnRoll') + ' <span class="sr-only">(Space)</span>';
+    }
+    if (btnConfirm) btnConfirm.textContent = t('btnConfirm');
+    if (btnHint) btnHint.textContent = t('btnHint');
+    if (btnUndo) btnUndo.textContent = t('btnUndo');
+    if (btnRules) btnRules.textContent = t('btnRules');
+    if (btnSound) btnSound.textContent = SOUND ? t('btnSoundOn') : t('btnSoundOff');
+    if (btnPause) btnPause.textContent = t('btnPause');
+    if (btnQuit) btnQuit.textContent = t('btnQuit');
+
+    updateTrayLabels();
+    renderScores();
+
+    if (state === 'idle') {
+      setStatus(t('stAwaiting'), t('stChooseMode'));
+    } else if (state === 'roll' && !P[cur].ai) {
+      setStatus(t('stToPlay', { p: nameOf(cur) }), t('stPressRoll'));
+    }
+
+    if (rollCap && (rollCap.textContent === 'tap Roll' || rollCap.textContent === 'पासा फेंकें' || rollCap.textContent === 'ଫିଙ୍ଗନ୍ତୁ')) {
+      rollCap.textContent = t('rollTap');
+    }
+
+    if ($('pause-title')) $('pause-title').innerHTML = t('pauseTitle');
+    if ($('btn-resume')) $('btn-resume').textContent = t('btnResume');
+    if ($('btn-restart')) $('btn-restart').textContent = t('btnRestart');
+    if ($('btn-pause-tutorial')) $('btn-pause-tutorial').textContent = t('btnTutorial');
+    if ($('btn-pause-rules')) $('btn-pause-rules').textContent = t('btnRules');
+    if ($('btn-pause-quit')) $('btn-pause-quit').textContent = t('btnQuit');
+    if ($('btn-pause-lang')) $('btn-pause-lang').textContent = t('lblLang') + ': ' + (currentLang === 'en' ? 'English' : (currentLang === 'hi' ? 'हिन्दी' : 'ଓଡ଼ିଆ'));
+
+    if ($('btn-rematch')) $('btn-rematch').textContent = t('btnRematch');
+    if ($('btn-end-menu')) $('btn-end-menu').textContent = t('btnQuit');
+
+    renderRulesContent();
+    renderTutorialContent();
   }
 
   /* ---------------- menu wiring ---------------- */
@@ -4152,7 +4936,7 @@ body {
     for (var i = 0; i < cfg.n; i++) {
       var h = !!aiHuman[i];
       html += '<button class="seat" data-sit="' + i + '" data-human="' + (h ? 1 : 0) + '" type="button">' +
-        PS[i].sym + ' <b>' + PS[i].en + '</b> · ' + (h ? 'You' : 'AI') + '</button>';
+        PS[i].sym + ' <b>' + sideName(i) + '</b> · ' + (h ? t('tagYou') : t('tagAi')) + '</button>';
     }
     $('seatrow').innerHTML = html;
   }
@@ -4200,6 +4984,13 @@ body {
       aiHuman[i] = !aiHuman[i];
       applySeatRow();
     });
+    var seLang = $('se-lang');
+    if (seLang) {
+      seLang.addEventListener('change', function () {
+        setLanguage(this.value);
+        SFX.click();
+      });
+    }
     $('se-diff').addEventListener('change', function () { cfg.diff = parseInt(this.value, 10); });
     $('se-sound').addEventListener('change', function () { setSound(this.checked); });
     $('se-motion').addEventListener('change', function () { location.reload(); });
@@ -4280,6 +5071,22 @@ body {
     $('btn-restart').addEventListener('click', function () { ovlPause.hidden = true; location.reload(); });
     $('btn-pause-rules').addEventListener('click', function () { ovlPause.hidden = true; toggleRules(); });
     $('btn-pause-quit').addEventListener('click', function () { ovlPause.hidden = true; quitToMenu(); });
+    var btnLangTop = $('btn-lang-top');
+    if (btnLangTop) {
+      btnLangTop.addEventListener('click', function () {
+        var cycle = { en: 'hi', hi: 'or', or: 'en' };
+        setLanguage(cycle[currentLang] || 'en');
+        SFX.click();
+      });
+    }
+    var btnPauseLang = $('btn-pause-lang');
+    if (btnPauseLang) {
+      btnPauseLang.addEventListener('click', function () {
+        var cycle = { en: 'hi', hi: 'or', or: 'en' };
+        setLanguage(cycle[currentLang] || 'en');
+        SFX.click();
+      });
+    }
     $('btn-pause-top').addEventListener('click', pauseGame);
     $('btn-menu-top').addEventListener('click', quitToMenu);
     $('btn-rules').addEventListener('click', toggleRules);
@@ -4320,7 +5127,7 @@ body {
     $('btn-menu-top').hidden = true;
     state = 'idle';
     updateActiveTray(-1);
-    setStatus('Awaiting the throw', 'Choose a mode from the court to begin.');
+    setStatus(t('stAwaiting'), t('stChooseMode'));
   }
 
   /* ---------------- boot ---------------- */
@@ -4331,7 +5138,7 @@ body {
     bindMenu();
     bindGame();
     setMode('1p');
-    setStatus('Awaiting the throw', 'Choose a mode from the court to begin.');
+    setLanguage(currentLang);
     initTutDice();
     document.addEventListener('pointerdown', function once() {
       ac();
@@ -4345,6 +5152,7 @@ body {
   }
   boot();
 })();
+
 </script>
 </body>
 </html>

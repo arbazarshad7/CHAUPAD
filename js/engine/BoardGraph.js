@@ -37,7 +37,7 @@ LOOP.forEach((cell, i) => { LOOPI[`${cell[0]},${cell[1]}`] = i; });
 
 export const SIDES = {
   S: {
-    id: 0, key: 'S', name: 'Sindoor', hindi: 'सिन्दूर', sym: '◆',
+    id: 0, key: 'S', name: 'Sindoor', hindi: 'सिन्दूर', odia: 'ସିନ୍ଦୂର', sym: '◆',
     colour: '#C8402F', dark: '#8f2c1e',
     gate: [18, 9],
     home: [[17, 9], [16, 9], [15, 9], [14, 9], [13, 9], [12, 9], [11, 9]],
@@ -45,7 +45,7 @@ export const SIDES = {
     tray: [18.9, 9]
   },
   W: {
-    id: 1, key: 'W', name: 'Mayur', hindi: 'मयूर', sym: '▲',
+    id: 1, key: 'W', name: 'Mayur', hindi: 'मयूर', odia: 'ମୟୂର', sym: '▲',
     colour: '#10727F', dark: '#0a4d56',
     gate: [9, 0],
     home: [[9, 1], [9, 2], [9, 3], [9, 4], [9, 5], [9, 6], [9, 7]],
@@ -53,7 +53,7 @@ export const SIDES = {
     tray: [9, -0.9]
   },
   N: {
-    id: 2, key: 'N', name: 'Haldi', hindi: 'हल्दी', sym: '●',
+    id: 2, key: 'N', name: 'Haldi', hindi: 'हल्दी', odia: 'ହଳଦୀ', sym: '●',
     colour: '#E8A317', dark: '#a8730e',
     gate: [0, 9],
     home: [[1, 9], [2, 9], [3, 9], [4, 9], [5, 9], [6, 9], [7, 9]],
@@ -61,7 +61,7 @@ export const SIDES = {
     tray: [-0.9, 9]
   },
   E: {
-    id: 3, key: 'E', name: 'Neel', hindi: 'नील', sym: '★',
+    id: 3, key: 'E', name: 'Neel', hindi: 'नील', odia: 'ନୀଳ', sym: '★',
     colour: '#2F4B7C', dark: '#1f3052',
     gate: [9, 18],
     home: [[9, 17], [9, 16], [9, 15], [9, 14], [9, 13], [9, 12], [9, 11]],
