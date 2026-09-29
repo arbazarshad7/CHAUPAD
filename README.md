@@ -11,7 +11,7 @@
 
 ---
 
-![Chaupad — The Cloth Cross Race Banner](assets/images/chaupad_banner.jpg)
+![Chaupad Desktop Gameplay](assets/images/gameplay_desktop.png)
 
 ---
 
@@ -19,16 +19,18 @@
 
 1. [Overview & Cultural Heritage](#-overview--cultural-heritage)
 2. [Embedded Gameplay & User Experience](#-embedded-gameplay--user-experience)
-3. [The Pasha Long-Dice & Throw Mechanics](#-the-pasha-long-dice--throw-mechanics)
-4. [Board Architecture & Circuit Topology](#-board-architecture--circuit-topology)
-5. [Core Rules & Winning Condition](#-core-rules--winning-condition)
-6. [Game Modes & AI Calibre](#-game-modes--ai-calibre)
-7. [Multilingual Support (EN / HI / OR)](#-multilingual-support-en--hi--or)
-8. [Mobile & Phone Optimization](#-mobile--phone-optimization)
-9. [Technical Architecture & Codebase](#-technical-architecture--codebase)
-10. [Rule Verification Suite (Headless Tests)](#-rule-verification-suite-headless-tests)
-11. [Running Locally](#-running-locally)
-12. [Credits & References](#-credits--references)
+3. [The Court Menu & Configuration](#-the-court-menu--configuration)
+4. [The Pasha Long-Dice & Throw Mechanics](#-the-pasha-long-dice--throw-mechanics)
+5. [Board Architecture & Circuit Topology](#-board-architecture--circuit-topology)
+6. [Interactive Tutorial & Illustrated Rules](#-interactive-tutorial--illustrated-rules)
+7. [Core Rules & Winning Condition](#-core-rules--winning-condition)
+8. [Game Modes & AI Calibre](#-game-modes--ai-calibre)
+9. [Multilingual Support (EN / HI / OR)](#-multilingual-support-en--hi--or)
+10. [Mobile & Phone Optimization](#-mobile--phone-optimization)
+11. [Technical Architecture & Codebase](#-technical-architecture--codebase)
+12. [Rule Verification Suite (Headless Tests)](#-rule-verification-suite-headless-tests)
+13. [Running Locally](#-running-locally)
+14. [Credits & References](#-credits--references)
 
 ---
 
@@ -46,10 +48,14 @@ This digital edition honours the research and documentation of **Centurion Unive
 
 ## 🎮 Embedded Gameplay & User Experience
 
-Below is an authentic in-game view of the Chaupad mobile interface during a high-stakes match:
+Chaupad adapts fluidly across device form-factors with tailor-made layouts for both desktop widescreen displays and handheld mobile smartphones:
+
+### Desktop & Mobile Interface Comparison
 
 <p align="center">
-  <img src="assets/images/gameplay_mobile.jpg" alt="Chaupad In-Game Mobile UI" width="380" style="border-radius: 18px; box-shadow: 0 14px 40px rgba(0,0,0,0.8); border: 2px solid rgba(212,175,55,0.4);" />
+  <img src="assets/images/gameplay_desktop.png" alt="Chaupad Desktop Interface" width="60%" style="border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.7); border: 1.5px solid rgba(212,175,55,0.4); margin-bottom: 12px;" />
+  <br/>
+  <img src="assets/images/gameplay_mobile.jpg" alt="Chaupad Mobile Touch Interface" width="34%" style="border-radius: 16px; box-shadow: 0 12px 36px rgba(0,0,0,0.8); border: 2px solid rgba(212,175,55,0.5);" />
 </p>
 
 ### Interface Zones
@@ -57,7 +63,7 @@ Below is an authentic in-game view of the Chaupad mobile interface during a high
 | Region | Component | Description |
 | :--- | :--- | :--- |
 | **Top Bar** | Header & Global Controls | Displays royal crest, title, responsive language switcher (`🌐 EN` / `🌐 HI` / `🌐 OR`), Rules modal trigger, Sound ambience toggle, and Pause overlay. |
-| **Player Ticker** | 4-Card HUD Scoreboard | Compact, overflow-proof player cards displaying player colour dot, house name, player tag (`YOU`, `AI • MED`, or `SEAT 1`), and four home gothi progress chips (`✦`). Glowing golden halo highlights active turn. |
+| **Player Ticker** | 4-Card HUD Scoreboard | Compact, overflow-proof player cards displaying player colour dot, house name, player tag (`YOU`, `AI • MEDIUM`, or `SEAT 1`), and four home gothi progress chips (`✦`). Glowing golden halo highlights active turn. |
 | **The Cloth Board** | 19×19 Cruciform Grid | Embroidered cross featuring 72 loop perimeter cells, 8 safe starred Castles, 4 outer starting yard trays with brass markers, and the glowing central **Charkoni Lotus**. |
 | **Turn Panel** | Live Status Box | Contextual banner showing active player and clean instructions without dangling punctuation (e.g., `"SINDOOR TO PLAY — Tap Roll"`). |
 | **Pasha Dice Tray** | 3D Long-Dice Display | Three rectangular wooden long-dice rendered with ivory pip inlays that tumble and settle on interactive tap or roll action. |
@@ -65,11 +71,22 @@ Below is an authentic in-game view of the Chaupad mobile interface during a high
 
 ---
 
+## 🏛️ The Court Menu & Configuration
+
+The initial court foyer allows players to select match formats, customize seats, calibrate AI rivals, and tune environmental ambience:
+
+![Chaupad Royal Court Menu](assets/images/court_menu.png)
+
+* **Mode Selection**: Quick toggle between *Vs AI*, *Two Players*, *Four Players*, and *Partnerships 2v2*.
+* **Interactive Seats**: Tap individual court cushions to toggle human vs. AI control for each house.
+* **AI Calibre Selection**: Easy (loose and impetuous), Medium (courtly policy), or Hard (expectiminimax lookahead).
+* **Atmospheric Tuning**: Independent toggles for lamplit soundscapes and dust particle physics.
+
+---
+
 ## 🎲 The Pasha Long-Dice & Throw Mechanics
 
-Chaupad is played using **three four-sided rectangular long-dice** (*pasha*), traditionally carved from teakwood, ebony, bone, or brass:
-
-![Pasha Long-Dice and Royal Gothi](assets/images/chaupad_pasha_dice.jpg)
+Chaupad is played using **three four-sided rectangular long-dice** (*pasha*), traditionally carved from teakwood, ebony, bone, or brass.
 
 ### Pip Distribution & Roll Calculation
 Each rectangular die possesses four elongated faces, numbered:
@@ -82,7 +99,7 @@ $$\text{Maximum Roll} = 6 + 6 + 6 = 18$$
 ### Grace Throws (*Chau* / चौ)
 * **The Chau (Grace Throw)**: A specific sacred throw combination (such as all three dice landing on matching grace faces or total roll exceeding normal boundaries) triggers **Chau!**.
 * **Bonus Throw**: Rolling a Chau or capturing an opponent’s piece instantly rewards the player with an extra consecutive throw (up to a tournament maximum of 3 bonus throws per turn).
-* **Releasing Pawns**: Gothi resting in the yard tray require a legal throw or grace to enter their home gate onto the active circuit.
+* **Releasing Pawns**: Gothi resting in the yard tray can enter their home gate onto the active circuit on any throw, marching outward into the arena.
 
 ---
 
@@ -146,9 +163,21 @@ The Chaupad board is a balanced cruciform cross containing four distinct arms me
 
 ---
 
-## ⚔️ Core Rules & Winning Condition
+## 📖 Interactive Tutorial & Illustrated Rules
 
-![The Sacred Charkoni Lotus](assets/images/chaupad_charkoni_lotus.jpg)
+First-time players can launch an illustrated, 5-step interactive tutorial that explains the game step-by-step:
+
+![Chaupad Interactive Tutorial](assets/images/tutorial_modal.png)
+
+1. **The Cloth Cross & 4 Royal Houses**: Inspect houses (Sindoor, Mayur, Haldi, Neel) and pawn colors.
+2. **Pasha Long-Dice & Throws**: Learn the $1, 2, 5, 6$ faces and grace combinations.
+3. **Marching & Captures**: Test combat mechanics vs. safe Castle sanctuaries.
+4. **Allied Squads & Stacking**: Learn how friendly pieces march together as reinforced columns.
+5. **Descending into the Charkoni**: Exact gate count and triumphant arrival at the central Lotus.
+
+---
+
+## ⚔️ Core Rules & Winning Condition
 
 ### 1. The Counter-Clockwise Pilgrimage
 Pawns enter at their respective home gate and traverse the perimeter of the cloth cross in a strict **counter-clockwise (वामावर्त)** path through all 4 quadrants (72 squares).
@@ -245,16 +274,16 @@ e:\Projects/
 ├── index.html                 # Complete monolithic game application (HTML5, CSS3, JS Engine)
 ├── test_rules.js              # Headless Monte Carlo & rule engine test suite (500 matches)
 ├── README.md                  # Project documentation & visual guide
-├── 13_Chaupad.docx            # Cutm Indigenous Sports Research Reference
+├── 13_Chaupad.docx            # CUTM Indigenous Sports Research Reference
 ├── js/
 │   └── engine/
 │       └── BoardGraph.js      # Headless mathematical graph representation of the board
 └── assets/
     └── images/
-        ├── chaupad_banner.jpg          # 16:9 Hero banner art
-        ├── gameplay_mobile.jpg         # Live in-game mobile gameplay screenshot
-        ├── chaupad_pasha_dice.jpg      # Pasha long-dice macro photograph
-        └── chaupad_charkoni_lotus.jpg  # Charkoni lotus sanctuary illustration
+        ├── gameplay_desktop.png        # In-game desktop browser gameplay screenshot
+        ├── gameplay_mobile.jpg         # Authentic in-game mobile phone screenshot
+        ├── court_menu.png              # In-game court foyer & mode setup screenshot
+        └── tutorial_modal.png          # In-game interactive illustrated tutorial screenshot
 ```
 
 ### Key Engineering Decisions

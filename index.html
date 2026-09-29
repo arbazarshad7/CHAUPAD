@@ -5043,10 +5043,10 @@ body {
     if (btnConfirm) btnConfirm.textContent = t('btnConfirm');
     if (btnHint) btnHint.textContent = t('btnHint');
     if (btnUndo) btnUndo.textContent = t('btnUndo');
-    if (btnRules) btnRules.textContent = t('btnRules');
-    if (btnSound) btnSound.textContent = SOUND ? t('btnSoundOn') : t('btnSoundOff');
-    if (btnPause) btnPause.textContent = t('btnPause');
-    if (btnQuit) btnQuit.textContent = t('btnQuit');
+    if ($('btn-rules')) $('btn-rules').textContent = t('btnRules');
+    if ($('btn-sound')) $('btn-sound').textContent = SOUND ? t('btnSoundOn') : t('btnSoundOff');
+    if ($('btn-pause')) $('btn-pause').textContent = t('btnPause');
+    if ($('btn-quit')) $('btn-quit').textContent = t('btnQuit');
 
     updateTrayLabels();
     renderScores();
@@ -5296,6 +5296,17 @@ body {
     if (RM) {
       $('se-motion').checked = false;
     }
+    try {
+      var h = window.location.hash || '';
+      var s = window.location.search || '';
+      if (h.indexOf('game') !== -1 || s.indexOf('game') !== -1) {
+        $('btn-start').click();
+      } else if (h.indexOf('rules') !== -1 || s.indexOf('rules') !== -1) {
+        toggleRules();
+      } else if (h.indexOf('tutorial') !== -1 || s.indexOf('tutorial') !== -1) {
+        openTutorial(0);
+      }
+    } catch (_) {}
   }
   boot();
 })();
