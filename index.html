@@ -877,6 +877,8 @@ body {
   box-shadow: 0 0 20px rgba(255, 215, 0, 0.2), inset 0 0 0 1px rgba(255, 215, 0, 0.3);
 }
 .pcard .row1 { display: flex; align-items: center; gap: 10px; }
+.pcard .phead { display: flex; align-items: center; gap: 10px; min-width: 0; }
+.lang-short { display: none; }
 .pdot { width: 16px; height: 16px; border-radius: 50%; flex: none; box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.35), 0 0 8px rgba(0, 0, 0, 0.4); background: var(--pl); }
 .pcard.cur .pdot {
   box-shadow: 0 0 0 2px #ffd700, 0 0 12px rgba(255, 215, 0, 0.85);
@@ -1605,18 +1607,125 @@ body {
     gap: 4px;
     justify-content: space-between;
     width: 100%;
+    box-sizing: border-box;
   }
   .pcard {
     flex: 1 1 0;
-    padding: 4px 6px;
+    min-width: 0;
+    padding: 4px 2px 5px;
     border-radius: 8px;
     text-align: center;
     background: rgba(0, 0, 0, 0.45);
     border: 1px solid rgba(212, 175, 55, 0.25);
+    overflow: hidden;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+  }
+  .pcard.cur {
+    border-color: rgba(255, 215, 0, 0.95);
+    background: radial-gradient(circle at 50% 30%, rgba(255, 215, 0, 0.16), transparent 70%), rgba(255, 215, 0, 0.08);
+    box-shadow: 0 0 10px rgba(255, 215, 0, 0.35), inset 0 0 0 1px rgba(255, 215, 0, 0.4);
+  }
+  .pcard .row1 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1px;
+    width: 100%;
     min-width: 0;
   }
-  .pcard .who { font-size: 10.5px; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .pcard .stat { font-size: 9.5px; color: var(--inkD); white-space: nowrap; }
+  .pcard .phead {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    width: 100%;
+    min-width: 0;
+  }
+  .pcard .pdot {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    flex: none;
+    background: var(--pl);
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.5), 0 0 4px var(--pl);
+  }
+  .pcard.cur .pdot {
+    box-shadow: 0 0 0 1.5px #ffd700, 0 0 8px rgba(255, 215, 0, 0.9);
+  }
+  .pcard .nm {
+    font-family: var(--serif);
+    font-weight: 700;
+    font-size: 11px;
+    line-height: 1.2;
+    color: var(--ink);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: calc(100% - 14px);
+  }
+  .pcard .nm small { display: none; }
+  .pcard .tag {
+    display: block;
+    margin: 1px auto 0 !important;
+    font-size: 8px;
+    line-height: 1.2;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--inkD);
+    border: 1px solid rgba(212, 175, 55, 0.35);
+    border-radius: 4px;
+    padding: 1px 4px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 96%;
+    box-sizing: border-box;
+    text-align: center;
+  }
+  .pcard .tag.ai {
+    color: var(--zariH);
+    border-color: rgba(255, 215, 0, 0.6);
+  }
+  .pcard .tag.win {
+    color: #00ff88;
+    border-color: rgba(0, 255, 136, 0.6);
+  }
+  .pcard .row2 {
+    display: flex;
+    justify-content: center;
+    margin-top: 2px;
+    width: 100%;
+  }
+  .pcard .hchips {
+    display: flex;
+    justify-content: center;
+    gap: 2px;
+    width: 100%;
+  }
+  .pcard .hchips .hc {
+    width: 12px;
+    height: 12px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 3px;
+    background: rgba(0, 0, 0, 0.35);
+  }
+  .pcard .hchips .hc.on {
+    background: rgba(212, 175, 55, 0.25);
+    border: 1px solid rgba(212, 175, 55, 0.6);
+    color: #ffd700;
+  }
+  .pcard .hchips .hc .i {
+    font-size: 8px;
+    line-height: 1;
+  }
 
   /* Centered Board Zone */
   .board-zone {
@@ -1631,6 +1740,14 @@ body {
     margin: 0 auto;
     overflow: visible;
   }
+  .tray .lbl {
+    font-size: max(8.5px, calc(var(--cell) * 0.32));
+    letter-spacing: 0.08em;
+  }
+  .tray[data-side="S"] .lbl { top: calc(100% + 3px); }
+  .tray[data-side="N"] .lbl { bottom: calc(100% + 3px); }
+  .tray[data-side="W"] .lbl { bottom: calc(100% + 3px); }
+  .tray[data-side="E"] .lbl { bottom: calc(100% + 3px); }
 
   /* Docked Bottom Turn & Controls Panel */
   .hud.turn {
@@ -1651,12 +1768,16 @@ body {
   }
   .hud.turn h3 { display: none; }
   .hud.turn .status {
-    padding: 0 4px;
-    margin-bottom: 4px;
+    min-height: 0;
+    padding: 2px 4px;
+    margin-bottom: 3px;
     text-align: center;
+    background: transparent;
+    border: none;
   }
   .hud.turn .status b {
     font-size: 13px;
+    line-height: 1.25;
     color: var(--zariH);
     display: block;
     white-space: nowrap;
@@ -1665,6 +1786,7 @@ body {
   }
   .hud.turn .status .small {
     font-size: 10.5px;
+    line-height: 1.2;
     color: var(--inkD);
     display: block;
     margin-top: 1px;
@@ -1709,25 +1831,40 @@ body {
     flex-wrap: nowrap;
     gap: 6px;
     margin-top: 0;
+    width: 100%;
+    box-sizing: border-box;
+    overflow: hidden;
   }
   .hud.turn .actions .btn {
     min-height: 38px;
     height: 38px;
-    padding: 0 10px;
-    font-size: 12.5px;
+    padding: 0 6px;
+    font-size: 12px;
     line-height: 36px;
+    box-sizing: border-box;
+    white-space: nowrap;
   }
   .hud.turn .actions #btn-roll,
   .hud.turn .actions #btn-confirm {
-    flex: 3 1 65%;
+    flex: 1 1 auto;
+    min-width: 0;
     min-height: 40px;
     height: 40px;
-    font-size: 14.5px;
+    font-size: 14px;
     font-weight: 700;
+    padding: 0 10px;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
   .hud.turn .actions #btn-hint,
   .hud.turn .actions #btn-undo {
-    flex: 1 1 17%;
+    flex: 0 0 54px;
+    width: 54px;
+    min-width: 54px;
+    max-width: 54px;
+    padding: 0 2px;
+    font-size: 11.5px;
+    text-align: center;
   }
   .hud.turn .actions #btn-rules,
   .hud.turn .actions #btn-sound,
@@ -1740,21 +1877,24 @@ body {
   #topbar {
     height: 44px;
     min-height: 44px;
-    padding: 0 8px;
-    gap: 6px;
+    padding: 0 6px;
+    gap: 4px;
   }
   .brand { gap: 6px; }
-  .brand .crest { width: 24px; height: 24px; }
-  .brand .t { font-size: 13.5px; }
+  .brand .crest { width: 22px; height: 22px; }
+  .brand .t { font-size: 13px; letter-spacing: 0.12em; }
   #top-actions { gap: 3px !important; }
   #top-actions .btn {
-    padding: 0 6px !important;
-    font-size: 11px !important;
+    padding: 0 5px !important;
+    font-size: 10.5px !important;
     height: 28px !important;
     min-height: 28px !important;
     line-height: 26px !important;
     border-radius: 6px !important;
   }
+  #btn-tutorial-top { display: none !important; }
+  .lang-long { display: none; }
+  .lang-short { display: inline; }
 
   /* Compact Menu Screen */
   #screen-menu {
@@ -1864,7 +2004,7 @@ body {
     </div>
     <div class="spacer"></div>
     <div class="top-actions" id="top-actions">
-      <button class="btn ghost sm" id="btn-lang-top" type="button" title="Change Language">🌐 English</button>
+      <button class="btn ghost sm" id="btn-lang-top" type="button" title="Change Language"><span class="lang-long">🌐 English</span><span class="lang-short">🌐 EN</span></button>
       <button class="btn ghost sm" id="btn-tutorial-top" type="button">Tutorial</button>
       <button class="btn ghost sm" id="btn-rules-top" type="button">Rules</button>
       <button class="btn ghost sm" id="btn-sound-top" type="button" aria-pressed="true">Sound: On</button>
@@ -3235,9 +3375,12 @@ body {
     statusStrong.textContent = main;
     var s = sub || '';
     if (isMobile()) {
-      s = s.replace(/or press Space\.?/gi, '').replace(/—\s*or press Space/gi, '').trim();
+      s = s.replace(/[\s\u2014\-–,.।॥]*or press Space\.?/gi, '')
+           .replace(/[\s\u2014\-–,.।॥]*या Space दबाएं[\s,.।॥]*/gi, '')
+           .replace(/[\s\u2014\-–,.।॥]*କିମ୍ବା Space ଦବାନ୍ତୁ[\s,.।॥]*/gi, '');
       s = s.replace(/Press Roll/g, 'Tap Roll');
       s = s.replace(/Tap Confirm,?\s*$/g, 'Tap Confirm');
+      s = s.replace(/[\s\u2014\-–,.:;।॥]+$/, '').trim();
     }
     statusSub.textContent = s;
   }
@@ -3354,7 +3497,7 @@ body {
       var tag = pl.ai ? '<span class="tag ai">' + t('tagAi') + ' · ' + diffName(cfg.diff) + '</span>' : '<span class="tag">' + t('tagYou') + '</span>';
       if (pl.rank) tag += '<span class="tag win">' + rankLabel(pl.rank) + '</span>';
       html += '<div class="pcard' + (cur === i && state !== 'over' ? ' cur' : '') + '" style="--pl:' + s.colour + '">' +
-        '<div class="row1"><span class="pdot"></span><span class="nm">' + sideName(i) + '</span>' + tag + '</div>' +
+        '<div class="row1"><div class="phead"><span class="pdot"></span><span class="nm">' + sideName(i) + '</span></div>' + tag + '</div>' +
         '<div class="row2"><div class="hchips">' + chips + '</div></div></div>';
     });
     pscoreEl.innerHTML = html;
@@ -3993,13 +4136,13 @@ body {
         h = isWide ? (window.innerHeight - 80) : (window.innerHeight * 0.48);
       }
     }
-    // Mobile uses tighter frame padding factor (22.2 vs desktop 23.8) to prevent any tray clipping
-    var divisor = mobile ? 22.2 : 23.8;
+    // Mobile uses balanced frame padding factor to prevent any tray clipping
+    var divisor = mobile ? 23.2 : 23.8;
     var cs = Math.floor(Math.min(w, h) / divisor);
     cs = Math.max(mobile ? 11 : 14, Math.min(38, cs || 24));
     cell = cs;
     document.documentElement.style.setProperty('--cell', cs + 'px');
-    document.documentElement.style.setProperty('--pad', mobile ? 'calc(var(--cell) * 1.55)' : 'calc(var(--cell) * 2.2)');
+    document.documentElement.style.setProperty('--pad', mobile ? 'calc(var(--cell) * 2.05)' : 'calc(var(--cell) * 2.2)');
     if (document.querySelector('.tray')) {
       document.querySelectorAll('.tray').forEach(function (tr) {
         var i = parseInt(tr.getAttribute('data-tray'), 10);
@@ -4853,7 +4996,11 @@ body {
     if ($('btn-rules-top')) $('btn-rules-top').textContent = t('btnRules');
     if ($('btn-pause-top')) $('btn-pause-top').textContent = t('btnPause');
     if ($('btn-menu-top')) $('btn-menu-top').textContent = t('btnMenu');
-    if ($('btn-lang-top')) $('btn-lang-top').textContent = currentLang === 'en' ? '🌐 English' : (currentLang === 'hi' ? '🌐 हिन्दी' : '🌐 ଓଡ଼ିଆ');
+    if ($('btn-lang-top')) {
+      var langNames = { en: 'English', hi: 'हिन्दी', or: 'ଓଡ଼ିଆ' };
+      var langCodes = { en: 'EN', hi: 'HI', or: 'OR' };
+      $('btn-lang-top').innerHTML = '<span class="lang-long">🌐 ' + (langNames[currentLang] || 'English') + '</span><span class="lang-short">🌐 ' + (langCodes[currentLang] || 'EN') + '</span>';
+    }
     updateSoundBtnTop();
 
     if ($('menu-main-title')) $('menu-main-title').textContent = t('menuTitle');
